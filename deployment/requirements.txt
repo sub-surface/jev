@@ -1,0 +1,5 @@
+torch>=2.4.0
+chess>=1.999
+requests>=2.31.0
+numpy>=1.26.0
+python-dotenv>=1.0.0

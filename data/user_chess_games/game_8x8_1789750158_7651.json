@@ -1,0 +1,12 @@
+{
+  "game_id": "game_8x8_1789750158_7651",
+  "board_size": 8,
+  "time_control": 15.0,
+  "human_color": "white",
+  "winner": "black",
+  "result_message": "White resigned \u2014 Black wins!",
+  "total_plies": 0,
+  "moves": [],
+  "telemetry": [],
+  "timestamp": 1789750162.2682717
+}

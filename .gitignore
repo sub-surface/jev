@@ -1,0 +1,31 @@
+# Environment variables and secrets
+.env
+.env*
+*.token
+secrets/
+tokens/
+
+# Python & Virtual Environments
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+
+# Cloudflare & Node
+node_modules/
+.wrangler/
+package-lock.json
+
+# IDE & OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.log
+
+# Large binaries & engines
+*.exe
+tools/stockfish/

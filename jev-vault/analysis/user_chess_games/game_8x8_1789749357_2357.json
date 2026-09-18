@@ -1,0 +1,1186 @@
+{
+  "game_id": "game_8x8_1789749357_2357",
+  "board_size": 8,
+  "time_control": 60.0,
+  "human_color": "white",
+  "winner": "draw",
+  "result_message": "Game drawn.",
+  "total_plies": 107,
+  "moves": [
+    {
+      "ply": 1,
+      "turn": "white",
+      "san": "Nf3",
+      "uci": "g1f3"
+    },
+    {
+      "ply": 2,
+      "turn": "black",
+      "san": "e6",
+      "uci": "e7e6"
+    },
+    {
+      "ply": 3,
+      "turn": "white",
+      "san": "d4",
+      "uci": "d2d4"
+    },
+    {
+      "ply": 4,
+      "turn": "black",
+      "san": "Nf6",
+      "uci": "g8f6"
+    },
+    {
+      "ply": 5,
+      "turn": "white",
+      "san": "Bf4",
+      "uci": "c1f4"
+    },
+    {
+      "ply": 6,
+      "turn": "black",
+      "san": "Nc6",
+      "uci": "b8c6"
+    },
+    {
+      "ply": 7,
+      "turn": "white",
+      "san": "Bg3",
+      "uci": "f4g3"
+    },
+    {
+      "ply": 8,
+      "turn": "black",
+      "san": "Bb4+",
+      "uci": "f8b4"
+    },
+    {
+      "ply": 9,
+      "turn": "white",
+      "san": "c3",
+      "uci": "c2c3"
+    },
+    {
+      "ply": 10,
+      "turn": "black",
+      "san": "Nxd4",
+      "uci": "c6d4"
+    },
+    {
+      "ply": 11,
+      "turn": "white",
+      "san": "a3",
+      "uci": "a2a3"
+    },
+    {
+      "ply": 12,
+      "turn": "black",
+      "san": "Nxf3+",
+      "uci": "d4f3"
+    },
+    {
+      "ply": 13,
+      "turn": "white",
+      "san": "gxf3",
+      "uci": "g2f3"
+    },
+    {
+      "ply": 14,
+      "turn": "black",
+      "san": "Be7",
+      "uci": "b4e7"
+    },
+    {
+      "ply": 15,
+      "turn": "white",
+      "san": "c4",
+      "uci": "c3c4"
+    },
+    {
+      "ply": 16,
+      "turn": "black",
+      "san": "O-O",
+      "uci": "e8g8"
+    },
+    {
+      "ply": 17,
+      "turn": "white",
+      "san": "Nc3",
+      "uci": "b1c3"
+    },
+    {
+      "ply": 18,
+      "turn": "black",
+      "san": "h6",
+      "uci": "h7h6"
+    },
+    {
+      "ply": 19,
+      "turn": "white",
+      "san": "e3",
+      "uci": "e2e3"
+    },
+    {
+      "ply": 20,
+      "turn": "black",
+      "san": "Bc5",
+      "uci": "e7c5"
+    },
+    {
+      "ply": 21,
+      "turn": "white",
+      "san": "Bd3",
+      "uci": "f1d3"
+    },
+    {
+      "ply": 22,
+      "turn": "black",
+      "san": "d5",
+      "uci": "d7d5"
+    },
+    {
+      "ply": 23,
+      "turn": "white",
+      "san": "Qc2",
+      "uci": "d1c2"
+    },
+    {
+      "ply": 24,
+      "turn": "black",
+      "san": "dxc4",
+      "uci": "d5c4"
+    },
+    {
+      "ply": 25,
+      "turn": "white",
+      "san": "Bxc4",
+      "uci": "d3c4"
+    },
+    {
+      "ply": 26,
+      "turn": "black",
+      "san": "e5",
+      "uci": "e6e5"
+    },
+    {
+      "ply": 27,
+      "turn": "white",
+      "san": "Rd1",
+      "uci": "a1d1"
+    },
+    {
+      "ply": 28,
+      "turn": "black",
+      "san": "Nd7",
+      "uci": "f6d7"
+    },
+    {
+      "ply": 29,
+      "turn": "white",
+      "san": "Ne4",
+      "uci": "c3e4"
+    },
+    {
+      "ply": 30,
+      "turn": "black",
+      "san": "a6",
+      "uci": "a7a6"
+    },
+    {
+      "ply": 31,
+      "turn": "white",
+      "san": "Nxc5",
+      "uci": "e4c5"
+    },
+    {
+      "ply": 32,
+      "turn": "black",
+      "san": "Qe7",
+      "uci": "d8e7"
+    },
+    {
+      "ply": 33,
+      "turn": "white",
+      "san": "Bxf7+",
+      "uci": "c4f7"
+    },
+    {
+      "ply": 34,
+      "turn": "black",
+      "san": "Qxf7",
+      "uci": "e7f7"
+    },
+    {
+      "ply": 35,
+      "turn": "white",
+      "san": "Nxd7",
+      "uci": "c5d7"
+    },
+    {
+      "ply": 36,
+      "turn": "black",
+      "san": "Bxd7",
+      "uci": "c8d7"
+    },
+    {
+      "ply": 37,
+      "turn": "white",
+      "san": "Bxe5",
+      "uci": "g3e5"
+    },
+    {
+      "ply": 38,
+      "turn": "black",
+      "san": "Qxf3",
+      "uci": "f7f3"
+    },
+    {
+      "ply": 39,
+      "turn": "white",
+      "san": "Rg1",
+      "uci": "h1g1"
+    },
+    {
+      "ply": 40,
+      "turn": "black",
+      "san": "Qxf2+",
+      "uci": "f3f2"
+    },
+    {
+      "ply": 41,
+      "turn": "white",
+      "san": "Qxf2",
+      "uci": "c2f2"
+    },
+    {
+      "ply": 42,
+      "turn": "black",
+      "san": "Rxf2",
+      "uci": "f8f2"
+    },
+    {
+      "ply": 43,
+      "turn": "white",
+      "san": "Kxf2",
+      "uci": "e1f2"
+    },
+    {
+      "ply": 44,
+      "turn": "black",
+      "san": "Rf8+",
+      "uci": "a8f8"
+    },
+    {
+      "ply": 45,
+      "turn": "white",
+      "san": "Ke2",
+      "uci": "f2e2"
+    },
+    {
+      "ply": 46,
+      "turn": "black",
+      "san": "Bf5",
+      "uci": "d7f5"
+    },
+    {
+      "ply": 47,
+      "turn": "white",
+      "san": "Rxg7+",
+      "uci": "g1g7"
+    },
+    {
+      "ply": 48,
+      "turn": "black",
+      "san": "Kh8",
+      "uci": "g8h8"
+    },
+    {
+      "ply": 49,
+      "turn": "white",
+      "san": "Rf7+",
+      "uci": "g7f7"
+    },
+    {
+      "ply": 50,
+      "turn": "black",
+      "san": "Kg8",
+      "uci": "h8g8"
+    },
+    {
+      "ply": 51,
+      "turn": "white",
+      "san": "Rg7+",
+      "uci": "f7g7"
+    },
+    {
+      "ply": 52,
+      "turn": "black",
+      "san": "Kh8",
+      "uci": "g8h8"
+    },
+    {
+      "ply": 53,
+      "turn": "white",
+      "san": "Rf7+",
+      "uci": "g7f7"
+    },
+    {
+      "ply": 54,
+      "turn": "black",
+      "san": "Kg8",
+      "uci": "h8g8"
+    },
+    {
+      "ply": 55,
+      "turn": "white",
+      "san": "Rxf5",
+      "uci": "f7f5"
+    },
+    {
+      "ply": 56,
+      "turn": "black",
+      "san": "Rxf5",
+      "uci": "f8f5"
+    },
+    {
+      "ply": 57,
+      "turn": "white",
+      "san": "Rd8+",
+      "uci": "d1d8"
+    },
+    {
+      "ply": 58,
+      "turn": "black",
+      "san": "Rf8",
+      "uci": "f5f8"
+    },
+    {
+      "ply": 59,
+      "turn": "white",
+      "san": "Rxf8+",
+      "uci": "d8f8"
+    },
+    {
+      "ply": 60,
+      "turn": "black",
+      "san": "Kxf8",
+      "uci": "g8f8"
+    },
+    {
+      "ply": 61,
+      "turn": "white",
+      "san": "Bxc7",
+      "uci": "e5c7"
+    },
+    {
+      "ply": 62,
+      "turn": "black",
+      "san": "Kg7",
+      "uci": "f8g7"
+    },
+    {
+      "ply": 63,
+      "turn": "white",
+      "san": "Bb6",
+      "uci": "c7b6"
+    },
+    {
+      "ply": 64,
+      "turn": "black",
+      "san": "Kh7",
+      "uci": "g7h7"
+    },
+    {
+      "ply": 65,
+      "turn": "white",
+      "san": "Bd4",
+      "uci": "b6d4"
+    },
+    {
+      "ply": 66,
+      "turn": "black",
+      "san": "a5",
+      "uci": "a6a5"
+    },
+    {
+      "ply": 67,
+      "turn": "white",
+      "san": "Kf3",
+      "uci": "e2f3"
+    },
+    {
+      "ply": 68,
+      "turn": "black",
+      "san": "Kg8",
+      "uci": "h7g8"
+    },
+    {
+      "ply": 69,
+      "turn": "white",
+      "san": "Kg4",
+      "uci": "f3g4"
+    },
+    {
+      "ply": 70,
+      "turn": "black",
+      "san": "a4",
+      "uci": "a5a4"
+    },
+    {
+      "ply": 71,
+      "turn": "white",
+      "san": "h4",
+      "uci": "h2h4"
+    },
+    {
+      "ply": 72,
+      "turn": "black",
+      "san": "Kh7",
+      "uci": "g8h7"
+    },
+    {
+      "ply": 73,
+      "turn": "white",
+      "san": "Kh5",
+      "uci": "g4h5"
+    },
+    {
+      "ply": 74,
+      "turn": "black",
+      "san": "b5",
+      "uci": "b7b5"
+    },
+    {
+      "ply": 75,
+      "turn": "white",
+      "san": "Bc5",
+      "uci": "d4c5"
+    },
+    {
+      "ply": 76,
+      "turn": "black",
+      "san": "Kg7",
+      "uci": "h7g7"
+    },
+    {
+      "ply": 77,
+      "turn": "white",
+      "san": "Bb4",
+      "uci": "c5b4"
+    },
+    {
+      "ply": 78,
+      "turn": "black",
+      "san": "Kh7",
+      "uci": "g7h7"
+    },
+    {
+      "ply": 79,
+      "turn": "white",
+      "san": "e4",
+      "uci": "e3e4"
+    },
+    {
+      "ply": 80,
+      "turn": "black",
+      "san": "Kg7",
+      "uci": "h7g7"
+    },
+    {
+      "ply": 81,
+      "turn": "white",
+      "san": "e5",
+      "uci": "e4e5"
+    },
+    {
+      "ply": 82,
+      "turn": "black",
+      "san": "Kh7",
+      "uci": "g7h7"
+    },
+    {
+      "ply": 83,
+      "turn": "white",
+      "san": "e6",
+      "uci": "e5e6"
+    },
+    {
+      "ply": 84,
+      "turn": "black",
+      "san": "Kg7",
+      "uci": "h7g7"
+    },
+    {
+      "ply": 85,
+      "turn": "white",
+      "san": "e7",
+      "uci": "e6e7"
+    },
+    {
+      "ply": 86,
+      "turn": "black",
+      "san": "Kf7",
+      "uci": "g7f7"
+    },
+    {
+      "ply": 87,
+      "turn": "white",
+      "san": "Kxh6",
+      "uci": "h5h6"
+    },
+    {
+      "ply": 88,
+      "turn": "black",
+      "san": "Ke8",
+      "uci": "f7e8"
+    },
+    {
+      "ply": 89,
+      "turn": "white",
+      "san": "Kg7",
+      "uci": "h6g7"
+    },
+    {
+      "ply": 90,
+      "turn": "black",
+      "san": "Kd7",
+      "uci": "e8d7"
+    },
+    {
+      "ply": 91,
+      "turn": "white",
+      "san": "h5",
+      "uci": "h4h5"
+    },
+    {
+      "ply": 92,
+      "turn": "black",
+      "san": "Ke8",
+      "uci": "d7e8"
+    },
+    {
+      "ply": 93,
+      "turn": "white",
+      "san": "h6",
+      "uci": "h5h6"
+    },
+    {
+      "ply": 94,
+      "turn": "black",
+      "san": "Kd7",
+      "uci": "e8d7"
+    },
+    {
+      "ply": 95,
+      "turn": "white",
+      "san": "h7",
+      "uci": "h6h7"
+    },
+    {
+      "ply": 96,
+      "turn": "black",
+      "san": "Kc8",
+      "uci": "d7c8"
+    },
+    {
+      "ply": 97,
+      "turn": "white",
+      "san": "h8=R+",
+      "uci": "h7h8r"
+    },
+    {
+      "ply": 98,
+      "turn": "black",
+      "san": "Kb7",
+      "uci": "c8b7"
+    },
+    {
+      "ply": 99,
+      "turn": "white",
+      "san": "Rd8",
+      "uci": "h8d8"
+    },
+    {
+      "ply": 100,
+      "turn": "black",
+      "san": "Ka7",
+      "uci": "b7a7"
+    },
+    {
+      "ply": 101,
+      "turn": "white",
+      "san": "e8=R",
+      "uci": "e7e8r"
+    },
+    {
+      "ply": 102,
+      "turn": "black",
+      "san": "Kb6",
+      "uci": "a7b6"
+    },
+    {
+      "ply": 103,
+      "turn": "white",
+      "san": "Rb8+",
+      "uci": "d8b8"
+    },
+    {
+      "ply": 104,
+      "turn": "black",
+      "san": "Ka6",
+      "uci": "b6a6"
+    },
+    {
+      "ply": 105,
+      "turn": "white",
+      "san": "Re6+",
+      "uci": "e8e6"
+    },
+    {
+      "ply": 106,
+      "turn": "black",
+      "san": "Ka7",
+      "uci": "a6a7"
+    },
+    {
+      "ply": 107,
+      "turn": "white",
+      "san": "Reb6",
+      "uci": "e6b6"
+    }
+  ],
+  "telemetry": [
+    {
+      "val": 0.153,
+      "noul": 0.798,
+      "depth": 3,
+      "latency_ms": 420.3,
+      "sparsity_pct": 69.5,
+      "dead_neurons": 89,
+      "state": "QUIET",
+      "entropy_bits": 4.45
+    },
+    {
+      "val": 0.153,
+      "noul": 0.798,
+      "depth": 3,
+      "latency_ms": 765.7,
+      "sparsity_pct": 69.5,
+      "dead_neurons": 89,
+      "state": "QUIET",
+      "entropy_bits": 4.91
+    },
+    {
+      "val": 0.085,
+      "noul": 0.598,
+      "depth": 3,
+      "latency_ms": 697.9,
+      "sparsity_pct": 71.9,
+      "dead_neurons": 92,
+      "state": "TACTICAL CRISIS (Depth 3)",
+      "entropy_bits": 5.13
+    },
+    {
+      "val": 0.082,
+      "noul": 0.589,
+      "depth": 3,
+      "latency_ms": 489.9,
+      "sparsity_pct": 72.7,
+      "dead_neurons": 93,
+      "state": "TACTICAL CRISIS (Depth 3)",
+      "entropy_bits": 2.31
+    },
+    {
+      "val": -0.025,
+      "noul": 0.57,
+      "depth": 3,
+      "latency_ms": 420.7,
+      "sparsity_pct": 71.9,
+      "dead_neurons": 92,
+      "state": "TACTICAL CRISIS (Depth 3)",
+      "entropy_bits": 4.87
+    },
+    {
+      "val": -0.007,
+      "noul": 0.635,
+      "depth": 3,
+      "latency_ms": 515.6,
+      "sparsity_pct": 70.3,
+      "dead_neurons": 90,
+      "state": "TACTICAL CRISIS (Depth 3)",
+      "entropy_bits": 1.0
+    },
+    {
+      "val": 0.012,
+      "noul": 0.726,
+      "depth": 3,
+      "latency_ms": 629.6,
+      "sparsity_pct": 69.5,
+      "dead_neurons": 89,
+      "state": "QUIET",
+      "entropy_bits": 4.9
+    },
+    {
+      "val": 0.001,
+      "noul": 0.687,
+      "depth": 3,
+      "latency_ms": 603.2,
+      "sparsity_pct": 69.5,
+      "dead_neurons": 89,
+      "state": "TACTICAL CRISIS (Depth 3)",
+      "entropy_bits": 4.95
+    },
+    {
+      "val": 0.07,
+      "noul": 0.587,
+      "depth": 3,
+      "latency_ms": 765.1,
+      "sparsity_pct": 71.9,
+      "dead_neurons": 92,
+      "state": "TACTICAL CRISIS (Depth 3)",
+      "entropy_bits": 5.24
+    },
+    {
+      "val": 0.082,
+      "noul": 0.589,
+      "depth": 3,
+      "latency_ms": 751.1,
+      "sparsity_pct": 72.7,
+      "dead_neurons": 93,
+      "state": "TACTICAL CRISIS (Depth 3)",
+      "entropy_bits": 5.36
+    },
+    {
+      "val": 0.082,
+      "noul": 0.589,
+      "depth": 3,
+      "latency_ms": 755.1,
+      "sparsity_pct": 72.7,
+      "dead_neurons": 93,
+      "state": "TACTICAL CRISIS (Depth 3)",
+      "entropy_bits": 5.45
+    },
+    {
+      "val": 0.082,
+      "noul": 0.589,
+      "depth": 3,
+      "latency_ms": 754.9,
+      "sparsity_pct": 72.7,
+      "dead_neurons": 93,
+      "state": "TACTICAL CRISIS (Depth 3)",
+      "entropy_bits": 5.54
+    },
+    {
+      "val": 0.108,
+      "noul": 0.588,
+      "depth": 3,
+      "latency_ms": 684.1,
+      "sparsity_pct": 72.7,
+      "dead_neurons": 93,
+      "state": "TACTICAL CRISIS (Depth 3)",
+      "entropy_bits": 5.6
+    },
+    {
+      "val": 0.185,
+      "noul": 0.586,
+      "depth": 3,
+      "latency_ms": 804.7,
+      "sparsity_pct": 73.4,
+      "dead_neurons": 94,
+      "state": "TACTICAL CRISIS (Depth 3)",
+      "entropy_bits": 5.67
+    },
+    {
+      "val": 0.172,
+      "noul": 0.586,
+      "depth": 3,
+      "latency_ms": 479.5,
+      "sparsity_pct": 72.7,
+      "dead_neurons": 93,
+      "state": "TACTICAL CRISIS (Depth 3)",
+      "entropy_bits": 5.55
+    },
+    {
+      "val": 0.185,
+      "noul": 0.586,
+      "depth": 3,
+      "latency_ms": 750.0,
+      "sparsity_pct": 73.4,
+      "dead_neurons": 94,
+      "state": "TACTICAL CRISIS (Depth 3)",
+      "entropy_bits": 5.76
+    },
+    {
+      "val": 0.016,
+      "noul": 0.577,
+      "depth": 3,
+      "latency_ms": 254.2,
+      "sparsity_pct": 71.9,
+      "dead_neurons": 92,
+      "state": "TACTICAL CRISIS (Depth 3)",
+      "entropy_bits": 5.51
+    },
+    {
+      "val": -0.025,
+      "noul": 0.57,
+      "depth": 3,
+      "latency_ms": 767.9,
+      "sparsity_pct": 71.9,
+      "dead_neurons": 92,
+      "state": "TACTICAL CRISIS (Depth 3)",
+      "entropy_bits": 5.34
+    },
+    {
+      "val": -0.025,
+      "noul": 0.57,
+      "depth": 3,
+      "latency_ms": 627.5,
+      "sparsity_pct": 71.9,
+      "dead_neurons": 92,
+      "state": "TACTICAL CRISIS (Depth 3)",
+      "entropy_bits": 5.44
+    },
+    {
+      "val": -0.025,
+      "noul": 0.57,
+      "depth": 3,
+      "latency_ms": 452.7,
+      "sparsity_pct": 71.9,
+      "dead_neurons": 92,
+      "state": "TACTICAL CRISIS (Depth 3)",
+      "entropy_bits": -0.0
+    },
+    {
+      "val": -0.05,
+      "noul": 0.573,
+      "depth": 3,
+      "latency_ms": 306.8,
+      "sparsity_pct": 71.9,
+      "dead_neurons": 92,
+      "state": "TACTICAL CRISIS (Depth 3)",
+      "entropy_bits": 4.93
+    },
+    {
+      "val": -0.037,
+      "noul": 0.571,
+      "depth": 3,
+      "latency_ms": 193.0,
+      "sparsity_pct": 71.9,
+      "dead_neurons": 92,
+      "state": "TACTICAL CRISIS (Depth 3)",
+      "entropy_bits": 2.58
+    },
+    {
+      "val": -0.025,
+      "noul": 0.57,
+      "depth": 3,
+      "latency_ms": 183.6,
+      "sparsity_pct": 71.9,
+      "dead_neurons": 92,
+      "state": "TACTICAL CRISIS (Depth 3)",
+      "entropy_bits": 5.3
+    },
+    {
+      "val": -0.025,
+      "noul": 0.57,
+      "depth": 3,
+      "latency_ms": 130.6,
+      "sparsity_pct": 71.9,
+      "dead_neurons": 92,
+      "state": "TACTICAL CRISIS (Depth 3)",
+      "entropy_bits": 5.43
+    },
+    {
+      "val": -0.043,
+      "noul": 0.572,
+      "depth": 3,
+      "latency_ms": 143.9,
+      "sparsity_pct": 71.9,
+      "dead_neurons": 92,
+      "state": "TACTICAL CRISIS (Depth 3)",
+      "entropy_bits": 5.4
+    },
+    {
+      "val": -0.025,
+      "noul": 0.57,
+      "depth": 3,
+      "latency_ms": 133.4,
+      "sparsity_pct": 71.9,
+      "dead_neurons": 92,
+      "state": "TACTICAL CRISIS (Depth 3)",
+      "entropy_bits": 5.43
+    },
+    {
+      "val": -0.043,
+      "noul": 0.572,
+      "depth": 3,
+      "latency_ms": 158.6,
+      "sparsity_pct": 71.9,
+      "dead_neurons": 92,
+      "state": "TACTICAL CRISIS (Depth 3)",
+      "entropy_bits": 5.36
+    },
+    {
+      "val": -0.064,
+      "noul": 0.574,
+      "depth": 3,
+      "latency_ms": 175.0,
+      "sparsity_pct": 71.9,
+      "dead_neurons": 92,
+      "state": "TACTICAL CRISIS (Depth 3)",
+      "entropy_bits": 5.0
+    },
+    {
+      "val": -0.049,
+      "noul": 0.573,
+      "depth": 3,
+      "latency_ms": 142.3,
+      "sparsity_pct": 71.9,
+      "dead_neurons": 92,
+      "state": "TACTICAL CRISIS (Depth 3)",
+      "entropy_bits": 4.94
+    },
+    {
+      "val": -0.065,
+      "noul": 0.575,
+      "depth": 3,
+      "latency_ms": 127.9,
+      "sparsity_pct": 72.7,
+      "dead_neurons": 93,
+      "state": "TACTICAL CRISIS (Depth 3)",
+      "entropy_bits": 4.46
+    },
+    {
+      "val": -0.035,
+      "noul": 0.597,
+      "depth": 3,
+      "latency_ms": 316.3,
+      "sparsity_pct": 71.1,
+      "dead_neurons": 91,
+      "state": "TACTICAL CRISIS (Depth 3)",
+      "entropy_bits": 4.39
+    },
+    {
+      "val": -0.049,
+      "noul": 0.573,
+      "depth": 3,
+      "latency_ms": 242.7,
+      "sparsity_pct": 71.9,
+      "dead_neurons": 92,
+      "state": "TACTICAL CRISIS (Depth 3)",
+      "entropy_bits": 4.25
+    },
+    {
+      "val": -0.051,
+      "noul": 0.573,
+      "depth": 3,
+      "latency_ms": 365.9,
+      "sparsity_pct": 71.9,
+      "dead_neurons": 92,
+      "state": "TACTICAL CRISIS (Depth 3)",
+      "entropy_bits": 4.4
+    },
+    {
+      "val": -0.055,
+      "noul": 0.573,
+      "depth": 3,
+      "latency_ms": 167.8,
+      "sparsity_pct": 71.9,
+      "dead_neurons": 92,
+      "state": "TACTICAL CRISIS (Depth 3)",
+      "entropy_bits": 4.4
+    },
+    {
+      "val": -0.062,
+      "noul": 0.574,
+      "depth": 3,
+      "latency_ms": 163.2,
+      "sparsity_pct": 71.9,
+      "dead_neurons": 92,
+      "state": "TACTICAL CRISIS (Depth 3)",
+      "entropy_bits": 4.33
+    },
+    {
+      "val": -0.065,
+      "noul": 0.575,
+      "depth": 3,
+      "latency_ms": 176.4,
+      "sparsity_pct": 72.7,
+      "dead_neurons": 93,
+      "state": "TACTICAL CRISIS (Depth 3)",
+      "entropy_bits": 4.17
+    },
+    {
+      "val": -0.026,
+      "noul": 0.568,
+      "depth": 3,
+      "latency_ms": 57.4,
+      "sparsity_pct": 71.9,
+      "dead_neurons": 92,
+      "state": "TACTICAL CRISIS (Depth 3)",
+      "entropy_bits": 3.58
+    },
+    {
+      "val": -0.03,
+      "noul": 0.56,
+      "depth": 3,
+      "latency_ms": 111.2,
+      "sparsity_pct": 71.9,
+      "dead_neurons": 92,
+      "state": "TACTICAL CRISIS (Depth 3)",
+      "entropy_bits": 3.45
+    },
+    {
+      "val": -0.025,
+      "noul": 0.57,
+      "depth": 3,
+      "latency_ms": 117.4,
+      "sparsity_pct": 71.9,
+      "dead_neurons": 92,
+      "state": "TACTICAL CRISIS (Depth 3)",
+      "entropy_bits": 3.46
+    },
+    {
+      "val": 0.07,
+      "noul": 0.58,
+      "depth": 3,
+      "latency_ms": 85.0,
+      "sparsity_pct": 71.9,
+      "dead_neurons": 92,
+      "state": "TACTICAL CRISIS (Depth 3)",
+      "entropy_bits": 3.46
+    },
+    {
+      "val": 0.082,
+      "noul": 0.589,
+      "depth": 3,
+      "latency_ms": 66.1,
+      "sparsity_pct": 72.7,
+      "dead_neurons": 93,
+      "state": "TACTICAL CRISIS (Depth 3)",
+      "entropy_bits": 3.46
+    },
+    {
+      "val": 0.06,
+      "noul": 0.585,
+      "depth": 3,
+      "latency_ms": 78.4,
+      "sparsity_pct": 71.9,
+      "dead_neurons": 92,
+      "state": "TACTICAL CRISIS (Depth 3)",
+      "entropy_bits": 3.46
+    },
+    {
+      "val": -0.025,
+      "noul": 0.57,
+      "depth": 3,
+      "latency_ms": 102.5,
+      "sparsity_pct": 71.9,
+      "dead_neurons": 92,
+      "state": "TACTICAL CRISIS (Depth 3)",
+      "entropy_bits": 3.69
+    },
+    {
+      "val": -0.025,
+      "noul": 0.57,
+      "depth": 3,
+      "latency_ms": 61.0,
+      "sparsity_pct": 71.9,
+      "dead_neurons": 92,
+      "state": "TACTICAL CRISIS (Depth 3)",
+      "entropy_bits": 3.7
+    },
+    {
+      "val": -0.021,
+      "noul": 0.571,
+      "depth": 3,
+      "latency_ms": 94.7,
+      "sparsity_pct": 71.9,
+      "dead_neurons": 92,
+      "state": "TACTICAL CRISIS (Depth 3)",
+      "entropy_bits": 4.32
+    },
+    {
+      "val": -0.024,
+      "noul": 0.57,
+      "depth": 3,
+      "latency_ms": 97.9,
+      "sparsity_pct": 71.9,
+      "dead_neurons": 92,
+      "state": "TACTICAL CRISIS (Depth 3)",
+      "entropy_bits": 3.81
+    },
+    {
+      "val": -0.022,
+      "noul": 0.57,
+      "depth": 3,
+      "latency_ms": 85.5,
+      "sparsity_pct": 71.9,
+      "dead_neurons": 92,
+      "state": "TACTICAL CRISIS (Depth 3)",
+      "entropy_bits": 4.25
+    },
+    {
+      "val": -0.024,
+      "noul": 0.57,
+      "depth": 3,
+      "latency_ms": 142.8,
+      "sparsity_pct": 71.9,
+      "dead_neurons": 92,
+      "state": "TACTICAL CRISIS (Depth 3)",
+      "entropy_bits": 4.45
+    },
+    {
+      "val": -0.025,
+      "noul": 0.57,
+      "depth": 3,
+      "latency_ms": 159.2,
+      "sparsity_pct": 71.9,
+      "dead_neurons": 92,
+      "state": "TACTICAL CRISIS (Depth 3)",
+      "entropy_bits": 4.99
+    },
+    {
+      "val": -0.025,
+      "noul": 0.57,
+      "depth": 3,
+      "latency_ms": 248.2,
+      "sparsity_pct": 71.9,
+      "dead_neurons": 92,
+      "state": "TACTICAL CRISIS (Depth 3)",
+      "entropy_bits": 5.05
+    },
+    {
+      "val": 0.048,
+      "noul": 0.583,
+      "depth": 3,
+      "latency_ms": 152.3,
+      "sparsity_pct": 71.9,
+      "dead_neurons": 92,
+      "state": "TACTICAL CRISIS (Depth 3)",
+      "entropy_bits": 5.2
+    },
+    {
+      "val": -0.003,
+      "noul": 0.574,
+      "depth": 3,
+      "latency_ms": 263.2,
+      "sparsity_pct": 71.9,
+      "dead_neurons": 92,
+      "state": "TACTICAL CRISIS (Depth 3)",
+      "entropy_bits": 5.11
+    },
+    {
+      "val": 0.031,
+      "noul": 0.58,
+      "depth": 3,
+      "latency_ms": 48.8,
+      "sparsity_pct": 71.9,
+      "dead_neurons": 92,
+      "state": "TACTICAL CRISIS (Depth 3)",
+      "entropy_bits": 5.35
+    }
+  ],
+  "timestamp": 1789749429.6041822
+}

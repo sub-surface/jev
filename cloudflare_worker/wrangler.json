@@ -1,0 +1,11 @@
+{
+  "name": "jev-subsurfaces",
+  "main": "src/index.js",
+  "compatibility_date": "2026-09-01",
+  "routes": [
+    {
+      "pattern": "jev.subsurfaces.net",
+      "custom_domain": true
+    }
+  ]
+}

@@ -1,0 +1,371 @@
+{
+  "game_id": "cCeVmyct",
+  "url": "https://lichess.org/cCeVmyct",
+  "date": "2026-09-18 17:53:58",
+  "bot_username": "jess-hyperbullet",
+  "bot_color": "black",
+  "opponent": "NewPlace2Frown",
+  "total_plies_played_by_bot": 45,
+  "moves": [
+    {
+      "ply": 2,
+      "san": "e6",
+      "uci": "e7e6",
+      "depth": 3,
+      "latency_ms": 758.9,
+      "clock_remaining_s": 90.0
+    },
+    {
+      "ply": 4,
+      "san": "Nf6",
+      "uci": "g8f6",
+      "depth": 3,
+      "latency_ms": 785.6,
+      "clock_remaining_s": 90.0
+    },
+    {
+      "ply": 6,
+      "san": "Nc6",
+      "uci": "b8c6",
+      "depth": 3,
+      "latency_ms": 760.3,
+      "clock_remaining_s": 88.6
+    },
+    {
+      "ply": 8,
+      "san": "Bb4+",
+      "uci": "f8b4",
+      "depth": 3,
+      "latency_ms": 790.9,
+      "clock_remaining_s": 87.1
+    },
+    {
+      "ply": 10,
+      "san": "Nxd4",
+      "uci": "c6d4",
+      "depth": 3,
+      "latency_ms": 769.6,
+      "clock_remaining_s": 85.49
+    },
+    {
+      "ply": 12,
+      "san": "Bxc3",
+      "uci": "b4c3",
+      "depth": 3,
+      "latency_ms": 628.9,
+      "clock_remaining_s": 83.8
+    },
+    {
+      "ply": 14,
+      "san": "Nxf3+",
+      "uci": "d4f3",
+      "depth": 3,
+      "latency_ms": 492.0,
+      "clock_remaining_s": 82.51
+    },
+    {
+      "ply": 16,
+      "san": "h6",
+      "uci": "h7h6",
+      "depth": 3,
+      "latency_ms": 768.0,
+      "clock_remaining_s": 81.44
+    },
+    {
+      "ply": 18,
+      "san": "O-O",
+      "uci": "e8g8",
+      "depth": 3,
+      "latency_ms": 752.2,
+      "clock_remaining_s": 79.88
+    },
+    {
+      "ply": 20,
+      "san": "Nd5",
+      "uci": "f6d5",
+      "depth": 3,
+      "latency_ms": 523.0,
+      "clock_remaining_s": 78.59
+    },
+    {
+      "ply": 22,
+      "san": "d6",
+      "uci": "d7d6",
+      "depth": 3,
+      "latency_ms": 531.8,
+      "clock_remaining_s": 77.53
+    },
+    {
+      "ply": 24,
+      "san": "Qf6",
+      "uci": "d8f6",
+      "depth": 3,
+      "latency_ms": 775.0,
+      "clock_remaining_s": 76.5
+    },
+    {
+      "ply": 26,
+      "san": "Qxc3+",
+      "uci": "f6c3",
+      "depth": 3,
+      "latency_ms": 677.1,
+      "clock_remaining_s": 75.22
+    },
+    {
+      "ply": 28,
+      "san": "Nxc3",
+      "uci": "d5c3",
+      "depth": 3,
+      "latency_ms": 306.7,
+      "clock_remaining_s": 73.94
+    },
+    {
+      "ply": 30,
+      "san": "Nd5",
+      "uci": "c3d5",
+      "depth": 3,
+      "latency_ms": 771.9,
+      "clock_remaining_s": 73.02
+    },
+    {
+      "ply": 32,
+      "san": "Re8",
+      "uci": "f8e8",
+      "depth": 3,
+      "latency_ms": 765.7,
+      "clock_remaining_s": 71.45
+    },
+    {
+      "ply": 34,
+      "san": "a6",
+      "uci": "a7a6",
+      "depth": 3,
+      "latency_ms": 548.1,
+      "clock_remaining_s": 69.57
+    },
+    {
+      "ply": 36,
+      "san": "exd5",
+      "uci": "e6d5",
+      "depth": 3,
+      "latency_ms": 349.4,
+      "clock_remaining_s": 68.12
+    },
+    {
+      "ply": 38,
+      "san": "b5",
+      "uci": "b7b5",
+      "depth": 3,
+      "latency_ms": 765.6,
+      "clock_remaining_s": 66.96
+    },
+    {
+      "ply": 40,
+      "san": "Bg4",
+      "uci": "c8g4",
+      "depth": 3,
+      "latency_ms": 371.3,
+      "clock_remaining_s": 65.63
+    },
+    {
+      "ply": 42,
+      "san": "b4",
+      "uci": "b5b4",
+      "depth": 3,
+      "latency_ms": 522.3,
+      "clock_remaining_s": 64.44
+    },
+    {
+      "ply": 44,
+      "san": "b3",
+      "uci": "b4b3",
+      "depth": 3,
+      "latency_ms": 611.0,
+      "clock_remaining_s": 63.32
+    },
+    {
+      "ply": 46,
+      "san": "Re5",
+      "uci": "e8e5",
+      "depth": 3,
+      "latency_ms": 757.7,
+      "clock_remaining_s": 62.2
+    },
+    {
+      "ply": 48,
+      "san": "f6",
+      "uci": "f7f6",
+      "depth": 3,
+      "latency_ms": 731.0,
+      "clock_remaining_s": 60.91
+    },
+    {
+      "ply": 50,
+      "san": "fxe5",
+      "uci": "f6e5",
+      "depth": 3,
+      "latency_ms": 542.9,
+      "clock_remaining_s": 59.7
+    },
+    {
+      "ply": 52,
+      "san": "Rc8",
+      "uci": "a8c8",
+      "depth": 3,
+      "latency_ms": 723.5,
+      "clock_remaining_s": 58.04
+    },
+    {
+      "ply": 54,
+      "san": "Bf5",
+      "uci": "g4f5",
+      "depth": 3,
+      "latency_ms": 274.4,
+      "clock_remaining_s": 56.65
+    },
+    {
+      "ply": 56,
+      "san": "Bxe6",
+      "uci": "f5e6",
+      "depth": 3,
+      "latency_ms": 506.0,
+      "clock_remaining_s": 55.77
+    },
+    {
+      "ply": 58,
+      "san": "Rf8",
+      "uci": "c8f8",
+      "depth": 3,
+      "latency_ms": 260.9,
+      "clock_remaining_s": 54.61
+    },
+    {
+      "ply": 60,
+      "san": "Rd8",
+      "uci": "f8d8",
+      "depth": 3,
+      "latency_ms": 336.2,
+      "clock_remaining_s": 53.78
+    },
+    {
+      "ply": 62,
+      "san": "Rf8",
+      "uci": "d8f8",
+      "depth": 3,
+      "latency_ms": 415.1,
+      "clock_remaining_s": 52.93
+    },
+    {
+      "ply": 64,
+      "san": "Re8",
+      "uci": "f8e8",
+      "depth": 3,
+      "latency_ms": 460.0,
+      "clock_remaining_s": 51.66
+    },
+    {
+      "ply": 66,
+      "san": "Rf8",
+      "uci": "e8f8",
+      "depth": 3,
+      "latency_ms": 328.0,
+      "clock_remaining_s": 50.39
+    },
+    {
+      "ply": 68,
+      "san": "Rc8",
+      "uci": "f8c8",
+      "depth": 3,
+      "latency_ms": 750.6,
+      "clock_remaining_s": 49.55
+    },
+    {
+      "ply": 70,
+      "san": "Rf8",
+      "uci": "c8f8",
+      "depth": 3,
+      "latency_ms": 368.0,
+      "clock_remaining_s": 47.98
+    },
+    {
+      "ply": 72,
+      "san": "Kh8",
+      "uci": "g8h8",
+      "depth": 3,
+      "latency_ms": 673.8,
+      "clock_remaining_s": 46.71
+    },
+    {
+      "ply": 74,
+      "san": "Kg8",
+      "uci": "h8g8",
+      "depth": 3,
+      "latency_ms": 531.1,
+      "clock_remaining_s": 45.51
+    },
+    {
+      "ply": 76,
+      "san": "Kh8",
+      "uci": "g8h8",
+      "depth": 3,
+      "latency_ms": 755.7,
+      "clock_remaining_s": 44.38
+    },
+    {
+      "ply": 78,
+      "san": "Rg8",
+      "uci": "f8g8",
+      "depth": 3,
+      "latency_ms": 321.0,
+      "clock_remaining_s": 42.85
+    },
+    {
+      "ply": 80,
+      "san": "Kxg8",
+      "uci": "h8g8",
+      "depth": 3,
+      "latency_ms": 203.2,
+      "clock_remaining_s": 41.54
+    },
+    {
+      "ply": 82,
+      "san": "Kh7",
+      "uci": "g8h7",
+      "depth": 3,
+      "latency_ms": 144.8,
+      "clock_remaining_s": 40.74
+    },
+    {
+      "ply": 84,
+      "san": "Kg6",
+      "uci": "h7g6",
+      "depth": 3,
+      "latency_ms": 157.3,
+      "clock_remaining_s": 39.46
+    },
+    {
+      "ply": 86,
+      "san": "Kf7",
+      "uci": "g6f7",
+      "depth": 3,
+      "latency_ms": 182.7,
+      "clock_remaining_s": 38.48
+    },
+    {
+      "ply": 88,
+      "san": "Kf6",
+      "uci": "f7f6",
+      "depth": 3,
+      "latency_ms": 89.8,
+      "clock_remaining_s": 37.74
+    },
+    {
+      "ply": 90,
+      "san": "Kg5",
+      "uci": "f6g5",
+      "depth": 3,
+      "latency_ms": 69.8,
+      "clock_remaining_s": 36.83
+    }
+  ]
+}

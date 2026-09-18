@@ -1,0 +1,22 @@
+[Event "casual bullet game"]
+[Site "https://lichess.org/NboLNewV"]
+[Date "2026.09.18"]
+[Round "-"]
+[White "NewPlace2Frown"]
+[Black "jess-hyperbullet"]
+[Result "1-0"]
+[GameId "NboLNewV"]
+[UTCDate "2026.09.18"]
+[UTCTime "17:04:08"]
+[WhiteElo "1848"]
+[BlackElo "3000"]
+[BlackTitle "BOT"]
+[Variant "Standard"]
+[TimeControl "30+0"]
+[ECO "A04"]
+[Opening "Zukertort Opening: Sicilian Invitation"]
+[Termination "Time forfeit"]
+
+1. Nf3 { [%clk 0:00:30] } 1... c5 { [%clk 0:00:30] } 2. b3 { [%clk 0:00:29] } 2... e5 { [%clk 0:00:28] } 3. Bb2 { [%clk 0:00:29] } 3... Nf6 { [%clk 0:00:28] } 4. e3 { [%clk 0:00:29] } 4... Nc6 { [%clk 0:00:27] } 5. a3 { [%clk 0:00:28] } 5... d5 { [%clk 0:00:26] } 6. c4 { [%clk 0:00:28] } 6... h5 { [%clk 0:00:25] } 7. cxd5 { [%clk 0:00:28] } 7... Qxd5 { [%clk 0:00:24] } 8. Nc3 { [%clk 0:00:26] } 8... Bd6 { [%clk 0:00:24] } 9. Nxd5 { [%clk 0:00:25] } 9... Nxd5 { [%clk 0:00:23] } 10. Bc4 { [%clk 0:00:25] } 10... Be6 { [%clk 0:00:22] } 11. Bxd5 { [%clk 0:00:25] } 11... Bxd5 { [%clk 0:00:21] } 12. d3 { [%clk 0:00:24] } 12... Bxf3 { [%clk 0:00:09] } 13. Qxf3 { [%clk 0:00:23] } 13... O-O { [%clk 0:00:08] } 14. h4 { [%clk 0:00:19] } 14... Rfe8 { [%clk 0:00:07] } 15. Qxh5 { [%clk 0:00:18] } 15... Nd4 { [%clk 0:00:07] } 16. exd4 { [%clk 0:00:17] } 16... exd4+ { [%clk 0:00:06] } 17. Kf1 { [%clk 0:00:17] } 17... Red8 { [%clk 0:00:05] } 18. Re1 { [%clk 0:00:16] } 18... c4 { [%clk 0:00:04] } 19. bxc4 { [%clk 0:00:14] } 19... Bxa3 { [%clk 0:00:03] } 20. Bxa3 { [%clk 0:00:14] } 20... Re8 { [%clk 0:00:02] } 21. Rxe8+ { [%clk 0:00:12] } 21... Rxe8 { [%clk 0:00:01] } 22. Qg5 { [%clk 0:00:11] } 22... Rd8 { [%clk 0:00:01] } 23. h5 { [%clk 0:00:11] } 1-0
+
+

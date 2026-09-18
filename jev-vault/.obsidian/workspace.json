@@ -1,0 +1,226 @@
+{
+  "main": {
+    "id": "c8a5d0a33c0dd93a",
+    "type": "split",
+    "children": [
+      {
+        "id": "f8da25d3f9faffa0",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "7f7b29ee079f6ce4",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "analysis/Analysis_Dashboard.md",
+                "mode": "preview",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Analysis_Dashboard"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "c025632b53f37750",
+    "type": "split",
+    "children": [
+      {
+        "id": "ea6e23506e90340c",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "8916fc568b1c073d",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "76148c2c88b33609",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "d2d22cb0c2b4669e",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "791cfa8dfa65a49f",
+    "type": "split",
+    "children": [
+      {
+        "id": "017e001f51f8d441",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "6a28f8dc77e47799",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "analysis/Analysis_Dashboard.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks"
+            }
+          },
+          {
+            "id": "677f9fea7bdfc237",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "analysis/Analysis_Dashboard.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links"
+            }
+          },
+          {
+            "id": "ca3a4f7344507137",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "0b27dde6ca30106f",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "All properties"
+            }
+          },
+          {
+            "id": "4a40a79dc4a38f0c",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "analysis/Analysis_Dashboard.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false,
+      "table-editor-obsidian:Advanced Tables Toolbar": false,
+      "omnisearch:Omnisearch": false
+    }
+  },
+  "active": "7f7b29ee079f6ce4",
+  "lastOpenFiles": [
+    "analysis/lichess_games/KwwKWu0J.json",
+    "modal_cloud/modal_lichess_bot_daemon.py",
+    "analysis/lichess_games/NboLNewV.json",
+    "Theory/Leela-Style-TriProcess-Training.md",
+    "modal_cloud/modal_leela_jev_training.py",
+    "Permanent-Bot-Hosting-Guide.md",
+    "analysis/lichess_games/cCeVmyct.json",
+    "Lichess-Bot-Guide.md",
+    "analysis/lichess_games",
+    "src/lichess_bot.py",
+    "analysis/user_chess_games/game_8x8_1789750158_7651.json",
+    "src/__pycache__/game_reviewer.cpython-312.pyc",
+    "src/game_reviewer.py",
+    "analysis/user_chess_games/game_8x8_1789749357_2357_activations.pt",
+    "Theory/The-TypeSafe-Jev-Theorem.md",
+    "figures/fig32_typesafe_soundness_theorem.png",
+    "figures/fig31_cellular_automata_physics.png",
+    "figures/ca_triprocess_evolution.gif",
+    "Architectures/Jev-Gated-Residual-JGR.md",
+    "figures/fig30_shannon_channel_rate_distortion.png",
+    "figures/fig2_reliability_diagram_ece.png",
+    "Index.md",
+    "analysis/Analysis_Dashboard.md",
+    "Theory/Domain-C-Formal-Proof-Synthesis.md",
+    "Theory/Domain-B-Cellular-Automata-ARC.md",
+    "Theory/The-Shannon-Rate-Distortion-Frontier.md",
+    "figures/fig29_frontier_coupling_physics.png",
+    "Literature/Key-Literature-Index.md",
+    "Theory/Discrete-Bottlenecks-and-VQ-Coupling.md",
+    "Theory/The-Law-of-Discrete-Invariant-Coupling.md"
+  ]
+}

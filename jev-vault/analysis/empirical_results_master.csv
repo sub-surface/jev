@@ -1,0 +1,33 @@
+Paradigm_ID,Benchmark_Domain,Model_Architecture,System_Classification,Task_Difficulty,Verification_Accuracy_Pct,Search_Expansions,Latency_ms,ECE_Calibration_Pct,Failure_Mode,Key_Theoretical_Lesson
+EXP-001,2D Labyrinth (12x12),ERET (K=4 Latent Loop),Continuous Latent Recurrence,OOD Grid,0.0,0.0,12.4,41.2,Wall Collision (96%),Latent equilibrium representation drift without discrete branching
+EXP-001,2D Labyrinth (12x12),Uniform Tree Search,Pure System 2,OOD Grid,85.0,63.2,84.1,N/A,None,Search scales monotonically with compute (Bitter Lesson)
+EXP-001,2D Labyrinth (12x12),Adaptive ETS (Jev-Search),Dual-Process (S1+S2),OOD Grid,77.3,13.7,21.5,2.1,None,Calibrated gating saves 78% compute at 0 collisions
+EXP-001,2D Labyrinth (16x16),ERET (K=4 Latent Loop),Continuous Latent Recurrence,Extreme OOD,1.0,0.0,18.7,46.8,Wall Collision (93%),Total collapse under scaled topological horizon
+EXP-001,2D Labyrinth (16x16),Adaptive ETS (Jev-Search),Dual-Process (S1+S2),Extreme OOD,73.0,53.0,68.2,3.4,None,Zero-shot topological transfer via calibrated tree search
+EXP-002,Tetris (Pure RL),ERET (K=4 Latent Loop),Continuous Latent Recurrence,Real-Time Game,0.0,0.0,4.2,38.5,Topped Out (12.5 pieces),Inability to evaluate discrete board contour mutations
+EXP-002,Tetris (Pure RL),Uniform Lookahead,Pure System 2,Real-Time Game,100.0,4.0,18.6,N/A,None,Cleans lines monotonically with search depth
+EXP-002,Tetris (Pure RL),Adaptive ETS (tau=0.80),Dual-Process (S1+S2),Real-Time Game,100.0,2.0,9.1,1.8,None,Reflexive piece drops on flat surfaces; 2x speedup
+EXP-003,Gardner Micro-Chess,Reflexive Jev,Pure System 1,Bullet 2.5s Clock,0.0,0.0,0.5,2.4,Tactical Blunder (0-16),Fastest moves (1ms) but zero tactical lookahead
+EXP-003,Gardner Micro-Chess,Fixed Depth 2 Minimax,Pure System 2,Bullet 2.5s Clock,0.0,15.2,168.0,N/A,Clock Forfeit (15 flags),Fixed depth exhausts strict time bank
+EXP-003,Gardner Micro-Chess,Adaptive ETS,Dual-Process (S1+S2),Bullet 2.5s Clock,100.0,3.8,14.2,1.9,None (32-0 Sweep),Dynamic allocation: 1ms quiet plies; search on crisis
+EXP-004,6x6 Los Alamos Chess,Reflexive Jev,Pure System 1,Strict 1.5s Clock,0.0,0.0,0.5,3.1,Tactical Checkmate (0-10),Tactically blind against all searchers
+EXP-004,6x6 Los Alamos Chess,Fixed Depth 3 Minimax,Pure System 2,Strict 1.5s Clock,16.7,28.4,210.0,N/A,Clock Forfeit (5 flags),Exploding 36-square branch factor causes time flags
+EXP-004,6x6 Los Alamos Chess,Adaptive ETS,Dual-Process (S1+S2),Strict 1.5s Clock,83.3,6.2,22.4,2.2,None (0 flags),Banks clock in quiet plies; calculates mate in crisis
+EXP-005,Deep Symbolic Deduction,ERET (K=4 Latent Loop),Continuous Latent Recurrence,20-Hop Horizon,14.3,0.0,319.2,44.1,Cycle Entrapment (94%),Orbital limit cycles in continuous state space
+EXP-005,Deep Symbolic Deduction,S1 Greedy,Pure System 1,20-Hop Horizon,48.6,0.0,117.4,14.2,Cycle Entrapment (77%),Falls into deceptive near-miss attractors
+EXP-005,Deep Symbolic Deduction,Uniform ToT (d=3),Pure System 2,20-Hop Horizon,88.6,133.3,709.4,N/A,None (0% cycles),Path tracking and discrete branching eliminate cycles
+EXP-005,Deep Symbolic Deduction,Adaptive Epistemic ToT,Dual-Process (S1+S2),20-Hop Horizon,88.6,131.3,712.6,2.8,None (0% cycles),Calibrated gating eliminates dead-ends with zero cycles
+EXP-006,Countdown Arithmetic,Dense Additive Tri-Process,Tri-Process (Dense),Large Target Math,36.0,147.7,2112.0,8.5,Representation Interference,Dense latent vector corrupts NNUE CReLU zero-threshold
+EXP-006,Countdown Arithmetic,Pure NNUE Blind Search,Pure System 0,Large Target Math,48.0,128.9,599.6,N/A,Combinatorial Timeout,Microsecond branch speed but unguided by factor subgoals
+EXP-006,Countdown Arithmetic,Discrete Invariant Tri-Process,Tri-Process (Discrete),Large Target Math,58.0,90.9,410.2,2.1,None,Discrete factor invariants guide search without noise
+EXP-007,Mini-ARC Grid Induction,Dense Additive Tri-Process,Tri-Process (Dense),Few-Shot Visual,46.0,5.0,19.5,7.9,Feature Saturation,Continuous modulation alters discrete operator scores
+EXP-007,Mini-ARC Grid Induction,Pure NNUE Operator Search,Pure System 0,Few-Shot Visual,54.0,5.0,5.7,N/A,Random Selection,Fastest execution but blind to demonstrations
+EXP-007,Mini-ARC Grid Induction,Pure Autoregressive LLM,Pure System 2,Few-Shot Visual,98.0,1.0,7.7,11.2,Rare Boundary Hallucination,Strong in-context abstract inductive reasoning
+EXP-007,Mini-ARC Grid Induction,Discrete Invariant Tri-Process,Tri-Process (Discrete),Few-Shot Visual,100.0,1.0,8.4,1.1,None,System 2 emits rule invariant; System 0 executes with 100% fidelity
+EXP-008,Mini-ARC Grid Induction,Multiplicative Gated Tri-Process,Continuous Zero-Preserving,Few-Shot Visual,32.0,5.0,18.2,5.4,Partial Interference,Multiplicative gating preserves 0-leakage (0%) but continuous drift limits rule scoring
+EXP-008,Mini-ARC Grid Induction,VQ-TriProcess (4-bit Latent),Vector-Quantized Channel,Few-Shot Visual,94.0,1.0,8.1,1.4,None,Shannon discrete bottleneck (16 codes) eliminates continuous noise
+EXP-008,Countdown Arithmetic,Multiplicative Gated Tri-Process,Continuous Zero-Preserving,Large Target Math,64.0,61.8,512.2,2.3,None,Multiplicative gate eliminates dead neuron reactivation
+EXP-008,Countdown Arithmetic,VQ-TriProcess (4-bit Latent),Vector-Quantized Channel,Large Target Math,64.0,64.4,534.5,1.9,None,Learned discrete codebook guides search without CReLU leakage
+EXP-009,Standard 8x8 FIDE Chess,Adaptive ETS (Jev 8x8 S1),Dual-Process (S1+S2),Full Rules Bullet,91.7,4.2,18.5,1.7,None,1ms reflex on quiet plies; gated depth 2-3 in tactical crises; 0% flag rate
+EXP-010,Formal Proof & Registers,TypeSafe Jev (Thm 3),Tri-Process (TypeSafe),Combinatorial Proofs,100.0,8.8,1.2,0.8,None,0.0% ill-typed symbols and 0.0% cycle traps under categorical fiber and Lyapunov contraction
+

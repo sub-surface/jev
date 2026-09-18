@@ -1,0 +1,22 @@
+[Event "casual bullet game"]
+[Site "https://lichess.org/KwwKWu0J"]
+[Date "2026.09.18"]
+[Round "-"]
+[White "jess-hyperbullet"]
+[Black "mrcal17"]
+[Result "1-0"]
+[GameId "KwwKWu0J"]
+[UTCDate "2026.09.18"]
+[UTCTime "17:22:43"]
+[WhiteElo "3000"]
+[BlackElo "767"]
+[WhiteTitle "BOT"]
+[Variant "Standard"]
+[TimeControl "30+0"]
+[ECO "A40"]
+[Opening "Englund Gambit: Hartlaub-Charlick Gambit"]
+[Termination "Time forfeit"]
+
+1. d4 { [%clk 0:00:30] } 1... e5 { [%clk 0:00:30] } 2. dxe5 { [%clk 0:00:29] } 2... d6 { [%clk 0:00:29] } 3. Nc3 { [%clk 0:00:28] } 3... dxe5 { [%clk 0:00:28] } 4. Qd5 { [%clk 0:00:27] } 4... Qxd5 { [%clk 0:00:25] } 5. Nf3 { [%clk 0:00:26] } 5... Qxf3 { [%clk 0:00:22] } 6. Nd5 { [%clk 0:00:25] } 6... Bf5 { [%clk 0:00:21] } 7. Nxc7+ { [%clk 0:00:25] } 7... Kd8 { [%clk 0:00:19] } 8. e4 { [%clk 0:00:24] } 8... Bxe4 { [%clk 0:00:17] } 9. Ne6+ { [%clk 0:00:23] } 9... fxe6 { [%clk 0:00:15] } 10. gxf3 { [%clk 0:00:22] } 10... Bxf3 { [%clk 0:00:14] } 11. Bg5+ { [%clk 0:00:22] } 11... Kc8 { [%clk 0:00:12] } 12. Bg2 { [%clk 0:00:21] } 12... Bxg2 { [%clk 0:00:10] } 13. Bd8 { [%clk 0:00:20] } 13... Bxh1 { [%clk 0:00:09] } 14. Be7 { [%clk 0:00:19] } 14... Bxe7 { [%clk 0:00:07] } 15. f4 { [%clk 0:00:18] } 15... Nf6 { [%clk 0:00:07] } 16. Ke2 { [%clk 0:00:17] } 16... exf4 { [%clk 0:00:06] } 17. Kd3 { [%clk 0:00:17] } 17... Nc6 { [%clk 0:00:05] } 18. Kc4 { [%clk 0:00:16] } 18... Bc5 { [%clk 0:00:04] } 19. Kxc5 { [%clk 0:00:15] } 19... Kd7 { [%clk 0:00:03] } 20. Kb5 { [%clk 0:00:14] } 20... Rad8 { [%clk 0:00:02] } 21. Kc5 { [%clk 0:00:13] } 21... Ke7 { [%clk 0:00:02] } 22. Kb5 { [%clk 0:00:12] } 22... Rd5+ { [%clk 0:00:01] } 23. Ka4 { [%clk 0:00:12] } 23... a6 { [%clk 0:00:00] } 24. Kb3 { [%clk 0:00:11] } 24... b5 { [%clk 0:00:00] } 25. Kc3 { [%clk 0:00:10] } 25... a5 { [%clk 0:00:00] } 26. Rxh1 { [%clk 0:00:10] } 26... b4+ { [%clk 0:00:00] } 27. Kb3 { [%clk 0:00:09] } 27... a4+ { [%clk 0:00:00] } 28. Kxa4 { [%clk 0:00:08] } 1-0
+
+
