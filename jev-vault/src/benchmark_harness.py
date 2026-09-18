@@ -38,7 +38,7 @@ TACTICAL_CRISIS_SUITE = [
     {"id": "T08", "theme": "Pawn Promotion Race", "fen": "8/4P3/8/8/8/8/1k6/4K3 w - - 0 1", "best_move": "e7e8q"},
     {"id": "T09", "theme": "Pin Knight", "fen": "8/8/4k3/8/8/2n5/3R4/4K3 w - - 0 1", "best_move": "d2d3"},
     {"id": "T10", "theme": "Capture Hanging Queen", "fen": "r1b1k2r/pppp1ppp/2n5/8/1b2q3/2N5/PPPBPPPP/R2QKB1R w KQkq - 0 7", "best_move": "c3e4"},
-    {"id": "T11", "theme": "King Escape Skewer", "fen": "4k3/8/8/8/8/8/4R3/4K1q1 w - - 0 1", "best_move": "e1d2"},
+    {"id": "T11", "theme": "King Escape Skewer", "fen": "3k4/8/8/8/8/8/4R3/4K1q1 w - - 0 1", "best_move": "e1d2"},
     {"id": "T12", "theme": "Solid Central Guard", "fen": "r1bqk2r/pppp1ppp/2n2n2/2b1p3/2B1P3/2N2N2/PPPP1PPP/R1BQK2R w KQkq - 4 4", "best_move": "d2d3"},
     {"id": "T13", "theme": "Back-Rank Deflection", "fen": "2r3k1/5ppp/8/8/8/8/2R5/4K3 w - - 0 1", "best_move": "c2c8"},
     {"id": "T14", "theme": "Endgame Cutoff", "fen": "8/8/8/8/pk6/8/R7/4K3 w - - 0 1", "best_move": "e1d2"},

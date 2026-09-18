@@ -54,7 +54,7 @@ def build_tactical_curriculum(num_samples: int = 3500) -> Tuple[np.ndarray, np.n
         ("8/4P3/8/8/8/8/1k6/4K3 w - - 0 1", "e7e8q", 1.0),
         ("8/8/4k3/8/8/2n5/3R4/4K3 w - - 0 1", "d2d3", 0.7),
         ("r1b1k2r/pppp1ppp/2n5/8/1b2q3/2N5/PPPBPPPP/R2QKB1R w KQkq - 0 7", "c3e4", 0.9),
-        ("4k3/8/8/8/8/8/4R3/4K1q1 w - - 0 1", "e1d2", 0.0),
+        ("3k4/8/8/8/8/8/4R3/4K1q1 w - - 0 1", "e1d2", 0.0),
         ("r1bqk2r/pppp1ppp/2n2n2/2b1p3/2B1P3/2N2N2/PPPP1PPP/R1BQK2R w KQkq - 4 4", "d2d3", 0.2),
         ("2r3k1/5ppp/8/8/8/8/2R5/4K3 w - - 0 1", "c2c8", 1.0),
         ("8/8/8/8/pk6/8/R7/4K3 w - - 0 1", "e1d2", 0.4),

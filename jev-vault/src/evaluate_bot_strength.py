@@ -54,7 +54,7 @@ TACTICAL_BENCHMARK_POSITIONS = [
     # 10. Trapped Queen
     {"fen": "r1b1k2r/pppp1ppp/2n5/8/1b2q3/2N5/PPPBPPPP/R2QKB1R w KQkq - 0 7", "best_move": "c3e4", "theme": "Capture Queen"},
     # 11. Skewer along file
-    {"fen": "4k3/8/8/8/8/8/4R3/4K1q1 w - - 0 1", "best_move": "e1d2", "theme": "King Escape"},
+    {"fen": "3k4/8/8/8/8/8/4R3/4K1q1 w - - 0 1", "best_move": "e1d2", "theme": "King Escape"},
     # 12. Double attack
     {"fen": "r1bqk2r/pppp1ppp/2n2n2/2b1p3/2B1P3/2N2N2/PPPP1PPP/R1BQK2R w KQkq - 4 4", "best_move": "d2d3", "theme": "Positional Solid"},
     # 13. Deflection / Decoy
