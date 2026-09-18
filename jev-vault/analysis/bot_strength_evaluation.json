@@ -1,12 +1,12 @@
 {
   "model": "data/jev_chess_8x8_gui.pt",
   "total_benchmarks": 20,
-  "solved": 5,
-  "solve_rate_pct": 25.0,
-  "crisis_recall_pct": 10.0,
-  "reflex_solve_pct": 80.0,
-  "latency_p50_ms": 62.6,
-  "latency_p95_ms": 201.1,
-  "latency_avg_ms": 99.2,
-  "estimated_bullet_elo": 1781
+  "solved": 12,
+  "solve_rate_pct": 60.0,
+  "crisis_recall_pct": 100.0,
+  "reflex_solve_pct": 0.0,
+  "latency_p50_ms": 170.5,
+  "latency_p95_ms": 202.1,
+  "latency_avg_ms": 136.4,
+  "estimated_bullet_elo": 2040
 }

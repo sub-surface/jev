@@ -259,6 +259,11 @@ def run_bot_daemon(idle_timeout_seconds: int = 900):
             pst_val = 0
             if pt == chess.PAWN:
                 pst_val = PST_PAWN[pst_r][f]
+                adv_rank = r if color == chess.WHITE else 7 - r
+                if adv_rank == 6:
+                    pst_val += 350.0
+                elif adv_rank == 5:
+                    pst_val += 120.0
             elif pt == chess.KNIGHT:
                 pst_val = PST_KNIGHT[pst_r][f]
             elif pt == chess.BISHOP:
@@ -329,22 +334,50 @@ def run_bot_daemon(idle_timeout_seconds: int = 900):
 
         combined_scores = []
         for i, meta in enumerate(moves_meta):
-            v_neural = float(vals[i])
+            # Correctly negate child value: vals[i] is opponent perspective
+            v_neural = -float(vals[i])
             v_static = float(math.tanh(meta["static_val"] / 4.0))
-            blended = 0.60 * v_neural + 0.40 * v_static
-            if meta["tactical_type"] in ("CHECK", "CAPTURE") and meta["static_val"] > 0:
-                blended += 0.10
+            blended = 0.50 * v_neural + 0.50 * v_static
+            if meta["tactical_type"] in ("CHECK", "CAPTURE", "PROMOTION") and meta["static_val"] > 0:
+                blended += 0.15
             combined_scores.append(blended)
 
         for i, meta in enumerate(moves_meta):
             meta["combined_val"] = combined_scores[i]
             meta["noul"] = float(nouls[i])
+            meta["is_tactical"] = meta["tactical_type"] in ("CHECK", "CAPTURE", "PROMOTION")
 
         moves_meta.sort(key=lambda x: x["combined_val"], reverse=True)
         return moves_meta
 
+    def quiescence(b: chess.Board, alpha: float, beta: float, current_turn: int, max_qdepth: int = 3) -> float:
+        stand_pat = current_turn * evaluate_static_board(b)
+        if stand_pat >= beta:
+            return beta
+        if alpha < stand_pat:
+            alpha = stand_pat
+        if max_qdepth <= 0 or b.is_game_over():
+            return stand_pat
+
+        captures = [m for m in b.legal_moves if b.is_capture(m) or m.promotion]
+        for m in captures:
+            b.push(m)
+            score = -quiescence(b, -beta, -alpha, -current_turn, max_qdepth - 1)
+            b.pop()
+            if score >= beta:
+                return beta
+            if score > alpha:
+                alpha = score
+        return alpha
+
     def negamax(b: chess.Board, depth: int, alpha: float, beta: float, current_turn: int, t_start: float, max_dur: float, tt: dict) -> float:
-        if time.time() - t_start > max_dur or depth <= 0 or b.is_game_over():
+        if time.time() - t_start > max_dur:
+            return current_turn * evaluate_static_board(b)
+
+        if depth <= 0:
+            return quiescence(b, alpha, beta, current_turn, max_qdepth=3)
+
+        if b.is_game_over():
             return current_turn * evaluate_static_board(b)
 
         key = b.fen()
@@ -359,14 +392,16 @@ def run_bot_daemon(idle_timeout_seconds: int = 900):
 
         max_eval = -999999.0
         moves = list(b.legal_moves)
-        moves.sort(key=lambda m: (b.is_capture(m), b.gives_check(m)), reverse=True)
+        moves.sort(key=lambda m: (b.is_capture(m), m.promotion is not None, b.gives_check(m)), reverse=True)
 
         for m in moves:
             b.push(m)
             ev = -negamax(b, depth - 1, -beta, -alpha, -current_turn, t_start, max_dur, tt)
             b.pop()
-            max_eval = max(max_eval, ev)
-            alpha = max(alpha, ev)
+            if ev > max_eval:
+                max_eval = ev
+            if max_eval > alpha:
+                alpha = max_eval
             if alpha >= beta or time.time() - t_start > max_dur:
                 break
 
@@ -391,24 +426,28 @@ def run_bot_daemon(idle_timeout_seconds: int = 900):
         if not candidates:
             return random.choice(list(b.legal_moves)), 1, (time.time() - t0) * 1000.0
 
-        # 3. Position Certainty Noul
-        t_cur = encode_board_tensor(b).unsqueeze(0).to(device)
-        with torch.no_grad():
-            _, noul_cur, _, _ = model(t_cur)
-            noul_val = float(noul_cur.item())
+        # 3. Position Certainty Noul (calibrated from margin and tactical tension)
+        top_val = candidates[0]["combined_val"]
+        second_val = candidates[1]["combined_val"] if len(candidates) > 1 else top_val
+        margin = top_val - second_val
 
+        has_threat = any(c.get("is_tactical", False) for c in candidates[:4])
         is_check = b.is_check()
-        has_threat = any(c["tactical_type"] == "CAPTURE" for c in candidates[:2])
-        is_crisis = (noul_val < 0.70) or is_check or has_threat
+
+        noul_calibrated = float(math.tanh(margin * 3.0))
+        if has_threat or is_check:
+            noul_calibrated *= 0.40
+
+        is_crisis = is_check or has_threat or (noul_calibrated < 0.70)
 
         # Reflex Move in Quiet Positions
-        if not is_crisis or remaining_clock < 3.0:
+        if not is_crisis or remaining_clock < 2.0:
             return chess.Move.from_uci(candidates[0]["uci"]), 1, (time.time() - t0) * 1000.0
 
         # Dynamic Search Window
-        if remaining_clock < 10.0:
+        if remaining_clock < 8.0:
             depth = 2; max_dur = 0.06
-        elif remaining_clock < 30.0:
+        elif remaining_clock < 25.0:
             depth = 2; max_dur = 0.12
         else:
             depth = 3; max_dur = 0.22
@@ -420,8 +459,11 @@ def run_bot_daemon(idle_timeout_seconds: int = 900):
         alpha = -999999.0
         beta = 999999.0
 
-        top_ucis = [c["uci"] for c in candidates[:6]]
-        ordered = [chess.Move.from_uci(u) for u in top_ucis if chess.Move.from_uci(u) in b.legal_moves]
+        search_cands = [c for c in candidates if c.get("is_tactical", False) or c["combined_val"] >= top_val - 0.25][:8]
+        if not search_cands:
+            search_cands = candidates[:5]
+
+        ordered = [chess.Move.from_uci(c["uci"]) for c in search_cands if chess.Move.from_uci(c["uci"]) in b.legal_moves]
 
         for m in ordered:
             b.push(m)

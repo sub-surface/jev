@@ -145,6 +145,12 @@ def evaluate_static_board(board: chess.Board) -> float:
         pst_val = 0.0
         if pt == chess.PAWN:
             pst_val = PST_PAWN[pst_r, f]
+            # Advanced / passed pawn acceleration: rank 7 (White r=6) / rank 2 (Black r=1)
+            adv_rank = r if color == chess.WHITE else 7 - r
+            if adv_rank == 6:  # 7th rank (1 ply to promo)
+                pst_val += 350.0
+            elif adv_rank == 5:  # 6th rank
+                pst_val += 120.0
         elif pt == chess.KNIGHT:
             pst_val = PST_KNIGHT[pst_r, f]
         elif pt == chess.BISHOP:
@@ -431,13 +437,15 @@ def score_move_candidates(
     combined_scores = []
     for i, meta in enumerate(moves_meta):
         # Val in [-1, 1], convert static_val to tanh scale
-        v_neural = float(vals[i])
+        # Note: vals[i] evaluates the child position from the opponent's view,
+        # so -vals[i] evaluates from the moving player's view.
+        v_neural = -float(vals[i])
         v_static = float(math.tanh(meta["static_val"] / 4.0))
-        # Blended value: 60% neural + 40% static tactical
-        blended_val = 0.60 * v_neural + 0.40 * v_static
-        # Tactical bonus for captures/checks if static shows advantage
-        if meta["tactical_type"] in ("CHECK", "CAPTURE") and meta["static_val"] > 0:
-            blended_val += 0.10
+        # Balanced 50% neural + 50% static evaluation
+        blended_val = 0.50 * v_neural + 0.50 * v_static
+        # Tactical bonus for captures, checks, and promotions if position is advantageous
+        if meta["tactical_type"] in ("CHECK", "CAPTURE", "PROMOTION") and meta["static_val"] > 0:
+            blended_val += 0.15
 
         combined_scores.append(blended_val)
 
@@ -456,6 +464,7 @@ def score_move_candidates(
             "noul": round(float(nouls[i]), 3),
             "credence": round(float(credences[i]) * 100.0, 1),
             "tactical_type": meta["tactical_type"],
+            "is_tactical": meta["tactical_type"] in ("CHECK", "CAPTURE", "PROMOTION"),
         })
 
     # Sort descending by score
@@ -515,6 +524,35 @@ def select_move_reflexive_jev(board: chess.Board, model: JevChess8x8Evaluator) -
     return chess.Move.from_uci(best_uci)
 
 
+def quiescence_search(
+    board: chess.Board,
+    alpha: float,
+    beta: float,
+    current_turn: int,
+    max_qdepth: int = 3,
+) -> float:
+    """Quiescence search on tactical moves (captures/promotions) to eliminate horizon effects."""
+    stand_pat = current_turn * evaluate_static_board(board)
+    if stand_pat >= beta:
+        return beta
+    if alpha < stand_pat:
+        alpha = stand_pat
+    if max_qdepth <= 0 or board.is_game_over():
+        return stand_pat
+
+    tactical_moves = [m for m in board.legal_moves if board.is_capture(m) or m.promotion]
+    for m in tactical_moves:
+        board.push(m)
+        score = -quiescence_search(board, -beta, -alpha, -current_turn, max_qdepth - 1)
+        board.pop()
+
+        if score >= beta:
+            return beta
+        if score > alpha:
+            alpha = score
+    return alpha
+
+
 def negamax_alpha_beta(
     board: chess.Board,
     depth: int,
@@ -527,7 +565,7 @@ def negamax_alpha_beta(
     tt: Optional[Dict[str, Tuple[int, float, int]]] = None,
 ) -> float:
     """
-    Standard Negamax with Alpha-Beta Pruning and Transposition Table (TT).
+    Standard Negamax with Alpha-Beta Pruning, Quiescence Search, and Transposition Table.
     Strictly follows: score = -negamax(child, depth - 1, -beta, -alpha, -current_turn).
     Static evaluation returns positive values for current_turn: current_turn * evaluate_static().
     """
@@ -535,7 +573,10 @@ def negamax_alpha_beta(
     if time.time() - start_time > max_duration:
         return current_turn * evaluate_static_board(board)
 
-    if depth <= 0 or board.is_game_over():
+    if depth <= 0:
+        return quiescence_search(board, alpha, beta, current_turn, max_qdepth=3)
+
+    if board.is_game_over():
         return current_turn * evaluate_static_board(board)
 
     key = board._transposition_key() if hasattr(board, "_transposition_key") else board.fen()
@@ -557,7 +598,7 @@ def negamax_alpha_beta(
     max_eval = -999999.0
     legal_moves = list(board.legal_moves)
     # Tactical move ordering: captures and checks first
-    legal_moves.sort(key=lambda m: (board.is_capture(m), board.gives_check(m)), reverse=True)
+    legal_moves.sort(key=lambda m: (board.is_capture(m), m.promotion is not None, board.gives_check(m)), reverse=True)
 
     for m in legal_moves:
         board.push(m)
@@ -566,8 +607,10 @@ def negamax_alpha_beta(
         )
         board.pop()
 
-        max_eval = max(max_eval, evaluation)
-        alpha = max(alpha, evaluation)
+        if evaluation > max_eval:
+            max_eval = evaluation
+        if max_eval > alpha:
+            alpha = max_eval
         if alpha >= beta:
             break  # Beta cutoff
 
@@ -601,7 +644,7 @@ def select_move_adaptive_ets(
          - Quiet position (Noul >= tau, no check, no direct capture threats):
            Plays reflex candidate immediately (<15ms). Banks clock!
          - Tactical crisis (Noul < tau, in check, or active threats):
-           Deploys strict, time-capped Negamax search with Transposition Table.
+           Deploys strict, time-capped Negamax search with Quiescence & TT.
     """
     t0 = time.time()
 
@@ -615,24 +658,26 @@ def select_move_adaptive_ets(
     if not candidates:
         return random.choice(list(board.legal_moves)), 1
 
-    # 3. Position certainty Noul
-    m_device = next(model.parameters()).device
-    t_curr = encode_board_tensor(board).unsqueeze(0).to(m_device)
-    model.eval()
-    with torch.no_grad():
-        val_cur, noul_cur, _, _ = model(t_curr)
-        noul_val = float(noul_cur.item())
+    # 3. Position certainty Noul (calibrated from move credences + tactical tension)
+    top_val = candidates[0]["val"]
+    second_val = candidates[1]["val"] if len(candidates) > 1 else top_val
+    margin = top_val - second_val
 
+    has_tactical = any(c.get("is_tactical", False) for c in candidates[:4])
     is_check = board.is_check()
-    has_capture_threat = any(cand["tactical_type"] == "CAPTURE" for cand in candidates[:2])
-    is_tactical_crisis = (noul_val < tau) or is_check or has_capture_threat
+
+    noul_calibrated = float(math.tanh(margin * 3.0))
+    if has_tactical or is_check:
+        noul_calibrated *= 0.40
+
+    is_tactical_crisis = (noul_calibrated < tau) or is_check or has_tactical
 
     # Epistemic Rule: In quiet positions, play the 1-ply reflex move immediately!
     # Latency: ~10ms. Clock preserved!
     if not is_tactical_crisis or remaining_clock < 2.0:
         return chess.Move.from_uci(candidates[0]["uci"]), 1
 
-    # 4. Tactical Crisis: Gated Search with TT and Dynamic Time Allocation
+    # 4. Tactical Crisis: Gated Search with Quiescence, TT, and Dynamic Time Allocation
     if remaining_clock < 5.0:
         search_depth = 2
         max_duration = 0.05
@@ -653,8 +698,12 @@ def select_move_adaptive_ets(
     beta = 999999.0
     tt: Dict[str, Tuple[int, float, int]] = {}
 
-    # Search top 5 candidates (pre-sorted by neural + PeSTO)
-    for cand in candidates[:5]:
+    # Search top candidates (including high-tension tactical moves)
+    search_cands = [c for c in candidates if c.get("is_tactical", False) or c["val"] >= top_val - 0.25][:8]
+    if not search_cands:
+        search_cands = candidates[:5]
+
+    for cand in search_cands:
         m = chess.Move.from_uci(cand["uci"])
         board.push(m)
         score = -negamax_alpha_beta(

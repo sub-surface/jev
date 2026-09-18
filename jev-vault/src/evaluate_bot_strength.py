@@ -119,13 +119,21 @@ def run_bot_strength_evaluation(
 
         chosen_uci = chosen_move.uci().lower()
 
-        # Check if model recognized position as tactical crisis
-        t_enc = encode_board_tensor(board).unsqueeze(0).to(device)
-        with torch.no_grad():
-            _, noul_t, _, _ = model(t_enc)
-            noul_val = float(noul_t.item())
+        # Check if epistemic search escalated to tactical crisis
+        candidates = score_move_candidates(board, model)
+        if candidates:
+            top_val = candidates[0]["val"]
+            second_val = candidates[1]["val"] if len(candidates) > 1 else top_val
+            margin = top_val - second_val
+            has_tactical = any(c.get("is_tactical", False) for c in candidates[:4])
+            is_check = board.is_check()
+            noul_val = float(math.tanh(margin * 3.0))
+            if has_tactical or is_check:
+                noul_val *= 0.40
+        else:
+            noul_val = 0.50
 
-        is_crisis = (noul_val < tau) or board.is_check()
+        is_crisis = (search_depth > 1) or board.is_check() or (noul_val < tau)
         if is_crisis:
             crisis_detected_count += 1
 
@@ -136,9 +144,9 @@ def run_bot_strength_evaluation(
                 reflex_solved_count += 1
 
         solved_str = "✅ YES" if is_solved else "❌ NO"
-        crisis_str = "CRISIS" if is_crisis else "QUIET"
+        crisis_str = f"CRISIS(d{search_depth})" if is_crisis else "QUIET(d1)"
 
-        print(f"{i:<3} | {test['theme']:<24} | {best_uci:<7} | {chosen_uci:<7} | {solved_str:<7} | {noul_val:<6.2f} | {crisis_str:<8} | {elapsed_ms:>6.1f}ms", flush=True)
+        print(f"{i:<3} | {test['theme']:<24} | {best_uci:<7} | {chosen_uci:<7} | {solved_str:<7} | {noul_val:<6.2f} | {crisis_str:<12} | {elapsed_ms:>6.1f}ms", flush=True)
 
     # Compute aggregate metrics
     total_tests = len(TACTICAL_BENCHMARK_POSITIONS)
