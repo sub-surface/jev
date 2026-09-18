@@ -454,7 +454,7 @@ def run_bot_daemon(idle_timeout_seconds: int = 900):
                 requests.post(
                     f"{LICHESS_API}/api/bot/game/{game_id}/chat",
                     headers=HEADERS,
-                    json={"room": "player", "text": "⚡ Hi! I am Jess Hyperbullet running on Modal Cloud with Jev ETS. Good luck!"},
+                    json={"room": "player", "text": "(o^▽^o) Hi! I'm Jess — a 128-neuron CReLU Tri-Process engine (System 0 heuristics + System 1 epistemic Noul gating + System 2 Negamax search). Trained via Leela-style distillation on Modal Cloud. glhf! ⚡ jev.subsurfaces.net"},
                     timeout=5,
                 )
 

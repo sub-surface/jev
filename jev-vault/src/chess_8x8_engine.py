@@ -419,7 +419,8 @@ def score_move_candidates(
         board.pop()
 
     # Neural batch inference
-    batch_t = torch.stack(tensors).to(device)
+    m_device = next(model.parameters()).device
+    batch_t = torch.stack(tensors).to(m_device)
     model.eval()
     with torch.no_grad():
         vals, nouls, _, _ = model(batch_t)
@@ -615,7 +616,8 @@ def select_move_adaptive_ets(
         return random.choice(list(board.legal_moves)), 1
 
     # 3. Position certainty Noul
-    t_curr = encode_board_tensor(board).unsqueeze(0).to(device)
+    m_device = next(model.parameters()).device
+    t_curr = encode_board_tensor(board).unsqueeze(0).to(m_device)
     model.eval()
     with torch.no_grad():
         val_cur, noul_cur, _, _ = model(t_curr)

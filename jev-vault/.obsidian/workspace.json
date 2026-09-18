@@ -192,6 +192,8 @@
   },
   "active": "7f7b29ee079f6ce4",
   "lastOpenFiles": [
+    "analysis/bot_strength_evaluation.json",
+    "src/evaluate_bot_strength.py",
     "analysis/lichess_games/KwwKWu0J.json",
     "modal_cloud/modal_lichess_bot_daemon.py",
     "analysis/lichess_games/NboLNewV.json",
@@ -204,8 +206,6 @@
     "src/lichess_bot.py",
     "analysis/user_chess_games/game_8x8_1789750158_7651.json",
     "src/__pycache__/game_reviewer.cpython-312.pyc",
-    "src/game_reviewer.py",
-    "analysis/user_chess_games/game_8x8_1789749357_2357_activations.pt",
     "Theory/The-TypeSafe-Jev-Theorem.md",
     "figures/fig32_typesafe_soundness_theorem.png",
     "figures/fig31_cellular_automata_physics.png",

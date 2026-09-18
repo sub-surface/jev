@@ -195,7 +195,7 @@ class LichessBotRunner:
                 # Send greeting
                 self.send_chat(
                     game_id,
-                    "⚡ Hi! I am Jess Hyperbullet powered by the Jevformer Tri-Process Neural Engine (CReLU + Epistemic Noul). Good luck!"
+                    "(o^▽^o) Hi! I'm Jess — a 128-neuron CReLU Tri-Process engine (System 0 heuristics + System 1 epistemic Noul gating + System 2 Negamax search). Trained via Leela-style distillation on Modal Cloud. glhf! ⚡ jev.subsurfaces.net"
                 )
 
                 for raw_line in stream_res.iter_lines():
