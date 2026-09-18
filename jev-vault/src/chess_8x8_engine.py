@@ -443,9 +443,9 @@ def score_move_candidates(
         v_static = float(math.tanh(meta["static_val"] / 4.0))
         # Balanced 50% neural + 50% static evaluation
         blended_val = 0.50 * v_neural + 0.50 * v_static
-        # Tactical bonus for captures, checks, and promotions if position is advantageous
-        if meta["tactical_type"] in ("CHECK", "CAPTURE", "PROMOTION") and meta["static_val"] > 0:
-            blended_val += 0.15
+        # Tactical bonus only for winning captures/promotions, NEVER for spite checks
+        if meta["tactical_type"] in ("CAPTURE", "PROMOTION") and meta["static_val"] > 50.0:
+            blended_val += 0.10
 
         combined_scores.append(blended_val)
 
@@ -648,36 +648,49 @@ def select_move_adaptive_ets(
     """
     t0 = time.time()
 
-    # 1. Opening Book check
+    # 1. Immediate Checkmate-in-1 Gate (<0.1ms)
+    for m in board.legal_moves:
+        board.push(m)
+        if board.is_checkmate():
+            board.pop()
+            return m, 1
+        board.pop()
+
+    # 2. Opening Book check
     book_move = get_opening_book_move(board)
     if book_move:
         return book_move, 1
 
-    # 2. Score 1-ply candidates
+    # 3. Score 1-ply candidates
     candidates = score_move_candidates(board, model)
     if not candidates:
         return random.choice(list(board.legal_moves)), 1
 
-    # 3. Position certainty Noul (calibrated from move credences + tactical tension)
+    # 4. Calibrated Epistemic Certainty Noul(s)
     top_val = candidates[0]["val"]
     second_val = candidates[1]["val"] if len(candidates) > 1 else top_val
     margin = top_val - second_val
-
     has_tactical = any(c.get("is_tactical", False) for c in candidates[:4])
     is_check = board.is_check()
 
-    noul_calibrated = float(math.tanh(margin * 3.0))
-    if has_tactical or is_check:
-        noul_calibrated *= 0.40
+    if is_check:
+        noul_calibrated = 0.10
+    elif has_tactical and (abs(top_val) > 0.40 or margin > 0.30):
+        noul_calibrated = 0.20
+    elif has_tactical:
+        noul_calibrated = 0.45
+    else:
+        # Peaceful position: multiple good moves represent stability, not crisis
+        noul_calibrated = 0.88
 
-    is_tactical_crisis = (noul_calibrated < tau) or is_check or has_tactical
+    is_tactical_crisis = (noul_calibrated < tau) or is_check
 
     # Epistemic Rule: In quiet positions, play the 1-ply reflex move immediately!
     # Latency: ~10ms. Clock preserved!
     if not is_tactical_crisis or remaining_clock < 2.0:
         return chess.Move.from_uci(candidates[0]["uci"]), 1
 
-    # 4. Tactical Crisis: Gated Search with Quiescence, TT, and Dynamic Time Allocation
+    # 5. Tactical Crisis: Gated Search with Quiescence, TT, and Dedicated Search Timer
     if remaining_clock < 5.0:
         search_depth = 2
         max_duration = 0.05
@@ -689,7 +702,7 @@ def select_move_adaptive_ets(
         max_duration = 0.20
     else:
         search_depth = 3
-        max_duration = 0.28  # Strict sub-300ms ceiling even with abundant clock
+        max_duration = 0.28  # Strict sub-300ms ceiling
 
     current_turn = 1 if board.turn == chess.WHITE else -1
     best_move = chess.Move.from_uci(candidates[0]["uci"])
@@ -703,11 +716,14 @@ def select_move_adaptive_ets(
     if not search_cands:
         search_cands = candidates[:5]
 
+    # Dedicated search timer so 1-ply scoring does not consume the search budget
+    t_search_start = time.time()
+
     for cand in search_cands:
         m = chess.Move.from_uci(cand["uci"])
         board.push(m)
         score = -negamax_alpha_beta(
-            board, search_depth - 1, -beta, -alpha, -current_turn, model, t0, max_duration, tt
+            board, search_depth - 1, -beta, -alpha, -current_turn, model, t_search_start, max_duration, tt
         )
         board.pop()
 
@@ -716,7 +732,10 @@ def select_move_adaptive_ets(
             best_move = m
         alpha = max(alpha, score)
 
-        if time.time() - t0 > max_duration:
+        if best_score > 90000.0:  # Found checkmate!
+            break
+
+        if time.time() - t_search_start > max_duration:
             break
 
     return best_move, search_depth

@@ -212,8 +212,10 @@ def run_bot_daemon(idle_timeout_seconds: int = 900):
     JevChess8x8Evaluator = create_jev_model()
     model = JevChess8x8Evaluator().to(device)
 
-    # Load Leela weights from Modal Volume
-    ckpt_path = "/checkpoints/jev_chess_8x8_leela.pt"
+    # Load Leela weights from Modal Volume (Prefer V3)
+    ckpt_path = "/checkpoints/jev_chess_8x8_leela_v3.pt"
+    if not os.path.exists(ckpt_path):
+        ckpt_path = "/checkpoints/jev_chess_8x8_leela.pt"
     if os.path.exists(ckpt_path):
         print(f"Loading weights from Modal Volume: {ckpt_path}...", flush=True)
         model.load_state_dict(torch.load(ckpt_path, map_location=device))

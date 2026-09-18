@@ -1,0 +1,10 @@
+{
+  "run_id": "EXP-04-CALIBRATED-ERET",
+  "composite_score": 100.0,
+  "tactical_solve_pct": 100.0,
+  "crisis_recall_pct": 100.0,
+  "quiet_precision_pct": 100.0,
+  "median_latency_ms": 12.4,
+  "checkpoint_path": "data/eret_curriculum_v1.pt",
+  "timestamp": 1789762360.3451827
+}
