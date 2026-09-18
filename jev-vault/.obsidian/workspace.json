@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "analysis/Analysis_Dashboard.md",
+                "file": "Theory/Epiplexity-and-Bounded-Information.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Analysis_Dashboard"
+              "title": "Epiplexity-and-Bounded-Information"
             }
           }
         ]
@@ -99,7 +99,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "analysis/Analysis_Dashboard.md",
+                "file": "Theory/Epiplexity-and-Bounded-Information.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -118,7 +118,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "analysis/Analysis_Dashboard.md",
+                "file": "Theory/Epiplexity-and-Bounded-Information.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
@@ -161,7 +161,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "analysis/Analysis_Dashboard.md",
+                "file": "Theory/Epiplexity-and-Bounded-Information.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -192,6 +192,19 @@
   },
   "active": "7f7b29ee079f6ce4",
   "lastOpenFiles": [
+    "src/openjev_engine_v2.py",
+    "src/New Python File.py",
+    "Theory/Domain-C-Formal-Proof-Synthesis.md",
+    "Theory/Leela-Style-TriProcess-Training.md",
+    "Theory/Domain-B-Cellular-Automata-ARC.md",
+    "Theory/The-Law-of-Discrete-Invariant-Coupling.md",
+    "Theory/The-Shannon-Rate-Distortion-Frontier.md",
+    "Theory/The-TypeSafe-Jev-Theorem.md",
+    "Theory/Categorical-and-Geometric-Proofs-of-Equilibrium.md",
+    "Theory/Beyond-Next-Token-Prediction-and-Looped-Architectures.md",
+    "Index.md",
+    "analysis/Analysis_Dashboard.md",
+    "src/openjev_engine.py",
     "src/__pycache__/stockfish_validator.cpython-312.pyc",
     "docs/modalpricing.md",
     "Literature/RLCD Reinforcement Learning from Contrastive Distillation for LM Alignment.md",
@@ -206,28 +219,17 @@
     "src/__pycache__/jev_autoresearch.cpython-312.pyc",
     "src/__pycache__/batched_bitter_mcts.cpython-312.pyc",
     "src/__pycache__/fast_parallel_selfplay.cpython-312.pyc",
-    "src/jev_autoresearch.py",
-    "src/__pycache__/eret_engine.cpython-312.pyc",
-    "src/fast_parallel_selfplay.py",
     "analysis/AUTORESEARCH_LEADERBOARD.md",
     "figures/game_epoch_2.gif",
     "figures/game_epoch_1.gif",
     "figures/batched_test_game.gif",
     "figures/test_render.gif",
     "figures/selfplay_sample.gif",
-    "Theory/Leela-Style-TriProcess-Training.md",
     "Permanent-Bot-Hosting-Guide.md",
     "Lichess-Bot-Guide.md",
-    "Theory/The-TypeSafe-Jev-Theorem.md",
     "figures/fig32_typesafe_soundness_theorem.png",
     "Architectures/Jev-Gated-Residual-JGR.md",
-    "Index.md",
-    "analysis/Analysis_Dashboard.md",
-    "Theory/Domain-C-Formal-Proof-Synthesis.md",
-    "Theory/Domain-B-Cellular-Automata-ARC.md",
-    "Theory/The-Shannon-Rate-Distortion-Frontier.md",
     "Literature/Key-Literature-Index.md",
-    "Theory/Discrete-Bottlenecks-and-VQ-Coupling.md",
-    "Theory/The-Law-of-Discrete-Invariant-Coupling.md"
+    "Theory/Discrete-Bottlenecks-and-VQ-Coupling.md"
   ]
 }

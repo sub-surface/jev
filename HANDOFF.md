@@ -2,7 +2,7 @@
 
 > **Status:** All 7 Benchmark Frontiers Complete | Tri-Process Architecture Validated | Repository Reorganized into `jev-vault/`  
 > **Date:** September 18, 2026  
-> **Authors:** Leon & Ilya Sutskever persona  
+> **Authors:** Leon 
 
 ---
 
