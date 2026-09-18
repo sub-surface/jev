@@ -37,16 +37,46 @@ from benchmark_harness import TACTICAL_CRISIS_SUITE, QUIET_CONTROL_SUITE
 
 
 # ---------------------------------------------------------------------------
-# High-Fidelity Chess GIF Renderer
 # ---------------------------------------------------------------------------
-UNICODE_PIECES = {
-    chess.Piece(chess.PAWN, chess.WHITE): "♙", chess.Piece(chess.KNIGHT, chess.WHITE): "♘",
-    chess.Piece(chess.BISHOP, chess.WHITE): "♗", chess.Piece(chess.ROOK, chess.WHITE): "♖",
-    chess.Piece(chess.QUEEN, chess.WHITE): "♕", chess.Piece(chess.KING, chess.WHITE): "♔",
-    chess.Piece(chess.PAWN, chess.BLACK): "♟", chess.Piece(chess.KNIGHT, chess.BLACK): "♞",
-    chess.Piece(chess.BISHOP, chess.BLACK): "♝", chess.Piece(chess.ROOK, chess.BLACK): "♜",
-    chess.Piece(chess.QUEEN, chess.BLACK): "♛", chess.Piece(chess.KING, chess.BLACK): "♚",
-}
+# High-Fidelity Vector Chess GIF Renderer (PySide6 / chess.svg)
+# ---------------------------------------------------------------------------
+def render_board_frame_svg(board: chess.Board, last_move: Optional[chess.Move] = None, size: int = 440) -> Image.Image:
+    """Renders pixel-perfect official vector pieces using chess.svg and PySide6 QtSvg."""
+    try:
+        import chess.svg
+        from PySide6.QtGui import QImage, QPainter
+        from PySide6.QtSvg import QSvgRenderer
+        from PySide6.QtCore import QByteArray
+
+        check_sq = board.king(board.turn) if board.is_check() else None
+        svg_str = chess.svg.board(
+            board=board,
+            lastmove=last_move,
+            check=check_sq,
+            size=size,
+            colors={
+                "square light": "#ECECD0",
+                "square dark": "#739552",
+                "margin": "#161920",
+                "coord": "#94A3B8"
+            }
+        )
+        renderer = QSvgRenderer(QByteArray(svg_str.encode("utf-8")))
+        qimg = QImage(size, size, QImage.Format.Format_ARGB32)
+        qimg.fill(0)
+        painter = QPainter(qimg)
+        renderer.render(painter)
+        painter.end()
+
+        ptr = qimg.bits()
+        arr = np.frombuffer(ptr, np.uint8).reshape((size, size, 4))
+        return Image.fromarray(arr[..., [2, 1, 0, 3]], mode="RGBA").convert("RGB")
+    except Exception as e:
+        # Fallback image
+        im = Image.new("RGB", (size, size), color="#161920")
+        d = ImageDraw.Draw(im)
+        d.text((20, 20), f"Board Render (Fallback)\n{board.fen()}", fill="#FFFFFF")
+        return im
 
 
 def render_crisp_game_gif(
@@ -56,25 +86,20 @@ def render_crisp_game_gif(
     white_name: str = "ERET 2.0",
     black_name: str = "Stockfish 19",
 ) -> str:
-    """Renders a beautiful, high-contrast animated GIF of a completed game."""
-    sq_size = 50
-    margin = 22
+    """Renders a beautiful, high-contrast animated GIF of a completed game using vector artwork."""
+    board_size = 440
     header_h, footer_h = 36, 34
-    board_px = sq_size * 8
-    w = board_px + margin * 2
-    h = board_px + header_h + footer_h + margin * 2
+    w = board_size
+    h = board_size + header_h + footer_h
 
-    font_large = None
     font_small = None
     for fp in [
         "C:\\Windows\\Fonts\\segoeui.ttf",
         "C:\\Windows\\Fonts\\arial.ttf",
         "C:\\Windows\\Fonts\\DejaVuSans.ttf",
-        "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
     ]:
         if os.path.exists(fp):
             try:
-                font_large = ImageFont.truetype(fp, 32)
                 font_small = ImageFont.truetype(fp, 13)
                 break
             except Exception:
@@ -85,65 +110,20 @@ def render_crisp_game_gif(
 
     for ply_idx in range(len(move_history) + 1):
         last_move = move_history[ply_idx - 1] if ply_idx > 0 else None
-        im = Image.new("RGB", (w, h), color="#161920")
-        draw = ImageDraw.Draw(im)
+        board_img = render_board_frame_svg(board, last_move=last_move, size=board_size)
 
-        # Header Bar
+        frame = Image.new("RGB", (w, h), color="#161920")
+        draw = ImageDraw.Draw(frame)
+
+        # 1. Header Bar
         draw.rectangle([(0, 0), (w, header_h)], fill="#1E232E")
-        header_text = f"⚔️ {white_name} vs {black_name} | Ply {ply_idx}"
-        draw.text((margin, 10), header_text, fill="#38BDF8", font=font_small)
+        header_text = f"{white_name} vs {black_name} | Ply {ply_idx}"
+        draw.text((14, 10), header_text, fill="#38BDF8", font=font_small)
 
-        # Board Offset
-        bx = margin
-        by = header_h + margin
+        # 2. Paste Vector Board
+        frame.paste(board_img, (0, header_h))
 
-        # Draw Files and Ranks labels
-        for i in range(8):
-            file_char = chr(ord('a') + i)
-            rank_char = str(8 - i)
-            draw.text((bx + i * sq_size + 20, by + board_px + 3), file_char, fill="#64748B", font=font_small)
-            draw.text((bx - 14, by + i * sq_size + 16), rank_char, fill="#64748B", font=font_small)
-
-        # Board Squares
-        check_sq = board.king(board.turn) if board.is_check() else None
-
-        for r in range(8):
-            for c in range(8):
-                sq = chess.square(c, 7 - r)
-                x1 = bx + c * sq_size
-                y1 = by + r * sq_size
-
-                # Theme: Classic Lichess Slate-Green
-                is_light = (r + c) % 2 == 0
-                sq_fill = "#ECECD0" if is_light else "#739552"
-
-                # Highlights
-                if last_move and sq in (last_move.from_square, last_move.to_square):
-                    sq_fill = "#F6EB76" if is_light else "#BACA44"
-                elif check_sq is not None and sq == check_sq:
-                    sq_fill = "#E05353"
-
-                draw.rectangle([(x1, y1), (x1 + sq_size, y1 + sq_size)], fill=sq_fill)
-
-                # Draw Piece with high contrast
-                piece = board.piece_at(sq)
-                if piece:
-                    glyph = UNICODE_PIECES.get(piece, piece.symbol().upper())
-                    is_white_piece = piece.color == chess.WHITE
-                    col = "#FFFFFF" if is_white_piece else "#111827"
-                    stroke_col = "#1E293B" if is_white_piece else "#F8FAFC"
-
-                    if font_large:
-                        # Draw 2px high-contrast stroke around piece
-                        for dx in [-1, 0, 1]:
-                            for dy in [-1, 0, 1]:
-                                if dx != 0 or dy != 0:
-                                    draw.text((x1 + 10 + dx, y1 + 6 + dy), glyph, fill=stroke_col, font=font_large)
-                        draw.text((x1 + 10, y1 + 6), glyph, fill=col, font=font_large)
-                    else:
-                        draw.text((x1 + 18, y1 + 16), piece.symbol().upper(), fill=col)
-
-        # Footer Bar
+        # 3. Footer Bar
         draw.rectangle([(0, h - footer_h), (w, h)], fill="#1E232E")
         if ply_idx < len(move_history):
             turn_str = "White to move" if board.turn == chess.WHITE else "Black to move"
@@ -151,23 +131,23 @@ def render_crisp_game_gif(
             foot_text = f"Last Move: {lm_str} | {turn_str}"
             foot_col = "#94A3B8"
         else:
-            foot_text = f"🏁 Game Over: {result_str}"
+            foot_text = f"Game Over: {result_str}"
             foot_col = "#10B981" if "1-0" in result_str or "0-1" in result_str else "#F59E0B"
 
-        draw.text((margin, h - footer_h + 8), foot_text, fill=foot_col, font=font_small)
-        frames.append(im)
+        draw.text((14, h - footer_h + 8), foot_text, fill=foot_col, font=font_small)
+        frames.append(frame)
 
         if ply_idx < len(move_history):
             board.push(move_history[ply_idx])
 
-    # Hold the final frame for 6 extra frames (~2 seconds)
+    # Hold the final position for 6 extra frames (~2.1s)
     if frames:
         for _ in range(6):
             frames.append(frames[-1])
 
     os.makedirs(os.path.dirname(os.path.abspath(out_path)), exist_ok=True)
     frames[0].save(out_path, save_all=True, append_images=frames[1:], duration=350, loop=0)
-    print(f"🎬 Generated High-Fidelity GIF: {out_path} ({len(frames)} frames)", flush=True)
+    print(f"🎬 Generated High-Fidelity Vector GIF: {out_path} ({len(frames)} frames)", flush=True)
     return out_path
 
 
