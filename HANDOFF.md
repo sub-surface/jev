@@ -109,9 +109,21 @@ To launch the scaled Tri-Process benchmarks on Modal cloud compute (NVIDIA A10G)
 
 ---
 
-## 🎯 Next Steps for Fresh Context
+## 🎯 Next Steps for Fresh Context: Hybrid Loss Training
 
-1. **Review:** Open `jev-vault` in Obsidian and inspect `Index.md` and `analysis/Analysis_Dashboard.md`.
-2. **Inspect Figures:** Review `fig28_coupling_physics_synthesis.png`, `fig24_deep_deduction_path_render.png`, and `fig23_bullet_chess_6x6_filmstrip.png`.
-3. **Launch Modal Run:** Execute `modal run modal_triprocess_scaled.py` to leverage the cloud budget.
-4. **Publish Findings:** Synthesize the final conclusions into `WHITEPAPER.md`.
+### 1. The Core Focus: Hybrid Model Distillation
+* **Discovery:**
+  - `data/jev_champion.pt` is a **tactical sniper**: 100/100 benchmark score, detects mates and sacrifices instantly, but loses in long-horizon games vs Stockfish (mated at ply 26 and 35).
+  - `data/h100_eret_latest.pt` is a **positional grinder**: 5,000 games on H100 SXM5, held Stockfish Level 1 to a **60-ply draw as White (1/2 - 1/2)** and survived 47 plies as Black, but its Noul stays too high during tactical crises (~0.78), scoring 45.0% on tactical puzzles.
+* **The Mission:** Unify both models through multi-task hybrid training:
+  $$\mathcal{L}_{\text{hybrid}} = \mathcal{L}_{\text{selfplay\_policy\_value}} + 0.5 \mathcal{L}_{\text{tactical\_curriculum}} + 0.2 \mathcal{L}_{\text{epistemic\_noul\_calibration}}$$
+* **Implementation Plan:**
+  - In `modal_cloud/modal_h100_hybrid_scale.py` (or a dedicated local script `train_hybrid_loss.py`), interleave self-play replay buffer batches with tactical crisis curriculum batches in every optimizer step.
+  - Evaluate against Stockfish 19 (`python evaluate.py --model ... --stockfish --sf-match`).
+
+### 2. Operational Status:
+* **Background Tasks:** All background tasks and the GUI server have been terminated.
+* **Git Repository:** Fully consolidated, committed, and pushed to `master`.
+* **Live Deployment:** Edge worker at `https://jev.subsurfaces.net` is live with the 6-stage forward pass simulator.
+* **Vector GIF Renderer:** Fully upgraded with PySide6 QtSvg vector pieces and clean typography.
+
