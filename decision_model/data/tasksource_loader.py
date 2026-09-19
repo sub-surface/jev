@@ -74,33 +74,38 @@ def load_tasksource_instruct(
     logger.info("Loading tasksource-instruct-v0 from HuggingFace...")
     print("Loading tasksource-instruct-v0 from HuggingFace...", flush=True)
 
-    # tasksource-instruct-v0 is a single dataset with a 'task' column identifying each task
-    ds = load_dataset("sileod/tasksource-instruct-v0", split="train", trust_remote_code=True)
+    # tasksource/tasksource-instruct-v0 loaded via fast streaming
+    target_tasks = max_tasks if max_tasks is not None else 20
+    max_scan = 100_000
 
-    # Group by task
+    ds = load_dataset("tasksource/tasksource-instruct-v0", split="train", streaming=True)
+
+    # Group by task in streaming mode
     task_groups: dict[str, list] = {}
     for i, example in enumerate(ds):
+        if i >= max_scan:
+            break
         task_name = example.get("task", example.get("dataset", f"unknown_{i}"))
         if task_name not in task_groups:
+            if len(task_groups) >= target_tasks:
+                continue
             task_groups[task_name] = []
-        task_groups[task_name].append(example)
 
-    print(f"Found {len(task_groups)} unique tasks in tasksource-instruct-v0", flush=True)
+        if len(task_groups[task_name]) < max_examples_per_task:
+            task_groups[task_name].append(example)
 
-    if max_tasks is not None:
-        # Take a deterministic subset for prototyping
-        rng = np.random.RandomState(seed)
-        task_names = sorted(task_groups.keys())
-        selected = rng.choice(task_names, min(max_tasks, len(task_names)), replace=False)
-        task_groups = {k: task_groups[k] for k in selected}
-        print(f"Selected {len(task_groups)} tasks for prototyping", flush=True)
+        if len(task_groups) >= target_tasks and all(len(v) >= max_examples_per_task for v in task_groups.values()):
+            break
+
+    print(f"Loaded {len(task_groups)} tasks via streaming from tasksource-instruct-v0", flush=True)
 
     task_specs: list[TaskSpec] = []
     task_examples: dict[str, list[JevExample]] = {}
+    min_required = min(min_examples_per_task, max(5, max_examples_per_task // 2))
 
     for task_name, raw_examples in task_groups.items():
         # Skip tiny tasks
-        if len(raw_examples) < min_examples_per_task:
+        if len(raw_examples) < min_required:
             logger.debug(f"Skipping {task_name}: only {len(raw_examples)} examples")
             continue
 
@@ -262,12 +267,17 @@ def _extract_options(instruction: str, example: dict) -> Optional[list[str]]:
         if len(parts) >= 2:
             return parts
 
+    # Pattern: either "opt1", "opt2" or "opt3"
+    quoted = re.findall(r'["\']([^"\']+)["\']', instruction)
+    if len(quoted) >= 2:
+        return [q.strip() for q in quoted]
+
     return None
 
 
 def _find_label_in_options(target: str, options: list[str]) -> Optional[int]:
     """Find which option index matches the target answer."""
-    target_clean = target.strip().lower()
+    target_clean = target.strip().rstrip(".").lower()
 
     # Exact match
     for i, opt in enumerate(options):

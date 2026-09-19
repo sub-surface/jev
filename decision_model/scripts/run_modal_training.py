@@ -36,10 +36,10 @@ load_dotenv()
 def main():
     parser = argparse.ArgumentParser(description="Jev Decision Model Modal Cloud Training Launcher")
     parser.add_argument("--tasks", type=int, default=15, help="Number of tasksource tasks to ingest")
-    parser.add_argument("--examples", type=int, default=500, help="Max examples per task")
+    parser.add_argument("--examples", type=int, default=250, help="Max examples per task")
     parser.add_argument("--ce-epochs", type=int, default=1, help="Cross-entropy warmup epochs")
     parser.add_argument("--rlcd-epochs", type=int, default=2, help="RLCD proper scoring epochs")
-    parser.add_argument("--batch-size", type=int, default=4, help="Batch size")
+    parser.add_argument("--batch-size", type=int, default=8, help="Batch size")
     parser.add_argument("--lr-ce", type=float, default=2e-4, help="Learning rate for CE warmup")
     parser.add_argument("--lr-rlcd", type=float, default=5e-5, help="Learning rate for RLCD")
     parser.add_argument("--gpu-type", type=str, default="A10G", choices=["A10G", "L40S"], help="Modal GPU type")
@@ -52,8 +52,8 @@ def main():
 
     # Hourly rate
     rate_hr = 1.10 if args.gpu_type == "A10G" else 1.95
-    # Estimate ~1 hour for this run
-    est_hours = 0.5 + 0.5 * (args.ce_epochs + args.rlcd_epochs)
+    # High-throughput batching estimate (~10-15 mins wall clock)
+    est_hours = 0.15 + 0.05 * (args.ce_epochs + args.rlcd_epochs)
     est_cost = est_hours * rate_hr
 
     print("=" * 70, flush=True)
@@ -65,7 +65,7 @@ def main():
     print(f"Eval Reserve (20%):  ${budget_cfg.eval_reserve:.2f} USD", flush=True)
     print(f"Available for Train: ${remaining - budget_cfg.eval_reserve:.2f} USD", flush=True)
     print(f"Selected Hardware:   NVIDIA {args.gpu_type} (${rate_hr:.2f}/hr)", flush=True)
-    print(f"Estimated Cost:      ~${est_cost:.2f} USD ({est_hours:.1f} hrs)", flush=True)
+    print(f"Estimated Cost:      ~${est_cost:.2f} USD ({est_hours*60:.1f} mins)", flush=True)
 
     # Budget Guardrail: max 1/3 of remaining budget on a single run
     max_allowed = remaining * budget_cfg.max_single_run_fraction
@@ -88,6 +88,7 @@ def main():
         "modal",
         "run",
         str(modal_script),
+        "--gpu-type", args.gpu_type,
         "--num-tasks", str(args.tasks),
         "--examples-per-task", str(args.examples),
         "--ce-epochs", str(args.ce_epochs),
