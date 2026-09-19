@@ -64,16 +64,17 @@ def run_experiment():
     )
     base_model, tokenizer, marker_ids = build_jev_decision_model(model_cfg, device=device)
 
-    # Clone initial state for exact fair comparison
+    # Clone models for fair comparison
     ce_model = copy.deepcopy(base_model).to(device)
     rlcd_model = copy.deepcopy(base_model).to(device)
+    hybrid_model = copy.deepcopy(base_model).to(device)
 
     epochs = 3
     batch_size = 4
 
     # ─── RUN CONDITION A: CROSS-ENTROPY BASELINE ──────────────────────────────
     print("\n" + "─" * 60, flush=True)
-    print("CONDITION A: Training Cross-Entropy Baseline...", flush=True)
+    print("CONDITION A: Training Cross-Entropy Baseline (3 epochs)...", flush=True)
     print("─" * 60, flush=True)
     ce_trainer = CrossEntropyTrainer(ce_model, lr=1e-4, device=device)
     ce_losses = []
@@ -93,7 +94,7 @@ def run_experiment():
 
     # ─── RUN CONDITION B: RLCD PROPER SCORING RULES ───────────────────────────
     print("\n" + "─" * 60, flush=True)
-    print("CONDITION B: Training RLCD Proper Scoring Rules...", flush=True)
+    print("CONDITION B: Training RLCD Proper Scoring Rules (3 epochs)...", flush=True)
     print("─" * 60, flush=True)
     rlcd_cfg = RLCDConfig(
         exploration_sigma_start=0.12,
@@ -117,6 +118,33 @@ def run_experiment():
         )
         rlcd_losses.append(loss)
         print(f"  RLCD Epoch {ep+1}/{epochs} Loss: {loss:.4f}", flush=True)
+
+    # ─── RUN CONDITION D: TWO-STAGE HYBRID (1 EP CE WARMUP + 2 EP RLCD) ───────
+    print("\n" + "─" * 60, flush=True)
+    print("CONDITION D: Two-Stage Hybrid (1 ep CE Warmup -> 2 ep RLCD)...", flush=True)
+    print("─" * 60, flush=True)
+    hybrid_ce_trainer = CrossEntropyTrainer(hybrid_model, lr=1e-4, device=device)
+    h_ce_loss = hybrid_ce_trainer.train_epoch(
+        train_examples=split.train_examples,
+        tokenizer=tokenizer,
+        marker_token_ids=marker_ids,
+        epoch_idx=0,
+        total_epochs=1,
+        batch_size=batch_size,
+    )
+    print(f"  [Hybrid] Warmup CE Loss: {h_ce_loss:.4f}", flush=True)
+
+    hybrid_rlcd_trainer = RLCDTrainer(hybrid_model, rlcd_cfg, lr=5e-5, device=device)
+    for ep in range(2):
+        loss = hybrid_rlcd_trainer.train_epoch(
+            train_examples=split.train_examples,
+            tokenizer=tokenizer,
+            marker_token_ids=marker_ids,
+            epoch_idx=ep,
+            total_epochs=2,
+            batch_size=batch_size,
+        )
+        print(f"  [Hybrid] RLCD Epoch {ep+1}/2 Loss: {loss:.4f}", flush=True)
 
     # ─── CONDITION C: RLCD + TEMPERATURE SCALING ───────────────────────────────
     print("\n" + "─" * 60, flush=True)
@@ -162,6 +190,14 @@ def run_experiment():
         rlcd_model, split.zero_shot_examples, tokenizer, marker_ids, batch_size, temp_scaler=temp_scaler, device=device
     )
 
+    # 4. Two-Stage Hybrid (CE Warmup + RLCD)
+    hyb_in_rep, _, _ = evaluate_dataset(
+        hybrid_model, split.in_task_val_examples, tokenizer, marker_ids, batch_size, device=device
+    )
+    hyb_zs_rep, _, _ = evaluate_dataset(
+        hybrid_model, split.zero_shot_examples, tokenizer, marker_ids, batch_size, device=device
+    )
+
     # Print summary comparative table
     print("\n" + "═" * 78, flush=True)
     print(f"{'Condition':<25} | {'In-Task Acc':<12} | {'In-Task ECE':<12} | {'Zero-Shot Acc':<14} | {'Zero-Shot ECE':<14}", flush=True)
@@ -169,6 +205,7 @@ def run_experiment():
     print(f"{'Cross-Entropy (Baseline)':<25} | {ce_in_rep.accuracy*100:>10.2f}% | {ce_in_rep.ece*100:>10.2f}% | {ce_zs_rep.accuracy*100:>12.2f}% | {ce_zs_rep.ece*100:>12.2f}%", flush=True)
     print(f"{'RLCD Proper Scoring':<25} | {rlcd_in_rep.accuracy*100:>10.2f}% | {rlcd_in_rep.ece*100:>10.2f}% | {rlcd_zs_rep.accuracy*100:>12.2f}% | {rlcd_zs_rep.ece*100:>12.2f}%", flush=True)
     print(f"{'RLCD + TempScale':<25} | {rlcd_ts_in_rep.accuracy*100:>10.2f}% | {rlcd_ts_in_rep.ece*100:>10.2f}% | {rlcd_ts_zs_rep.accuracy*100:>12.2f}% | {rlcd_ts_zs_rep.ece*100:>12.2f}%", flush=True)
+    print(f"{'Two-Stage (CE -> RLCD)':<25} | {hyb_in_rep.accuracy*100:>10.2f}% | {hyb_in_rep.ece*100:>10.2f}% | {hyb_zs_rep.accuracy*100:>12.2f}% | {hyb_zs_rep.ece*100:>12.2f}%", flush=True)
     print("═" * 78, flush=True)
 
     # ─── MECHANISTIC INTERPRETABILITY & LATENT EXTRACTION ──────────────────────

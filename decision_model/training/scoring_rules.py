@@ -31,25 +31,28 @@ from typing import Optional
 def log_score(
     probs: torch.Tensor,
     labels: torch.Tensor,
+    num_options: Optional[torch.Tensor] = None,
+    normalize_by_cardinality: bool = True,
     eps: float = 1e-8,
 ) -> torch.Tensor:
     """
     Logarithmic scoring rule (strictly proper).
 
-    S_log(p, y) = log(p_y)
+    When normalize_by_cardinality=True:
+        S_log(p, y) = log(p_y) / log(K_i)
 
-    Higher is better. Range: (-inf, 0].
-
-    Args:
-        probs: (batch, num_options) predicted probabilities, must sum to 1
-        labels: (batch,) integer labels indexing the true option
-
-    Returns:
-        (batch,) log scores
+    This ensures uniform guesses achieve exactly -1.0 reward and perfect guesses
+    achieve 0.0 reward regardless of option cardinality K_i in [2, 26], preventing
+    high-cardinality tasks from dominating batch gradients.
     """
-    # Gather probability assigned to the true label
     p_y = probs.gather(dim=1, index=labels.unsqueeze(1)).squeeze(1)
-    return torch.log(p_y.clamp(min=eps))
+    raw_log = torch.log(p_y.clamp(min=eps))
+
+    if normalize_by_cardinality and num_options is not None:
+        log_k = torch.log(num_options.float().clamp(min=2.0))
+        return raw_log / log_k
+
+    return raw_log
 
 
 def spherical_score(
@@ -59,17 +62,8 @@ def spherical_score(
 ) -> torch.Tensor:
     """
     Spherical scoring rule (strictly proper).
-
     S_sph(p, y) = p_y / ||p||_2
-
-    Higher is better. Range: (0, 1].
-
-    Args:
-        probs: (batch, num_options) predicted probabilities
-        labels: (batch,) integer labels
-
-    Returns:
-        (batch,) spherical scores
+    Range: (0, 1].
     """
     p_y = probs.gather(dim=1, index=labels.unsqueeze(1)).squeeze(1)
     l2_norm = probs.norm(p=2, dim=1).clamp(min=eps)
@@ -79,81 +73,63 @@ def spherical_score(
 def ranked_probability_score(
     probs: torch.Tensor,
     labels: torch.Tensor,
+    num_options: Optional[torch.Tensor] = None,
 ) -> torch.Tensor:
     """
-    Ranked Probability Score — negated for use as reward (strictly proper).
-
-    RPS(p, y) = -(1/(K-1)) * sum_{k=1}^{K-1} (CDF_pred(k) - CDF_true(k))^2
-
-    This accounts for ordinal distance: predicting a nearby bin to the true
-    answer is penalized less than predicting a distant bin. Essential for
-    the `score` primitive where labels have meaningful order.
-
-    Higher (less negative) is better. Range: [-(1), 0].
-
-    Args:
-        probs: (batch, K) predicted probabilities over K ordered bins
-        labels: (batch,) integer labels (0 to K-1)
-
-    Returns:
-        (batch,) negated RPS (higher = better calibrated)
+    Ranked Probability Score (strictly proper for ordinal targets).
+    RPS = -(1 / (K_i - 1)) * sum_{k=1}^{K_i-1} (CDF_pred(k) - CDF_true(k))^2
     """
-    K = probs.shape[1]
-    if K <= 1:
-        return torch.zeros(probs.shape[0], device=probs.device)
+    batch_size, max_k = probs.shape
+    if max_k <= 1:
+        return torch.zeros(batch_size, device=probs.device)
 
-    # Predicted CDF: cumulative sum of probabilities
-    cdf_pred = probs.cumsum(dim=1)  # (batch, K)
+    cdf_pred = probs.cumsum(dim=1)
+    batch_indices = torch.arange(max_k, device=probs.device).unsqueeze(0)
+    label_expanded = labels.unsqueeze(1)
+    cdf_true = (batch_indices >= label_expanded).float()
 
-    # True CDF: step function at the label
-    # cdf_true[i, k] = 1 if k >= label[i], else 0
-    batch_indices = torch.arange(K, device=probs.device).unsqueeze(0)  # (1, K)
-    label_expanded = labels.unsqueeze(1)  # (batch, 1)
-    cdf_true = (batch_indices >= label_expanded).float()  # (batch, K)
+    squared_diff = (cdf_pred - cdf_true) ** 2  # (batch, max_k)
 
-    # RPS = mean squared difference of CDFs (excluding last position which is always 1)
-    squared_diff = (cdf_pred[:, :-1] - cdf_true[:, :-1]) ** 2
-    rps = squared_diff.mean(dim=1)
-
-    # Return negated so that higher = better (reward convention)
-    return -rps
+    if num_options is not None:
+        rps_list = []
+        for b in range(batch_size):
+            k_i = int(num_options[b].item())
+            if k_i <= 1:
+                rps_list.append(torch.tensor(0.0, device=probs.device))
+            else:
+                # Sum over valid thresholds 0 to k_i - 2
+                diff_sum = squared_diff[b, : k_i - 1].sum()
+                rps_list.append(-diff_sum / (k_i - 1))
+        return torch.stack(rps_list)
+    else:
+        diff_mean = squared_diff[:, :-1].mean(dim=1)
+        return -diff_mean
 
 
 def combined_reward(
     probs: torch.Tensor,
     labels: torch.Tensor,
     is_ordinal: torch.Tensor,
+    num_options: Optional[torch.Tensor] = None,
     log_weight: float = 1.0,
     spherical_weight: float = 0.5,
     rps_weight: float = 0.5,
+    normalize_by_cardinality: bool = True,
     eps: float = 1e-8,
 ) -> torch.Tensor:
     """
-    Combined strictly proper scoring rule reward for RLCD.
-
-    For categorical (choice/noul) tasks:
-        R = w_log * log_score + w_sph * spherical_score
-
-    For ordinal (score) tasks:
-        R = w_log * log_score + w_sph * spherical_score + w_rps * RPS
-
-    Args:
-        probs: (batch, max_options) predicted probabilities (padded)
-        labels: (batch,) integer labels
-        is_ordinal: (batch,) boolean mask — True for score tasks
-        log_weight, spherical_weight, rps_weight: scoring rule weights
-
-    Returns:
-        (batch,) combined reward scores
+    Combined strictly proper scoring rule reward with cardinality normalization.
     """
-    r_log = log_score(probs, labels, eps=eps)
+    r_log = log_score(
+        probs, labels, num_options=num_options,
+        normalize_by_cardinality=normalize_by_cardinality, eps=eps
+    )
     r_sph = spherical_score(probs, labels, eps=eps)
 
     reward = log_weight * r_log + spherical_weight * r_sph
 
-    # Add RPS for ordinal tasks
     if is_ordinal.any():
-        r_rps = ranked_probability_score(probs, labels)
+        r_rps = ranked_probability_score(probs, labels, num_options=num_options)
         reward = reward + rps_weight * r_rps * is_ordinal.float()
 
     return reward

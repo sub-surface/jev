@@ -99,6 +99,7 @@ class RLCDTrainer:
                 marker_token_ids,
                 max_length=max_length,
                 device=self.device,
+                shuffle_options=True,
             )
 
             self.optimizer.zero_grad()
@@ -114,14 +115,18 @@ class RLCDTrainer:
             # Re-normalize over valid options
             noisy_probs = torch.softmax(noisy_logits, dim=-1)
 
-            # Compute strictly proper scoring rewards
+            num_opts_t = torch.tensor(tokenized.num_options, device=self.device, dtype=torch.long)
+
+            # Compute strictly proper scoring rewards with cardinality normalization
             rewards = combined_reward(
                 probs=noisy_probs,
                 labels=tokenized.labels,
                 is_ordinal=tokenized.is_ordinal,
+                num_options=num_opts_t,
                 log_weight=self.config.log_score_weight,
                 spherical_weight=self.config.spherical_score_weight,
                 rps_weight=self.config.rps_weight,
+                normalize_by_cardinality=True,
             )
 
             # RLCD objective: maximize expected reward -> minimize negative reward
