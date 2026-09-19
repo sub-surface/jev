@@ -123,6 +123,8 @@ class RLCDTrainer:
                 labels=tokenized.labels,
                 is_ordinal=tokenized.is_ordinal,
                 num_options=num_opts_t,
+                use_brier_rlcr=self.config.use_brier_rlcr,
+                brier_weight=self.config.brier_weight,
                 log_weight=self.config.log_score_weight,
                 spherical_weight=self.config.spherical_score_weight,
                 rps_weight=self.config.rps_weight,

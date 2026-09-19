@@ -50,6 +50,7 @@ if modal is not None:
             "numpy>=1.24.0",
             "scipy>=1.10.0",
         )
+        .add_local_python_source("decision_model")
     )
 
     volume = modal.Volume.from_name("jev-model-artifacts", create_if_missing=True)
@@ -141,11 +142,12 @@ if modal is not None:
         # 5. Stage 2: RLCD Proper Scoring Rule Training
         print(f"\n[5/6] Stage 2: RLCD Proper Scoring Training ({rlcd_epochs} epochs, lr={lr_rlcd})...", flush=True)
         rlcd_cfg = RLCDConfig(
-            exploration_sigma_start=0.1,
-            exploration_sigma_end=0.01,
-            log_score_weight=1.0,
+            use_brier_rlcr=True,
+            brier_weight=1.0,
             spherical_score_weight=0.5,
             rps_weight=0.5,
+            exploration_sigma_start=0.1,
+            exploration_sigma_end=0.01,
         )
         rlcd_trainer = RLCDTrainer(model, rlcd_cfg, lr=lr_rlcd, device=device)
         for ep in range(rlcd_epochs):

@@ -1,0 +1,42 @@
+{
+  "ce_in_task": {
+    "acc": 0.875,
+    "ece": 0.14105202630162242
+  },
+  "ce_zero_shot": {
+    "acc": 0.0,
+    "ece": 0.8781432658433914
+  },
+  "tum_log_in_task": {
+    "acc": 0.625,
+    "ece": 0.3331557400524616
+  },
+  "tum_log_zero_shot": {
+    "acc": 0.0,
+    "ece": 0.3228522315621376
+  },
+  "mit_brier_in_task": {
+    "acc": 0.75,
+    "ece": 0.4471942065283656
+  },
+  "mit_brier_zero_shot": {
+    "acc": 0.5,
+    "ece": 0.3650020658969879
+  },
+  "two_stage_in_task": {
+    "acc": 0.5,
+    "ece": 0.44935000501573086
+  },
+  "two_stage_zero_shot": {
+    "acc": 0.0,
+    "ece": 0.31112445145845413
+  },
+  "two_stage_ts_in_task": {
+    "acc": 0.5,
+    "ece": 0.44887565448880196
+  },
+  "two_stage_ts_zero_shot": {
+    "acc": 0.0,
+    "ece": 0.32590340822935104
+  }
+}

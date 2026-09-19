@@ -64,7 +64,9 @@ class RLCDConfig:
     exploration_sigma_start: float = 0.1
     exploration_sigma_end: float = 0.01
 
-    # Scoring rule weights
+    # Scoring rule weights & formulation
+    use_brier_rlcr: bool = True        # MIT ICLR 2026 bounded Brier formulation (Theorem 1)
+    brier_weight: float = 1.0
     log_score_weight: float = 1.0
     spherical_score_weight: float = 0.5
     rps_weight: float = 0.5            # Only for score primitive

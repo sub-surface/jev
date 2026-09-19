@@ -25,6 +25,8 @@ from pathlib import Path
 import numpy as np
 import torch
 import torch.nn.functional as F
+import matplotlib
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
@@ -92,18 +94,19 @@ def run_experiment():
         ce_losses.append(loss)
         print(f"  CE Epoch {ep+1}/{epochs} Loss: {loss:.4f}", flush=True)
 
-    # ─── RUN CONDITION B: RLCD PROPER SCORING RULES ───────────────────────────
+    # ─── RUN CONDITION B: RLCD LOG SCORING (UNBOUNDED LOG LOSS) ───────────────
     print("\n" + "─" * 60, flush=True)
-    print("CONDITION B: Training RLCD Proper Scoring Rules (3 epochs)...", flush=True)
+    print("CONDITION B: Training RLCD Log Score (TUM Rewarding Doubt style)...", flush=True)
     print("─" * 60, flush=True)
-    rlcd_cfg = RLCDConfig(
+    rlcd_log_cfg = RLCDConfig(
+        use_brier_rlcr=False,
         exploration_sigma_start=0.12,
         exploration_sigma_end=0.02,
         log_score_weight=1.0,
         spherical_score_weight=0.5,
         rps_weight=0.5,
     )
-    rlcd_trainer = RLCDTrainer(rlcd_model, rlcd_cfg, lr=5e-5, device=device)
+    rlcd_trainer = RLCDTrainer(rlcd_model, rlcd_log_cfg, lr=5e-5, device=device)
     rlcd_losses = []
 
     for ep in range(epochs):
@@ -117,11 +120,39 @@ def run_experiment():
             log_interval=5,
         )
         rlcd_losses.append(loss)
-        print(f"  RLCD Epoch {ep+1}/{epochs} Loss: {loss:.4f}", flush=True)
+        print(f"  RLCD-Log Epoch {ep+1}/{epochs} Loss: {loss:.4f}", flush=True)
 
-    # ─── RUN CONDITION D: TWO-STAGE HYBRID (1 EP CE WARMUP + 2 EP RLCD) ───────
+    # ─── RUN CONDITION C: MIT RLCR (BOUNDED BRIER SCORE REWARD) ────────────────
     print("\n" + "─" * 60, flush=True)
-    print("CONDITION D: Two-Stage Hybrid (1 ep CE Warmup -> 2 ep RLCD)...", flush=True)
+    print("CONDITION C: Training MIT RLCR Bounded Brier (Damani et al., ICLR 2026)...", flush=True)
+    print("─" * 60, flush=True)
+    brier_model = copy.deepcopy(base_model).to(device)
+    rlcr_brier_cfg = RLCDConfig(
+        use_brier_rlcr=True,
+        brier_weight=1.0,
+        spherical_score_weight=0.5,
+        rps_weight=0.5,
+        exploration_sigma_start=0.12,
+        exploration_sigma_end=0.02,
+    )
+    brier_trainer = RLCDTrainer(brier_model, rlcr_brier_cfg, lr=5e-5, device=device)
+    brier_losses = []
+    for ep in range(epochs):
+        loss = brier_trainer.train_epoch(
+            train_examples=split.train_examples,
+            tokenizer=tokenizer,
+            marker_token_ids=marker_ids,
+            epoch_idx=ep,
+            total_epochs=epochs,
+            batch_size=batch_size,
+            log_interval=5,
+        )
+        brier_losses.append(loss)
+        print(f"  RLCR-Brier Epoch {ep+1}/{epochs} Loss: {loss:.4f}", flush=True)
+
+    # ─── RUN CONDITION D: TWO-STAGE HYBRID (1 EP CE WARMUP + 2 EP RLCR BRIER) ──
+    print("\n" + "─" * 60, flush=True)
+    print("CONDITION D: Two-Stage Hybrid (1 ep CE Warmup -> 2 ep RLCR Brier)...", flush=True)
     print("─" * 60, flush=True)
     hybrid_ce_trainer = CrossEntropyTrainer(hybrid_model, lr=1e-4, device=device)
     h_ce_loss = hybrid_ce_trainer.train_epoch(
@@ -134,7 +165,7 @@ def run_experiment():
     )
     print(f"  [Hybrid] Warmup CE Loss: {h_ce_loss:.4f}", flush=True)
 
-    hybrid_rlcd_trainer = RLCDTrainer(hybrid_model, rlcd_cfg, lr=5e-5, device=device)
+    hybrid_rlcd_trainer = RLCDTrainer(hybrid_model, rlcr_brier_cfg, lr=5e-5, device=device)
     for ep in range(2):
         loss = hybrid_rlcd_trainer.train_epoch(
             train_examples=split.train_examples,
@@ -144,14 +175,14 @@ def run_experiment():
             total_epochs=2,
             batch_size=batch_size,
         )
-        print(f"  [Hybrid] RLCD Epoch {ep+1}/2 Loss: {loss:.4f}", flush=True)
+        print(f"  [Hybrid] RLCR-Brier Epoch {ep+1}/2 Loss: {loss:.4f}", flush=True)
 
-    # ─── CONDITION C: RLCD + TEMPERATURE SCALING ───────────────────────────────
+    # ─── FIT REGULARIZED TEMPERATURE SCALING ON HYBRID MODEL ───────────────────
     print("\n" + "─" * 60, flush=True)
-    print("CONDITION C: Fitting Per-Cardinality Temperature Scaling...", flush=True)
+    print("Fitting Regularized Temperature Scaling on Hybrid Model...", flush=True)
     print("─" * 60, flush=True)
-    _, rlcd_val_logits, rlcd_val_labels = evaluate_dataset(
-        model=rlcd_model,
+    _, hyb_val_logits, hyb_val_labels = evaluate_dataset(
+        model=hybrid_model,
         examples=split.in_task_val_examples,
         tokenizer=tokenizer,
         marker_token_ids=marker_ids,
@@ -159,7 +190,7 @@ def run_experiment():
         device=device,
     )
     temp_scaler = CardinalityTemperatureScaler()
-    fitted_temps = temp_scaler.fit(rlcd_val_logits, rlcd_val_labels)
+    fitted_temps = temp_scaler.fit(hyb_val_logits, hyb_val_labels)
 
     # ─── DUAL EVALUATION (IN-TASK & ZERO-SHOT) FOR ALL CONDITIONS ──────────────
     print("\n" + "=" * 60, flush=True)
@@ -174,7 +205,7 @@ def run_experiment():
         ce_model, split.zero_shot_examples, tokenizer, marker_ids, batch_size, device=device
     )
 
-    # 2. RLCD In-Task & Zero-Shot
+    # 2. RLCD Log-Score In-Task & Zero-Shot
     rlcd_in_rep, rlcd_in_logits, _ = evaluate_dataset(
         rlcd_model, split.in_task_val_examples, tokenizer, marker_ids, batch_size, device=device
     )
@@ -182,15 +213,15 @@ def run_experiment():
         rlcd_model, split.zero_shot_examples, tokenizer, marker_ids, batch_size, device=device
     )
 
-    # 3. RLCD + TempScale In-Task & Zero-Shot
-    rlcd_ts_in_rep, _, _ = evaluate_dataset(
-        rlcd_model, split.in_task_val_examples, tokenizer, marker_ids, batch_size, temp_scaler=temp_scaler, device=device
+    # 3. MIT RLCR Brier In-Task & Zero-Shot
+    brier_in_rep, brier_in_logits, _ = evaluate_dataset(
+        brier_model, split.in_task_val_examples, tokenizer, marker_ids, batch_size, device=device
     )
-    rlcd_ts_zs_rep, _, _ = evaluate_dataset(
-        rlcd_model, split.zero_shot_examples, tokenizer, marker_ids, batch_size, temp_scaler=temp_scaler, device=device
+    brier_zs_rep, brier_zs_logits, _ = evaluate_dataset(
+        brier_model, split.zero_shot_examples, tokenizer, marker_ids, batch_size, device=device
     )
 
-    # 4. Two-Stage Hybrid (CE Warmup + RLCD)
+    # 4. Two-Stage Hybrid (CE Warmup + RLCR Brier)
     hyb_in_rep, _, _ = evaluate_dataset(
         hybrid_model, split.in_task_val_examples, tokenizer, marker_ids, batch_size, device=device
     )
@@ -198,15 +229,24 @@ def run_experiment():
         hybrid_model, split.zero_shot_examples, tokenizer, marker_ids, batch_size, device=device
     )
 
+    # 5. Hybrid + Regularized TempScale
+    hyb_ts_in_rep, _, _ = evaluate_dataset(
+        hybrid_model, split.in_task_val_examples, tokenizer, marker_ids, batch_size, temp_scaler=temp_scaler, device=device
+    )
+    hyb_ts_zs_rep, _, _ = evaluate_dataset(
+        hybrid_model, split.zero_shot_examples, tokenizer, marker_ids, batch_size, temp_scaler=temp_scaler, device=device
+    )
+
     # Print summary comparative table
-    print("\n" + "═" * 78, flush=True)
-    print(f"{'Condition':<25} | {'In-Task Acc':<12} | {'In-Task ECE':<12} | {'Zero-Shot Acc':<14} | {'Zero-Shot ECE':<14}", flush=True)
-    print("─" * 78, flush=True)
-    print(f"{'Cross-Entropy (Baseline)':<25} | {ce_in_rep.accuracy*100:>10.2f}% | {ce_in_rep.ece*100:>10.2f}% | {ce_zs_rep.accuracy*100:>12.2f}% | {ce_zs_rep.ece*100:>12.2f}%", flush=True)
-    print(f"{'RLCD Proper Scoring':<25} | {rlcd_in_rep.accuracy*100:>10.2f}% | {rlcd_in_rep.ece*100:>10.2f}% | {rlcd_zs_rep.accuracy*100:>12.2f}% | {rlcd_zs_rep.ece*100:>12.2f}%", flush=True)
-    print(f"{'RLCD + TempScale':<25} | {rlcd_ts_in_rep.accuracy*100:>10.2f}% | {rlcd_ts_in_rep.ece*100:>10.2f}% | {rlcd_ts_zs_rep.accuracy*100:>12.2f}% | {rlcd_ts_zs_rep.ece*100:>12.2f}%", flush=True)
-    print(f"{'Two-Stage (CE -> RLCD)':<25} | {hyb_in_rep.accuracy*100:>10.2f}% | {hyb_in_rep.ece*100:>10.2f}% | {hyb_zs_rep.accuracy*100:>12.2f}% | {hyb_zs_rep.ece*100:>12.2f}%", flush=True)
-    print("═" * 78, flush=True)
+    print("\n" + "═" * 80, flush=True)
+    print(f"{'Condition':<26} | {'In-Task Acc':<12} | {'In-Task ECE':<12} | {'Zero-Shot Acc':<14} | {'Zero-Shot ECE':<14}", flush=True)
+    print("─" * 80, flush=True)
+    print(f"{'1. Cross-Entropy Baseline':<26} | {ce_in_rep.accuracy*100:>10.2f}% | {ce_in_rep.ece*100:>10.2f}% | {ce_zs_rep.accuracy*100:>12.2f}% | {ce_zs_rep.ece*100:>12.2f}%", flush=True)
+    print(f"{'2. RLCD Log Score (TUM)':<26} | {rlcd_in_rep.accuracy*100:>10.2f}% | {rlcd_in_rep.ece*100:>10.2f}% | {rlcd_zs_rep.accuracy*100:>12.2f}% | {rlcd_zs_rep.ece*100:>12.2f}%", flush=True)
+    print(f"{'3. MIT RLCR (Bounded Brier)':<26} | {brier_in_rep.accuracy*100:>10.2f}% | {brier_in_rep.ece*100:>10.2f}% | {brier_zs_rep.accuracy*100:>12.2f}% | {brier_zs_rep.ece*100:>12.2f}%", flush=True)
+    print(f"{'4. Two-Stage (CE -> Brier)':<26} | {hyb_in_rep.accuracy*100:>10.2f}% | {hyb_in_rep.ece*100:>10.2f}% | {hyb_zs_rep.accuracy*100:>12.2f}% | {hyb_zs_rep.ece*100:>12.2f}%", flush=True)
+    print(f"{'5. Two-Stage + TempScale':<26} | {hyb_ts_in_rep.accuracy*100:>10.2f}% | {hyb_ts_in_rep.ece*100:>10.2f}% | {hyb_ts_zs_rep.accuracy*100:>12.2f}% | {hyb_ts_zs_rep.ece*100:>12.2f}%", flush=True)
+    print("═" * 80, flush=True)
 
     # ─── MECHANISTIC INTERPRETABILITY & LATENT EXTRACTION ──────────────────────
     print("\n[Interp] Extracting option-marker latent representations & geometry...", flush=True)
@@ -229,7 +269,19 @@ def run_experiment():
     figures_dir.mkdir(parents=True, exist_ok=True)
     plt.style.use("seaborn-v0_8-whitegrid" if "seaborn-v0_8-whitegrid" in plt.style.available else "default")
 
-    # FIGURE 1: Training Dynamics (CE vs RLCD)
+    def safe_savefig(target_path, **kwargs):
+        import time
+        for attempt in range(5):
+            try:
+                plt.savefig(str(target_path), **kwargs)
+                return
+            except (OSError, PermissionError) as e:
+                if attempt == 4:
+                    raise
+                print(f"  [Notice] File write retry {attempt+1}/5 on {target_path.name} ({e})", flush=True)
+                time.sleep(0.5)
+
+    # FIGURE 1: Training Dynamics (CE vs RLCD Log vs MIT RLCR Brier)
     print("Generating Fig 33: Training Dynamics...", flush=True)
     fig, ax = plt.subplots(1, 2, figsize=(14, 5), dpi=300)
     epochs_range = list(range(1, epochs + 1))
@@ -241,8 +293,9 @@ def run_experiment():
     ax[0].grid(True, alpha=0.3)
     ax[0].legend()
 
-    ax[1].plot(epochs_range, rlcd_losses, marker="s", color="#0275d8", linewidth=2.5, label="RLCD Loss (-Reward)")
-    ax[1].set_title("RLCD Proper Scoring Trajectory (Log + Spherical + RPS)", fontsize=13, fontweight="bold")
+    ax[1].plot(epochs_range, rlcd_losses, marker="s", color="#f0ad4e", linewidth=2.5, label="TUM RLCD Loss (Log + Sph + RPS)")
+    ax[1].plot(epochs_range, brier_losses, marker="^", color="#0275d8", linewidth=2.5, label="MIT RLCR Loss (Bounded Brier + Sph + RPS)")
+    ax[1].set_title("Proper Scoring Trajectories (TUM vs MIT)", fontsize=13, fontweight="bold")
     ax[1].set_xlabel("Epoch", fontsize=11)
     ax[1].set_ylabel("Loss (-Reward)", fontsize=11)
     ax[1].grid(True, alpha=0.3)
@@ -251,47 +304,52 @@ def run_experiment():
     plt.suptitle("Fig 33: Multi-Task Decision Training Dynamics (RTX 2060)", fontsize=15, fontweight="bold", y=1.02)
     plt.tight_layout()
     fig1_path = figures_dir / "fig33_rlcd_vs_ce_training_dynamics.png"
-    plt.savefig(fig1_path, bbox_inches="tight")
+    safe_savefig(fig1_path, bbox_inches="tight")
     plt.close()
 
     # FIGURE 2: Reliability Diagrams & Calibration (In-Task vs Zero-Shot)
     print("Generating Fig 34: Reliability Diagrams...", flush=True)
     fig, axes = plt.subplots(1, 2, figsize=(14, 6), dpi=300)
 
-    # Plot In-Task Calibration Curves
-    for ax, title, ce_rep, rlcd_rep, ts_rep in [
-        (axes[0], "In-Task Validation Calibration", ce_in_rep, rlcd_in_rep, rlcd_ts_in_rep),
-        (axes[1], "Zero-Shot Family Generalization Calibration", ce_zs_rep, rlcd_zs_rep, rlcd_ts_zs_rep),
+    # Plot In-Task & Zero-Shot Calibration Curves across literature methods
+    for a, title, ce_rep, tum_rep, brier_rep, ts_rep in [
+        (axes[0], "In-Task Validation Calibration", ce_in_rep, rlcd_in_rep, brier_in_rep, hyb_ts_in_rep),
+        (axes[1], "Zero-Shot Family Generalization Calibration", ce_zs_rep, rlcd_zs_rep, brier_zs_rep, hyb_ts_zs_rep),
     ]:
-        ax.plot([0, 1], [0, 1], "k--", alpha=0.6, label="Perfect Calibration (Ideal)")
+        a.plot([0, 1], [0, 1], "k--", alpha=0.6, label="Perfect Calibration (Ideal)")
 
         # CE curve
         ce_confs = [b.confidence for b in ce_rep.reliability_bins if b.count > 0]
         ce_accs = [b.accuracy for b in ce_rep.reliability_bins if b.count > 0]
-        ax.plot(ce_confs, ce_accs, "o-", color="#d9534f", linewidth=2, label=f"CE Baseline (ECE: {ce_rep.ece*100:.1f}%)")
+        a.plot(ce_confs, ce_accs, "o-", color="#d9534f", linewidth=2, label=f"CE Baseline (ECE: {ce_rep.ece*100:.1f}%)")
 
-        # RLCD curve
-        rlcd_confs = [b.confidence for b in rlcd_rep.reliability_bins if b.count > 0]
-        rlcd_accs = [b.accuracy for b in rlcd_rep.reliability_bins if b.count > 0]
-        ax.plot(rlcd_confs, rlcd_accs, "s-", color="#0275d8", linewidth=2, label=f"RLCD (ECE: {rlcd_rep.ece*100:.1f}%)")
+        # TUM Log curve
+        tum_confs = [b.confidence for b in tum_rep.reliability_bins if b.count > 0]
+        tum_accs = [b.accuracy for b in tum_rep.reliability_bins if b.count > 0]
+        a.plot(tum_confs, tum_accs, "x-.", color="#f0ad4e", linewidth=1.8, label=f"TUM RLCD Log (ECE: {tum_rep.ece*100:.1f}%)")
 
-        # RLCD + TempScale curve
+        # MIT Brier curve
+        brier_confs = [b.confidence for b in brier_rep.reliability_bins if b.count > 0]
+        brier_accs = [b.accuracy for b in brier_rep.reliability_bins if b.count > 0]
+        a.plot(brier_confs, brier_accs, "s-", color="#0275d8", linewidth=2, label=f"MIT RLCR Brier (ECE: {brier_rep.ece*100:.1f}%)")
+
+        # Two-Stage + TempScale curve
         ts_confs = [b.confidence for b in ts_rep.reliability_bins if b.count > 0]
         ts_accs = [b.accuracy for b in ts_rep.reliability_bins if b.count > 0]
-        ax.plot(ts_confs, ts_accs, "^-", color="#5cb85c", linewidth=2.5, label=f"RLCD + TempScale (ECE: {ts_rep.ece*100:.1f}%)")
+        a.plot(ts_confs, ts_accs, "^-", color="#5cb85c", linewidth=2.5, label=f"Two-Stage + TempScale (ECE: {ts_rep.ece*100:.1f}%)")
 
-        ax.set_title(title, fontsize=13, fontweight="bold")
-        ax.set_xlabel("Mean Predicted Confidence", fontsize=11)
-        ax.set_ylabel("Empirical Accuracy", fontsize=11)
-        ax.set_xlim(0.0, 1.0)
-        ax.set_ylim(0.0, 1.0)
-        ax.grid(True, alpha=0.3)
-        ax.legend(loc="lower right")
+        a.set_title(title, fontsize=13, fontweight="bold")
+        a.set_xlabel("Mean Predicted Confidence", fontsize=11)
+        a.set_ylabel("Empirical Accuracy", fontsize=11)
+        a.set_xlim(0.0, 1.0)
+        a.set_ylim(0.0, 1.0)
+        a.grid(True, alpha=0.3)
+        a.legend(loc="lower right")
 
     plt.suptitle("Fig 34: Reliability Diagrams & Expected Calibration Error (ECE)", fontsize=15, fontweight="bold", y=1.02)
     plt.tight_layout()
     fig2_path = figures_dir / "fig34_reliability_diagrams_calibration.png"
-    plt.savefig(fig2_path, bbox_inches="tight")
+    safe_savefig(fig2_path, bbox_inches="tight")
     plt.close()
 
     # FIGURE 3: Mechanistic Latent Geometry & Interp
@@ -316,12 +374,14 @@ def run_experiment():
         for j in range(len(sample_rep)):
             axes[0].text(j, i, f"{sim_matrix[i, j]:.2f}", ha="center", va="center", color="white" if sim_matrix[i, j] < 0.7 else "black")
 
-    # 2. Logit Margin Distributions (CE vs RLCD)
+    # 2. Logit Margin Distributions (CE vs TUM Log vs MIT Brier)
     ce_margins = [float(np.sort(l)[-1] - np.sort(l)[-2]) for l in ce_in_logits]
     rlcd_margins = [float(np.sort(l)[-1] - np.sort(l)[-2]) for l in rlcd_in_logits]
+    brier_margins = [float(np.sort(l)[-1] - np.sort(l)[-2]) for l in brier_in_logits]
 
-    axes[1].hist(ce_margins, bins=10, alpha=0.6, color="#d9534f", label="CE Margins (Peak Overconfidence)", density=True)
-    axes[1].hist(rlcd_margins, bins=10, alpha=0.6, color="#0275d8", label="RLCD Margins (Calibrated Spread)", density=True)
+    axes[1].hist(ce_margins, bins=10, alpha=0.5, color="#d9534f", label="CE (Overconfident Spike)", density=True)
+    axes[1].hist(rlcd_margins, bins=10, alpha=0.5, color="#f0ad4e", label="TUM Log (Conservative Spread)", density=True)
+    axes[1].hist(brier_margins, bins=10, alpha=0.5, color="#0275d8", label="MIT Brier (Smooth Dispersion)", density=True)
     axes[1].set_title("Top-1 vs Top-2 Logit Margin Distribution", fontsize=13, fontweight="bold")
     axes[1].set_xlabel("Margin (z_1 - z_2)", fontsize=11)
     axes[1].set_ylabel("Density", fontsize=11)
@@ -331,7 +391,7 @@ def run_experiment():
     plt.suptitle("Fig 35: Mechanistic Latent Geometry & Logit Margin Mechanics", fontsize=15, fontweight="bold", y=1.02)
     plt.tight_layout()
     fig3_path = figures_dir / "fig35_latent_geometry_and_mechanistic_interp.png"
-    plt.savefig(fig3_path, bbox_inches="tight")
+    safe_savefig(fig3_path, bbox_inches="tight")
     plt.close()
 
     # FIGURE 4: Risk-Coverage Selective Classification Frontiers
@@ -342,12 +402,14 @@ def run_experiment():
     cov_x = [float(k.replace("cov_", "")) * 100 for k in cov_keys]
 
     ce_cov_y = [ce_in_rep.risk_coverage.get(k, 0) * 100 for k in cov_keys]
-    rlcd_cov_y = [rlcd_in_rep.risk_coverage.get(k, 0) * 100 for k in cov_keys]
-    ts_cov_y = [rlcd_ts_in_rep.risk_coverage.get(k, 0) * 100 for k in cov_keys]
+    tum_cov_y = [rlcd_in_rep.risk_coverage.get(k, 0) * 100 for k in cov_keys]
+    brier_cov_y = [brier_in_rep.risk_coverage.get(k, 0) * 100 for k in cov_keys]
+    ts_cov_y = [hyb_ts_in_rep.risk_coverage.get(k, 0) * 100 for k in cov_keys]
 
     ax.plot(cov_x, ce_cov_y, "o--", color="#d9534f", linewidth=2, label="Cross-Entropy Baseline")
-    ax.plot(cov_x, rlcd_cov_y, "s-", color="#0275d8", linewidth=2.5, label="RLCD Proper Scoring")
-    ax.plot(cov_x, ts_cov_y, "^-", color="#5cb85c", linewidth=2.5, label="RLCD + TempScale (Pareto Optimal)")
+    ax.plot(cov_x, tum_cov_y, "x-.", color="#f0ad4e", linewidth=2, label="TUM RLCD Log")
+    ax.plot(cov_x, brier_cov_y, "s-", color="#0275d8", linewidth=2.5, label="MIT RLCR (Bounded Brier)")
+    ax.plot(cov_x, ts_cov_y, "^-", color="#5cb85c", linewidth=2.5, label="Two-Stage + TempScale (Pareto Optimal)")
 
     ax.set_title("Selective Classification Accuracy vs Coverage Budget", fontsize=13, fontweight="bold")
     ax.set_xlabel("Coverage Percentage (%) [Gated by Confidence Noul]", fontsize=11)
@@ -358,17 +420,35 @@ def run_experiment():
     plt.suptitle("Fig 36: Epistemic Risk-Coverage Pareto Frontier", fontsize=15, fontweight="bold", y=1.02)
     plt.tight_layout()
     fig4_path = figures_dir / "fig36_risk_coverage_pareto_frontiers.png"
-    plt.savefig(fig4_path, bbox_inches="tight")
+    safe_savefig(fig4_path, bbox_inches="tight")
     plt.close()
+
+    metrics_data = {
+        "ce_in_task": {"acc": ce_in_rep.accuracy, "ece": ce_in_rep.ece},
+        "ce_zero_shot": {"acc": ce_zs_rep.accuracy, "ece": ce_zs_rep.ece},
+        "tum_log_in_task": {"acc": rlcd_in_rep.accuracy, "ece": rlcd_in_rep.ece},
+        "tum_log_zero_shot": {"acc": rlcd_zs_rep.accuracy, "ece": rlcd_zs_rep.ece},
+        "mit_brier_in_task": {"acc": brier_in_rep.accuracy, "ece": brier_in_rep.ece},
+        "mit_brier_zero_shot": {"acc": brier_zs_rep.accuracy, "ece": brier_zs_rep.ece},
+        "two_stage_in_task": {"acc": hyb_in_rep.accuracy, "ece": hyb_in_rep.ece},
+        "two_stage_zero_shot": {"acc": hyb_zs_rep.accuracy, "ece": hyb_zs_rep.ece},
+        "two_stage_ts_in_task": {"acc": hyb_ts_in_rep.accuracy, "ece": hyb_ts_in_rep.ece},
+        "two_stage_ts_zero_shot": {"acc": hyb_ts_zs_rep.accuracy, "ece": hyb_ts_zs_rep.ece},
+    }
+    metrics_path = PROJECT_ROOT / "jev-vault" / "data" / "literature_comparative_metrics.json"
+    metrics_path.parent.mkdir(parents=True, exist_ok=True)
+    with open(metrics_path, "w", encoding="utf-8") as f:
+        json.dump(metrics_data, f, indent=2)
+    print(f"Comparative metrics saved to {metrics_path}", flush=True)
 
     print(f"\nAll publication figures successfully saved to {figures_dir}", flush=True)
     return {
         "ce_in_ece": ce_in_rep.ece,
         "ce_zs_ece": ce_zs_rep.ece,
-        "rlcd_in_ece": rlcd_in_rep.ece,
-        "rlcd_zs_ece": rlcd_zs_rep.ece,
-        "rlcd_ts_in_ece": rlcd_ts_in_rep.ece,
-        "rlcd_ts_zs_ece": rlcd_ts_zs_rep.ece,
+        "brier_in_ece": brier_in_rep.ece,
+        "brier_zs_ece": brier_zs_rep.ece,
+        "hyb_ts_in_ece": hyb_ts_in_rep.ece,
+        "hyb_ts_zs_ece": hyb_ts_zs_rep.ece,
         "figures": [str(fig1_path), str(fig2_path), str(fig3_path), str(fig4_path)],
     }
 

@@ -106,27 +106,90 @@ def ranked_probability_score(
         return -diff_mean
 
 
+def brier_score_reward(
+    probs: torch.Tensor,
+    labels: torch.Tensor,
+) -> torch.Tensor:
+    """
+    Brier Score Reward from MIT RLCR (Damani et al., ICLR 2026):
+        R_brier = 1_{y=y*} - sum_k (p_k - 1_{k=y*})^2
+
+    Theorem 1 (Damani et al., ICLR 2026):
+    Unlike logarithmic loss where S(p, 1) - S(p, 0) -> inf as p -> 0 causing
+    accuracy collapse in low-confidence regimes, the Brier score satisfies:
+        max_p [ S(p, 1) - S(p, 0) ] = 1 - 2p <= 1.0
+    guaranteeing that the expected reward is strictly monotonically increasing
+    in true accuracy p_y, eliminating the degenerate collapse pathology.
+    """
+    batch_size, max_k = probs.shape
+    one_hot = torch.zeros_like(probs)
+    one_hot.scatter_(1, labels.unsqueeze(1), 1.0)
+
+    # Squared error distance: ||p - e_y||^2
+    brier_penalty = torch.sum((probs - one_hot) ** 2, dim=1)
+
+    # Correctness indicator (top-1 accuracy)
+    top1 = torch.argmax(probs, dim=1)
+    correctness = (top1 == labels).float()
+
+    return correctness - brier_penalty
+
+
+def rewarding_doubt_score(
+    probs: torch.Tensor,
+    labels: torch.Tensor,
+    eps: float = 0.01,
+) -> torch.Tensor:
+    """
+    Clipped Rewarding Doubt Rule (Bani-Harouni et al., TUM 2026):
+        R = 1_{correct} * log(p_y) + 1_{incorrect} * log(1 - p_y)
+
+    Rewards the model for expressing high confidence when correct, but
+    actively rewards doubt (log(1 - p_y)) when the answer is incorrect.
+    Clipped at eps=0.01 to prevent unbounded logarithmic divergence.
+    """
+    top1 = torch.argmax(probs, dim=1)
+    is_correct = (top1 == labels).float()
+
+    p_y = probs.gather(dim=1, index=labels.unsqueeze(1)).squeeze(1)
+    p_clipped = p_y.clamp(min=eps, max=1.0 - eps)
+
+    reward_correct = torch.log(p_clipped)
+    reward_doubt = torch.log(1.0 - p_clipped)
+
+    return is_correct * reward_correct + (1.0 - is_correct) * reward_doubt
+
+
 def combined_reward(
     probs: torch.Tensor,
     labels: torch.Tensor,
     is_ordinal: torch.Tensor,
     num_options: Optional[torch.Tensor] = None,
+    use_brier_rlcr: bool = True,
     log_weight: float = 1.0,
     spherical_weight: float = 0.5,
     rps_weight: float = 0.5,
+    brier_weight: float = 1.0,
     normalize_by_cardinality: bool = True,
     eps: float = 1e-8,
 ) -> torch.Tensor:
     """
-    Combined strictly proper scoring rule reward with cardinality normalization.
+    Combined strictly proper scoring rule reward incorporating MIT RLCR (2026),
+    TUM Rewarding Doubt (2026), and TypeSafe RLCD formulations.
     """
-    r_log = log_score(
-        probs, labels, num_options=num_options,
-        normalize_by_cardinality=normalize_by_cardinality, eps=eps
-    )
-    r_sph = spherical_score(probs, labels, eps=eps)
-
-    reward = log_weight * r_log + spherical_weight * r_sph
+    if use_brier_rlcr:
+        # MIT RLCR: Brier reward + Spherical bounded reward
+        r_brier = brier_score_reward(probs, labels)
+        r_sph = spherical_score(probs, labels, eps=eps)
+        reward = brier_weight * r_brier + spherical_weight * r_sph
+    else:
+        # Log score + Spherical score
+        r_log = log_score(
+            probs, labels, num_options=num_options,
+            normalize_by_cardinality=normalize_by_cardinality, eps=eps
+        )
+        r_sph = spherical_score(probs, labels, eps=eps)
+        reward = log_weight * r_log + spherical_weight * r_sph
 
     if is_ordinal.any():
         r_rps = ranked_probability_score(probs, labels, num_options=num_options)
