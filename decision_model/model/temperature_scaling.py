@@ -116,20 +116,25 @@ class CardinalityTemperatureScaler(nn.Module):
                 param = self.log_T_11_plus
 
             optimizer = optim.LBFGS([param], lr=lr, max_iter=max_iter)
+            l2_reg = 0.1  # Prior shrinkage towards T = 1.0 (log_T = 0.0)
 
             def eval_closure():
                 optimizer.zero_grad()
                 loss = 0.0
-                T = torch.exp(param)
+                # Clamp log_param to prevent catastrophic temperature collapse (T in [0.5, 3.0])
+                T = torch.exp(param.clamp(min=-0.693, max=1.098))
                 for l_item, y_item in zip(b_logits, b_labels):
                     scaled_l = l_item / T
                     target = torch.tensor([y_item], dtype=torch.long)
                     loss = loss + F.cross_entropy(scaled_l.unsqueeze(0), target)
-                loss = loss / len(b_logits)
+                loss = (loss / len(b_logits)) + l2_reg * (param ** 2)
                 loss.backward()
                 return loss
 
             optimizer.step(eval_closure)
+            # Final clamped temperature value
+            with torch.no_grad():
+                param.clamp_(min=-0.693, max=1.098)
             fitted_temps[b_key] = torch.exp(param).item()
             print(
                 f"  Bucket [{b_key:>7s}]: {len(b_logits)} examples -> "

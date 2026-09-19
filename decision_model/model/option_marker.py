@@ -23,6 +23,7 @@ sys.stderr.reconfigure(encoding="utf-8", errors="replace")
 import string
 from typing import Optional
 from dataclasses import dataclass
+import numpy as np
 import torch
 from transformers import PreTrainedTokenizerBase
 
@@ -43,22 +44,54 @@ def get_option_markers(num_options: int) -> list[str]:
     return OPTION_MARKERS[:num_options]
 
 
-def format_prompt(example: JevExample) -> tuple[str, list[str]]:
+def format_prompt(
+    example: JevExample,
+    use_end_markers: bool = True,
+    shuffle_options: bool = False,
+    rng: Optional[np.random.RandomState] = None,
+) -> tuple[str, list[str], int]:
     """
-    Format a JevExample into a standardized prompt string with option markers.
+    Format a JevExample into a standardized prompt string.
+
+    When use_end_markers=True (End-Marker Causal Parity):
+      Presents all option texts first, then appends markers at the end.
+      This ensures all candidate representations attend over ALL option texts
+      simultaneously in causal decoders, eliminating position blindness.
+
+    When shuffle_options=True (Permutation Invariance):
+      Randomly permutes option order and remaps the ground truth label accordingly.
 
     Returns:
-        prompt_text: Full formatted text with context and markers
-        markers_used: List of option marker strings used (e.g. ['[OPT_A]', '[OPT_B]'])
+        prompt_text: Full formatted text
+        markers_used: List of option marker tokens
+        active_label: Correct label index (remapped if shuffled)
     """
-    markers = get_option_markers(len(example.options))
+    options = list(example.options)
+    label = example.label
 
-    lines = [example.instruction.strip(), "", "Options:"]
-    for marker, opt_text in zip(markers, example.options):
-        lines.append(f"{marker} {opt_text.strip()}")
+    if shuffle_options and len(options) > 1 and not example.is_ordinal:
+        # Permute non-ordinal options
+        if rng is None:
+            rng = np.random.RandomState()
+        perm = rng.permutation(len(options))
+        options = [options[i] for i in perm]
+        label = int(np.where(perm == example.label)[0][0])
+
+    markers = get_option_markers(len(options))
+
+    if use_end_markers:
+        lines = [example.instruction.strip(), "", "Candidate Options:"]
+        for letter, opt_text in zip(OPTION_LETTERS, options):
+            lines.append(f"({letter}) {opt_text.strip()}")
+        lines.append("")
+        lines.append("Decision: " + " ".join(markers))
+    else:
+        lines = [example.instruction.strip(), "", "Options:"]
+        for marker, opt_text in zip(markers, options):
+            lines.append(f"{marker} {opt_text.strip()}")
 
     prompt_text = "\n".join(lines)
-    return prompt_text, markers
+    return prompt_text, markers, label
 
 
 @dataclass
@@ -102,6 +135,9 @@ def encode_examples(
     marker_token_ids: list[int],
     max_length: int = 512,
     device: Optional[torch.device] = None,
+    use_end_markers: bool = True,
+    shuffle_options: bool = False,
+    rng: Optional[np.random.RandomState] = None,
 ) -> TokenizedBatch:
     """
     Encode a list of JevExamples into a TokenizedBatch.
@@ -114,10 +150,15 @@ def encode_examples(
     primitives = []
 
     for ex in examples:
-        text, _ = format_prompt(ex)
+        text, _, active_label = format_prompt(
+            ex,
+            use_end_markers=use_end_markers,
+            shuffle_options=shuffle_options,
+            rng=rng,
+        )
         prompts.append(text)
         num_opts.append(len(ex.options))
-        labels.append(ex.label)
+        labels.append(active_label)
         ordinals.append(ex.is_ordinal)
         primitives.append(ex.primitive)
 

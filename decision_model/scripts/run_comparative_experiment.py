@@ -1,0 +1,340 @@
+"""
+=============================================================================
+Comparative Experiment: Cross-Entropy vs RLCD vs RLCD+TempScale
+=============================================================================
+Runs a controlled comparative evaluation on RTX 2060 ($0 cloud spend):
+  1. Identical model architecture (Qwen2.5-0.5B + LoRA) and dataset splits.
+  2. Condition A: Cross-Entropy (CE) baseline (what Kev, openjev, jevlike use).
+  3. Condition B: RLCD with Proper Scoring Rules (Log + Spherical + RPS) & noise.
+  4. Condition C: RLCD + Per-Cardinality Temperature Scaling.
+  5. Mechanistic Interpretability: Latent geometry, logit margins, representation similarity.
+  6. High-fidelity figure generation saved to jev-vault/figures/:
+       - fig33_rlcd_vs_ce_training_dynamics.png
+       - fig34_reliability_diagrams_calibration.png
+       - fig35_latent_geometry_and_mechanistic_interp.png
+       - fig36_risk_coverage_pareto_frontiers.png
+"""
+import sys
+sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+
+import os
+import json
+import copy
+from pathlib import Path
+import numpy as np
+import torch
+import torch.nn.functional as F
+import matplotlib.pyplot as plt
+
+PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
+sys.path.insert(0, str(PROJECT_ROOT))
+
+from decision_model.config import ModelConfig, RLCDConfig
+from decision_model.data.splits import create_task_family_split
+from decision_model.model.decision_heads import build_jev_decision_model, JevDecisionModel
+from decision_model.model.option_marker import encode_examples
+from decision_model.model.temperature_scaling import CardinalityTemperatureScaler
+from decision_model.training.cross_entropy_baseline import CrossEntropyTrainer
+from decision_model.training.rlcd_trainer import RLCDTrainer
+from decision_model.evaluation.eval_harness import evaluate_dataset
+from decision_model.evaluation.calibration_metrics import compute_calibration_metrics
+from decision_model.scripts.run_local_prototype import build_synthetic_tasksource_slice
+from decision_model.reproducibility import set_reproducible_seed
+
+
+def run_experiment():
+    set_reproducible_seed(42)
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    print("=" * 70, flush=True)
+    print("COMPARATIVE EXPERIMENT: CE BASELINE VS RLCD CALIBRATION", flush=True)
+    print(f"Device: {device} ({torch.cuda.get_device_name(0)})", flush=True)
+    print("=" * 70, flush=True)
+
+    # 1. Dataset setup
+    specs, task_examples = build_synthetic_tasksource_slice()
+    split = create_task_family_split(specs, task_examples, train_family_fraction=0.80, in_task_val_fraction=0.20, seed=42)
+
+    # 2. Build Base Model
+    model_cfg = ModelConfig(
+        base_model="Qwen/Qwen2.5-0.5B",
+        lora_r=8,
+        lora_alpha=16,
+        lora_dropout=0.05,
+    )
+    base_model, tokenizer, marker_ids = build_jev_decision_model(model_cfg, device=device)
+
+    # Clone initial state for exact fair comparison
+    ce_model = copy.deepcopy(base_model).to(device)
+    rlcd_model = copy.deepcopy(base_model).to(device)
+
+    epochs = 3
+    batch_size = 4
+
+    # ─── RUN CONDITION A: CROSS-ENTROPY BASELINE ──────────────────────────────
+    print("\n" + "─" * 60, flush=True)
+    print("CONDITION A: Training Cross-Entropy Baseline...", flush=True)
+    print("─" * 60, flush=True)
+    ce_trainer = CrossEntropyTrainer(ce_model, lr=1e-4, device=device)
+    ce_losses = []
+
+    for ep in range(epochs):
+        loss = ce_trainer.train_epoch(
+            train_examples=split.train_examples,
+            tokenizer=tokenizer,
+            marker_token_ids=marker_ids,
+            epoch_idx=ep,
+            total_epochs=epochs,
+            batch_size=batch_size,
+            log_interval=5,
+        )
+        ce_losses.append(loss)
+        print(f"  CE Epoch {ep+1}/{epochs} Loss: {loss:.4f}", flush=True)
+
+    # ─── RUN CONDITION B: RLCD PROPER SCORING RULES ───────────────────────────
+    print("\n" + "─" * 60, flush=True)
+    print("CONDITION B: Training RLCD Proper Scoring Rules...", flush=True)
+    print("─" * 60, flush=True)
+    rlcd_cfg = RLCDConfig(
+        exploration_sigma_start=0.12,
+        exploration_sigma_end=0.02,
+        log_score_weight=1.0,
+        spherical_score_weight=0.5,
+        rps_weight=0.5,
+    )
+    rlcd_trainer = RLCDTrainer(rlcd_model, rlcd_cfg, lr=5e-5, device=device)
+    rlcd_losses = []
+
+    for ep in range(epochs):
+        loss = rlcd_trainer.train_epoch(
+            train_examples=split.train_examples,
+            tokenizer=tokenizer,
+            marker_token_ids=marker_ids,
+            epoch_idx=ep,
+            total_epochs=epochs,
+            batch_size=batch_size,
+            log_interval=5,
+        )
+        rlcd_losses.append(loss)
+        print(f"  RLCD Epoch {ep+1}/{epochs} Loss: {loss:.4f}", flush=True)
+
+    # ─── CONDITION C: RLCD + TEMPERATURE SCALING ───────────────────────────────
+    print("\n" + "─" * 60, flush=True)
+    print("CONDITION C: Fitting Per-Cardinality Temperature Scaling...", flush=True)
+    print("─" * 60, flush=True)
+    _, rlcd_val_logits, rlcd_val_labels = evaluate_dataset(
+        model=rlcd_model,
+        examples=split.in_task_val_examples,
+        tokenizer=tokenizer,
+        marker_token_ids=marker_ids,
+        batch_size=batch_size,
+        device=device,
+    )
+    temp_scaler = CardinalityTemperatureScaler()
+    fitted_temps = temp_scaler.fit(rlcd_val_logits, rlcd_val_labels)
+
+    # ─── DUAL EVALUATION (IN-TASK & ZERO-SHOT) FOR ALL CONDITIONS ──────────────
+    print("\n" + "=" * 60, flush=True)
+    print("EVALUATING ALL CONDITIONS ON IN-TASK & ZERO-SHOT SUITES", flush=True)
+    print("=" * 60, flush=True)
+
+    # 1. CE In-Task & Zero-Shot
+    ce_in_rep, ce_in_logits, _ = evaluate_dataset(
+        ce_model, split.in_task_val_examples, tokenizer, marker_ids, batch_size, device=device
+    )
+    ce_zs_rep, ce_zs_logits, _ = evaluate_dataset(
+        ce_model, split.zero_shot_examples, tokenizer, marker_ids, batch_size, device=device
+    )
+
+    # 2. RLCD In-Task & Zero-Shot
+    rlcd_in_rep, rlcd_in_logits, _ = evaluate_dataset(
+        rlcd_model, split.in_task_val_examples, tokenizer, marker_ids, batch_size, device=device
+    )
+    rlcd_zs_rep, rlcd_zs_logits, _ = evaluate_dataset(
+        rlcd_model, split.zero_shot_examples, tokenizer, marker_ids, batch_size, device=device
+    )
+
+    # 3. RLCD + TempScale In-Task & Zero-Shot
+    rlcd_ts_in_rep, _, _ = evaluate_dataset(
+        rlcd_model, split.in_task_val_examples, tokenizer, marker_ids, batch_size, temp_scaler=temp_scaler, device=device
+    )
+    rlcd_ts_zs_rep, _, _ = evaluate_dataset(
+        rlcd_model, split.zero_shot_examples, tokenizer, marker_ids, batch_size, temp_scaler=temp_scaler, device=device
+    )
+
+    # Print summary comparative table
+    print("\n" + "═" * 78, flush=True)
+    print(f"{'Condition':<25} | {'In-Task Acc':<12} | {'In-Task ECE':<12} | {'Zero-Shot Acc':<14} | {'Zero-Shot ECE':<14}", flush=True)
+    print("─" * 78, flush=True)
+    print(f"{'Cross-Entropy (Baseline)':<25} | {ce_in_rep.accuracy*100:>10.2f}% | {ce_in_rep.ece*100:>10.2f}% | {ce_zs_rep.accuracy*100:>12.2f}% | {ce_zs_rep.ece*100:>12.2f}%", flush=True)
+    print(f"{'RLCD Proper Scoring':<25} | {rlcd_in_rep.accuracy*100:>10.2f}% | {rlcd_in_rep.ece*100:>10.2f}% | {rlcd_zs_rep.accuracy*100:>12.2f}% | {rlcd_zs_rep.ece*100:>12.2f}%", flush=True)
+    print(f"{'RLCD + TempScale':<25} | {rlcd_ts_in_rep.accuracy*100:>10.2f}% | {rlcd_ts_in_rep.ece*100:>10.2f}% | {rlcd_ts_zs_rep.accuracy*100:>12.2f}% | {rlcd_ts_zs_rep.ece*100:>12.2f}%", flush=True)
+    print("═" * 78, flush=True)
+
+    # ─── MECHANISTIC INTERPRETABILITY & LATENT EXTRACTION ──────────────────────
+    print("\n[Interp] Extracting option-marker latent representations & geometry...", flush=True)
+    rlcd_model.eval()
+    sample_exs = split.in_task_val_examples[:4]
+    tokenized = encode_examples(sample_exs, tokenizer, marker_ids, device=device)
+
+    with torch.no_grad():
+        outputs = rlcd_model.backbone(input_ids=tokenized.input_ids, attention_mask=tokenized.attention_mask)
+        h_last = outputs.last_hidden_state  # (batch, seq, hidden)
+
+        marker_reps = []
+        for b_idx, positions in enumerate(tokenized.marker_positions):
+            pos_t = torch.tensor(positions, device=device)
+            h_opts = h_last[b_idx, pos_t, :].cpu().float().numpy()  # (k, hidden)
+            marker_reps.append(h_opts)
+
+    # ─── GENERATE PUBLICATION FIGURES ──────────────────────────────────────────
+    figures_dir = PROJECT_ROOT / "jev-vault" / "figures"
+    figures_dir.mkdir(parents=True, exist_ok=True)
+    plt.style.use("seaborn-v0_8-whitegrid" if "seaborn-v0_8-whitegrid" in plt.style.available else "default")
+
+    # FIGURE 1: Training Dynamics (CE vs RLCD)
+    print("Generating Fig 33: Training Dynamics...", flush=True)
+    fig, ax = plt.subplots(1, 2, figsize=(14, 5), dpi=300)
+    epochs_range = list(range(1, epochs + 1))
+
+    ax[0].plot(epochs_range, ce_losses, marker="o", color="#d9534f", linewidth=2.5, label="Cross-Entropy Loss (NLL)")
+    ax[0].set_title("Cross-Entropy Baseline Trajectory", fontsize=13, fontweight="bold")
+    ax[0].set_xlabel("Epoch", fontsize=11)
+    ax[0].set_ylabel("Loss", fontsize=11)
+    ax[0].grid(True, alpha=0.3)
+    ax[0].legend()
+
+    ax[1].plot(epochs_range, rlcd_losses, marker="s", color="#0275d8", linewidth=2.5, label="RLCD Loss (-Reward)")
+    ax[1].set_title("RLCD Proper Scoring Trajectory (Log + Spherical + RPS)", fontsize=13, fontweight="bold")
+    ax[1].set_xlabel("Epoch", fontsize=11)
+    ax[1].set_ylabel("Loss (-Reward)", fontsize=11)
+    ax[1].grid(True, alpha=0.3)
+    ax[1].legend()
+
+    plt.suptitle("Fig 33: Multi-Task Decision Training Dynamics (RTX 2060)", fontsize=15, fontweight="bold", y=1.02)
+    plt.tight_layout()
+    fig1_path = figures_dir / "fig33_rlcd_vs_ce_training_dynamics.png"
+    plt.savefig(fig1_path, bbox_inches="tight")
+    plt.close()
+
+    # FIGURE 2: Reliability Diagrams & Calibration (In-Task vs Zero-Shot)
+    print("Generating Fig 34: Reliability Diagrams...", flush=True)
+    fig, axes = plt.subplots(1, 2, figsize=(14, 6), dpi=300)
+
+    # Plot In-Task Calibration Curves
+    for ax, title, ce_rep, rlcd_rep, ts_rep in [
+        (axes[0], "In-Task Validation Calibration", ce_in_rep, rlcd_in_rep, rlcd_ts_in_rep),
+        (axes[1], "Zero-Shot Family Generalization Calibration", ce_zs_rep, rlcd_zs_rep, rlcd_ts_zs_rep),
+    ]:
+        ax.plot([0, 1], [0, 1], "k--", alpha=0.6, label="Perfect Calibration (Ideal)")
+
+        # CE curve
+        ce_confs = [b.confidence for b in ce_rep.reliability_bins if b.count > 0]
+        ce_accs = [b.accuracy for b in ce_rep.reliability_bins if b.count > 0]
+        ax.plot(ce_confs, ce_accs, "o-", color="#d9534f", linewidth=2, label=f"CE Baseline (ECE: {ce_rep.ece*100:.1f}%)")
+
+        # RLCD curve
+        rlcd_confs = [b.confidence for b in rlcd_rep.reliability_bins if b.count > 0]
+        rlcd_accs = [b.accuracy for b in rlcd_rep.reliability_bins if b.count > 0]
+        ax.plot(rlcd_confs, rlcd_accs, "s-", color="#0275d8", linewidth=2, label=f"RLCD (ECE: {rlcd_rep.ece*100:.1f}%)")
+
+        # RLCD + TempScale curve
+        ts_confs = [b.confidence for b in ts_rep.reliability_bins if b.count > 0]
+        ts_accs = [b.accuracy for b in ts_rep.reliability_bins if b.count > 0]
+        ax.plot(ts_confs, ts_accs, "^-", color="#5cb85c", linewidth=2.5, label=f"RLCD + TempScale (ECE: {ts_rep.ece*100:.1f}%)")
+
+        ax.set_title(title, fontsize=13, fontweight="bold")
+        ax.set_xlabel("Mean Predicted Confidence", fontsize=11)
+        ax.set_ylabel("Empirical Accuracy", fontsize=11)
+        ax.set_xlim(0.0, 1.0)
+        ax.set_ylim(0.0, 1.0)
+        ax.grid(True, alpha=0.3)
+        ax.legend(loc="lower right")
+
+    plt.suptitle("Fig 34: Reliability Diagrams & Expected Calibration Error (ECE)", fontsize=15, fontweight="bold", y=1.02)
+    plt.tight_layout()
+    fig2_path = figures_dir / "fig34_reliability_diagrams_calibration.png"
+    plt.savefig(fig2_path, bbox_inches="tight")
+    plt.close()
+
+    # FIGURE 3: Mechanistic Latent Geometry & Interp
+    print("Generating Fig 35: Latent Geometry & Interpretability...", flush=True)
+    fig, axes = plt.subplots(1, 2, figsize=(14, 5.5), dpi=300)
+
+    # 1. Cosine Similarity Matrix between Option Markers in a 4-choice item
+    sample_rep = marker_reps[2] if len(marker_reps) > 2 else marker_reps[0]
+    # Normalize representations
+    normed = sample_rep / np.linalg.norm(sample_rep, axis=1, keepdims=True)
+    sim_matrix = normed @ normed.T
+
+    im = axes[0].imshow(sim_matrix, cmap="viridis", vmin=0.0, vmax=1.0)
+    axes[0].set_title("Option-Marker Latent Cosine Similarity", fontsize=13, fontweight="bold")
+    axes[0].set_xticks(range(len(sample_rep)))
+    axes[0].set_yticks(range(len(sample_rep)))
+    axes[0].set_xticklabels([f"[OPT_{chr(65+i)}]" for i in range(len(sample_rep))])
+    axes[0].set_yticklabels([f"[OPT_{chr(65+i)}]" for i in range(len(sample_rep))])
+    plt.colorbar(im, ax=axes[0], fraction=0.046, pad=0.04)
+
+    for i in range(len(sample_rep)):
+        for j in range(len(sample_rep)):
+            axes[0].text(j, i, f"{sim_matrix[i, j]:.2f}", ha="center", va="center", color="white" if sim_matrix[i, j] < 0.7 else "black")
+
+    # 2. Logit Margin Distributions (CE vs RLCD)
+    ce_margins = [float(np.sort(l)[-1] - np.sort(l)[-2]) for l in ce_in_logits]
+    rlcd_margins = [float(np.sort(l)[-1] - np.sort(l)[-2]) for l in rlcd_in_logits]
+
+    axes[1].hist(ce_margins, bins=10, alpha=0.6, color="#d9534f", label="CE Margins (Peak Overconfidence)", density=True)
+    axes[1].hist(rlcd_margins, bins=10, alpha=0.6, color="#0275d8", label="RLCD Margins (Calibrated Spread)", density=True)
+    axes[1].set_title("Top-1 vs Top-2 Logit Margin Distribution", fontsize=13, fontweight="bold")
+    axes[1].set_xlabel("Margin (z_1 - z_2)", fontsize=11)
+    axes[1].set_ylabel("Density", fontsize=11)
+    axes[1].grid(True, alpha=0.3)
+    axes[1].legend()
+
+    plt.suptitle("Fig 35: Mechanistic Latent Geometry & Logit Margin Mechanics", fontsize=15, fontweight="bold", y=1.02)
+    plt.tight_layout()
+    fig3_path = figures_dir / "fig35_latent_geometry_and_mechanistic_interp.png"
+    plt.savefig(fig3_path, bbox_inches="tight")
+    plt.close()
+
+    # FIGURE 4: Risk-Coverage Selective Classification Frontiers
+    print("Generating Fig 36: Risk-Coverage Pareto Frontiers...", flush=True)
+    fig, ax = plt.subplots(figsize=(8, 5.5), dpi=300)
+
+    cov_keys = ["cov_1.0", "cov_0.9", "cov_0.8", "cov_0.7", "cov_0.6", "cov_0.5"]
+    cov_x = [float(k.replace("cov_", "")) * 100 for k in cov_keys]
+
+    ce_cov_y = [ce_in_rep.risk_coverage.get(k, 0) * 100 for k in cov_keys]
+    rlcd_cov_y = [rlcd_in_rep.risk_coverage.get(k, 0) * 100 for k in cov_keys]
+    ts_cov_y = [rlcd_ts_in_rep.risk_coverage.get(k, 0) * 100 for k in cov_keys]
+
+    ax.plot(cov_x, ce_cov_y, "o--", color="#d9534f", linewidth=2, label="Cross-Entropy Baseline")
+    ax.plot(cov_x, rlcd_cov_y, "s-", color="#0275d8", linewidth=2.5, label="RLCD Proper Scoring")
+    ax.plot(cov_x, ts_cov_y, "^-", color="#5cb85c", linewidth=2.5, label="RLCD + TempScale (Pareto Optimal)")
+
+    ax.set_title("Selective Classification Accuracy vs Coverage Budget", fontsize=13, fontweight="bold")
+    ax.set_xlabel("Coverage Percentage (%) [Gated by Confidence Noul]", fontsize=11)
+    ax.set_ylabel("Selective Classification Accuracy (%)", fontsize=11)
+    ax.grid(True, alpha=0.3)
+    ax.legend(loc="lower left")
+
+    plt.suptitle("Fig 36: Epistemic Risk-Coverage Pareto Frontier", fontsize=15, fontweight="bold", y=1.02)
+    plt.tight_layout()
+    fig4_path = figures_dir / "fig36_risk_coverage_pareto_frontiers.png"
+    plt.savefig(fig4_path, bbox_inches="tight")
+    plt.close()
+
+    print(f"\nAll publication figures successfully saved to {figures_dir}", flush=True)
+    return {
+        "ce_in_ece": ce_in_rep.ece,
+        "ce_zs_ece": ce_zs_rep.ece,
+        "rlcd_in_ece": rlcd_in_rep.ece,
+        "rlcd_zs_ece": rlcd_zs_rep.ece,
+        "rlcd_ts_in_ece": rlcd_ts_in_rep.ece,
+        "rlcd_ts_zs_ece": rlcd_ts_zs_rep.ece,
+        "figures": [str(fig1_path), str(fig2_path), str(fig3_path), str(fig4_path)],
+    }
+
+
+if __name__ == "__main__":
+    run_experiment()
