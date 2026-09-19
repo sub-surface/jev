@@ -190,8 +190,9 @@
       "omnisearch:Omnisearch": false
     }
   },
-  "active": "7f7b29ee079f6ce4",
+  "active": "8916fc568b1c073d",
   "lastOpenFiles": [
+    "docs/RLCD-Decision-Model-Architecture.md",
     "src/openjev_engine_v2.py",
     "src/New Python File.py",
     "Theory/Domain-C-Formal-Proof-Synthesis.md",
@@ -218,7 +219,6 @@
     "figures/eret_v1_selfplay.gif",
     "src/__pycache__/jev_autoresearch.cpython-312.pyc",
     "src/__pycache__/batched_bitter_mcts.cpython-312.pyc",
-    "src/__pycache__/fast_parallel_selfplay.cpython-312.pyc",
     "analysis/AUTORESEARCH_LEADERBOARD.md",
     "figures/game_epoch_2.gif",
     "figures/game_epoch_1.gif",
