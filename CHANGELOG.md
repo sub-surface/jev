@@ -4,6 +4,19 @@ All notable changes, architectural experiments, and deployment milestones for th
 
 ---
 
+## [v2.3.0] — 2026-09-19
+### 🎯 Multi-Task RLCD Scaled Cloud Run & Epistemic Calibration Breakthrough
+- **Cloud Infrastructure:** Scaled multi-task training on NVIDIA L40S (48GB Ada Lovelace) via serverless Modal cloud. Total training completed in **101.6 seconds** ($0.0550 compute spend, total dispatch $0.0681).
+- **Data Foundation:** Streaming ingestion of 15 diverse tasks from `tasksource/tasksource-instruct-v0` (3,073 examples) across NLI, QA, Paraphrase, and Other reasoning families.
+- **Zero-Shot Epistemic Preservation:** Eliminated cross-entropy zero-shot overconfidence collapse ($\text{ECE} = 87.81\% \to \mathbf{5.12\%}$, a **17.1x reduction in calibration error**).
+- **Zero Generalization Drop:** Out-of-domain evaluation on unseen `paraphrase` family reached **44.11% accuracy** (vs 43.94% in-task, $\Delta = -0.17\%$) and **5.12% ECE** (vs 6.86% in-task, $\Delta = -1.75\%$).
+- **Selective Risk-Coverage Monotonicity:** Confirmed calibrated quality scaling under Noul deferral: accuracy climbs to **57.69%** (in-task) and **53.85%** (zero-shot) at 10% coverage budget.
+- **Cardinality Temperature Scaling:** Fitted optimal softmax scaling per candidate cardinality: $T^*(2)=1.0000, T^*(3\text{--}5)=0.9439, T^*(6\text{--}10)=0.8625, T^*(11+)=0.8454$.
+- **Volume Checkpointing & Ledger:** Champion checkpoint persisted to Modal Volume `jev-model-artifacts/jev_qwen05b_rlcd_champion.pt`. Total cumulative Modal spend is **$0.1896 USD**, preserving **$27.7004 USD (99.32%)** of project budget.
+- **Publication Figures:** Generated and verified [Fig 37: Modal Scaled RLCD Multi-Task Generalization & Epistemic Calibration](file:///C:/Users/Leon/Desktop/Psychograph/jev/jev-vault/figures/fig37_modal_scaled_rlcd_generalization.png) and documented in `jev-vault/Experiments/EXP-005-Modal-L40S-Scaled-RLCD-MultiTask.md`.
+
+---
+
 ## [v2.2.0] — 2026-09-18
 ### 🚀 Permanent Cloudflare Edge & Zero-Idle Modal Deployment
 - **Edge Cockpit:** Deployed interactive chess cockpit and architecture explorer to [`https://jev.subsurfaces.net`](https://jev.subsurfaces.net) on Cloudflare Anycast Edge.

@@ -1,0 +1,2 @@
+{"timestamp": "2026-09-19T01:37:56.526296+00:00", "run_name": "modal_train_L40S_1789781652", "gpu_type": "L40S", "duration_seconds": 224.1650836467743, "cost_usd": 0.12142275364200274, "commit_hash": "", "config_hash": "", "notes": "tasks=15, ex=250, ce_ep=1, rlcd_ep=2"}
+{"timestamp": "2026-09-19T01:40:18.309459+00:00", "run_name": "modal_train_L40S_1789781892", "gpu_type": "L40S", "duration_seconds": 125.77597069740295, "cost_usd": 0.06812865079442659, "commit_hash": "", "config_hash": "", "notes": "tasks=15, ex=250, ce_ep=1, rlcd_ep=2"}

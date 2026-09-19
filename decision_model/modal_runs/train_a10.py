@@ -219,10 +219,10 @@ if modal is not None:
                     "fitted_temperatures": fitted_temps,
                     "config": model_cfg.__dict__,
                     "eval_summary": {
-                        "in_task_acc": eval_results.in_task_calibrated.accuracy,
-                        "in_task_ece": eval_results.in_task_calibrated.ece,
-                        "zero_shot_acc": eval_results.zero_shot_calibrated.accuracy,
-                        "zero_shot_ece": eval_results.zero_shot_calibrated.ece,
+                        "in_task_acc": eval_results["in_task"]["accuracy"],
+                        "in_task_ece": eval_results["in_task"]["ece"],
+                        "zero_shot_acc": eval_results["zero_shot"]["accuracy"],
+                        "zero_shot_ece": eval_results["zero_shot"]["ece"],
                     },
                 },
                 ckpt_path,
@@ -235,8 +235,8 @@ if modal is not None:
             print("\n" + "=" * 75, flush=True)
             print(f"MODAL TRAINING JOB COMPLETED SUCCESSFULLY in {elapsed_seconds:.1f}s ({elapsed_seconds/60:.2f} mins)", flush=True)
             print(f"Hardware: NVIDIA {gpu_name} | Compute Spend: ${cost_usd:.4f} USD", flush=True)
-            print(f"In-Task Accuracy:       {eval_results.in_task_calibrated.accuracy*100:.2f}% | ECE: {eval_results.in_task_calibrated.ece*100:.2f}%", flush=True)
-            print(f"Zero-Shot Family Acc:   {eval_results.zero_shot_calibrated.accuracy*100:.2f}% | ECE: {eval_results.zero_shot_calibrated.ece*100:.2f}%", flush=True)
+            print(f"In-Task Accuracy:       {eval_results['in_task']['accuracy']*100:.2f}% | ECE: {eval_results['in_task']['ece']*100:.2f}%", flush=True)
+            print(f"Zero-Shot Family Acc:   {eval_results['zero_shot']['accuracy']*100:.2f}% | ECE: {eval_results['zero_shot']['ece']*100:.2f}%", flush=True)
             print("=" * 75, flush=True)
 
             return {
@@ -244,10 +244,10 @@ if modal is not None:
                 "gpu": gpu_name,
                 "elapsed_seconds": elapsed_seconds,
                 "cost_usd": cost_usd,
-                "in_task_acc": eval_results.in_task_calibrated.accuracy,
-                "in_task_ece": eval_results.in_task_calibrated.ece,
-                "zero_shot_acc": eval_results.zero_shot_calibrated.accuracy,
-                "zero_shot_ece": eval_results.zero_shot_calibrated.ece,
+                "in_task_acc": eval_results["in_task"]["accuracy"],
+                "in_task_ece": eval_results["in_task"]["ece"],
+                "zero_shot_acc": eval_results["zero_shot"]["accuracy"],
+                "zero_shot_ece": eval_results["zero_shot"]["ece"],
                 "fitted_temperatures": fitted_temps,
             }
 
