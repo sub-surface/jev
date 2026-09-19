@@ -45,10 +45,6 @@ image = (
 LICHESS_API = "https://lichess.org"
 BOT_USERNAME = "jess-hyperbullet"
 LICHESS_TOKEN = os.environ.get("LICHESS_BOT_TOKEN", "")
-if not LICHESS_TOKEN and os.path.exists(".env"):
-    for line in open(".env"):
-        if line.startswith("LICHESS_BOT_TOKEN="):
-            LICHESS_TOKEN = line.strip().split("=", 1)[1].strip("\"'")
 
 HEADERS = {
     "Authorization": f"Bearer {LICHESS_TOKEN}",
@@ -195,6 +191,7 @@ def create_jev_model():
     timeout=3600,  # Max 1 hour run window per wakeup
     cpu=0.5,       # 0.5 CPU core = ~$0.0000065/sec
     memory=1024,   # 1 GB RAM
+    secrets=[modal.Secret.from_name("lichess-bot-secret")],
 )
 def run_bot_daemon(idle_timeout_seconds: int = 900):
     """

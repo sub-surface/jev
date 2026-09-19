@@ -33,17 +33,17 @@ flowchart TD
     
     KM_Update --> Pool[Flatten 64x8x8 = 4096]
     Pool --> Accum[Linear 4096 to 128 + LayerNorm]
-    Accum --> CReLU[CReLU Clamp [0, 1] - Guaranteed >= 50% Sparsity]
+    Accum --> CReLU["CReLU Clamp [0, 1] - Guaranteed >= 50% Sparsity"]
     
     subgraph Epistemic_Readouts ["Calibrated Readout Heads"]
-        CReLU --> ValHead[Value Head: V(s) in [-1, +1]]
-        CReLU --> PolHead[Policy Head: P(a|s) over 4096 Moves]
-        KM_Update --> NoulHead[Epistemic Sensor: Noul(s) in [0, 1]]
+        CReLU --> ValHead["Value Head: V(s) in [-1, +1]"]
+        CReLU --> PolHead["Policy Head: P(a|s) over 4096 Moves"]
+        KM_Update --> NoulHead["Epistemic Sensor: Noul(s) in [0, 1]"]
     end
     
-    NoulHead --> Gate{Epistemic Routing Gate<br/>Noul >= tau & Quiet?}
+    NoulHead --> Gate{"Epistemic Routing Gate<br/>Noul >= tau & Quiet?"}
     
-    Gate -->|YES: Positional Equilibrium| S0[System 0: Instant Reflex Move<br/>Latency < 1ms]
+    Gate -->|YES: Positional Equilibrium| S0["System 0: Instant Reflex Move<br/>Latency < 1ms"]
     Gate -->|NO: Tactical Crisis / Low Noul| S2[System 2: Quiescence Search<br/>Tactical Capture Tree Search]
     
     S0 --> Move([Executed Move])

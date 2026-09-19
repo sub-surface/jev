@@ -62,10 +62,16 @@ if modal is not None:
         batch_size: int,
         lr_ce: float,
         lr_rlcd: float,
+        base_model: str = "Qwen/Qwen3-4B",
+        lora_r: int = 32,
+        lora_alpha: int = 64,
     ) -> dict:
         import sys
         sys.stdout.reconfigure(encoding="utf-8", errors="replace")
         sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+
+        import os
+        os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
 
         import torch
         from decision_model.config import ModelConfig, RLCDConfig
@@ -80,8 +86,9 @@ if modal is not None:
         start_time = time.time()
         print("=" * 75, flush=True)
         print("MODAL SCALED CLOUD TRAINING: JEV CALIBRATED DECISION MODEL", flush=True)
+        print(f"Model: {base_model} | LoRA r={lora_r}, alpha={lora_alpha} (Gradient Checkpointing Enabled)", flush=True)
         print(f"Hardware: NVIDIA {gpu_name} | Rate: ${hourly_rate:.2f}/hr (${hourly_rate/3600.0:.6f}/sec)", flush=True)
-        print("Safety Watchdog: Max 20m wall-clock | Strict NaN/Inf loss kill-switch", flush=True)
+        print("Safety Watchdog: Max 30m wall-clock | Strict NaN/Inf loss kill-switch", flush=True)
         print("=" * 75, flush=True)
 
         device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -121,12 +128,13 @@ if modal is not None:
             print(f"  Zero-shot:    {len(split.zero_shot_examples)} examples ({len(split.zero_shot_families)} families: {split.zero_shot_families})", flush=True)
 
             # 3. Model Initialization
-            print("\n[3/6] Initializing Qwen2.5-0.5B + LoRA + OptionScorer...", flush=True)
+            print(f"\n[3/6] Initializing {base_model} + LoRA (r={lora_r}) + OptionScorer...", flush=True)
             model_cfg = ModelConfig(
-                base_model="Qwen/Qwen2.5-0.5B",
-                lora_r=16,
-                lora_alpha=32,
+                base_model=base_model,
+                lora_r=lora_r,
+                lora_alpha=lora_alpha,
                 lora_dropout=0.05,
+                gradient_checkpointing=True,
             )
             model, tokenizer, marker_ids = build_jev_decision_model(model_cfg, device=device)
             vram_init = torch.cuda.memory_allocated() / (1024**3)
@@ -135,8 +143,8 @@ if modal is not None:
             # Watchdog check
             def check_watchdog(step_name: str):
                 elapsed = time.time() - start_time
-                if elapsed > 1200:  # 20 minutes limit
-                    raise TimeoutError(f"Safety watchdog limit (20 min) exceeded at step '{step_name}'. Self-terminating!")
+                if elapsed > 4800:  # 80 minutes limit
+                    raise TimeoutError(f"Safety watchdog limit (80 min) exceeded at step '{step_name}'. Self-terminating!")
 
             # 4. Stage 1: Cross-Entropy Warmup
             print(f"\n[4/6] Stage 1: Cross-Entropy Warmup ({ce_epochs} epochs, lr={lr_ce}, batch_size={batch_size})...", flush=True)
@@ -184,6 +192,22 @@ if modal is not None:
                 vram_ep = torch.cuda.memory_allocated() / (1024**3)
                 print(f"  RLCD Epoch {ep+1}/{rlcd_epochs} Loss: {rlcd_loss:.4f} | VRAM: {vram_ep:.2f} GB", flush=True)
 
+            # Immediate weights persistence to volume right after training
+            clean_name = base_model.replace("/", "_").replace(".", "").lower()
+            ckpt_path = artifacts_dir / f"jev_{clean_name}_rlcd_champion.pt"
+            torch.save(
+                {
+                    "scorer_state_dict": model.scorer.state_dict(),
+                    "config": model_cfg.__dict__,
+                },
+                ckpt_path,
+            )
+            print(f"\n[Artifact] Trained weights checkpoint saved to {ckpt_path}", flush=True)
+            try:
+                volume.commit()
+            except Exception as e:
+                print(f"Intermediate volume commit notice: {e}", flush=True)
+
             # 6. Stage 3: Fit Cardinality Temperature Scaler
             print("\n[6/6] Stage 3: Fitting Cardinality Temperature Scaler on In-Task Validation...", flush=True)
             check_watchdog("Temp_Scaling")
@@ -211,23 +235,21 @@ if modal is not None:
                 output_dir=artifacts_dir,
             )
 
-            # Save champion checkpoint
-            ckpt_path = artifacts_dir / "jev_qwen05b_rlcd_champion.pt"
-            torch.save(
-                {
-                    "scorer_state_dict": model.scorer.state_dict(),
-                    "fitted_temperatures": fitted_temps,
-                    "config": model_cfg.__dict__,
-                    "eval_summary": {
-                        "in_task_acc": eval_results["in_task"]["accuracy"],
-                        "in_task_ece": eval_results["in_task"]["ece"],
-                        "zero_shot_acc": eval_results["zero_shot"]["accuracy"],
-                        "zero_shot_ece": eval_results["zero_shot"]["ece"],
-                    },
+            # Save champion checkpoint with complete evaluation and fitted temperatures
+            state_payload = {
+                "scorer_state_dict": model.scorer.state_dict(),
+                "fitted_temperatures": fitted_temps,
+                "config": model_cfg.__dict__,
+                "eval_summary": {
+                    "in_task_acc": eval_results["in_task"]["accuracy"],
+                    "in_task_ece": eval_results["in_task"]["ece"],
+                    "zero_shot_acc": eval_results["zero_shot"]["accuracy"],
+                    "zero_shot_ece": eval_results["zero_shot"]["ece"],
                 },
-                ckpt_path,
-            )
-            print(f"\nChampion model checkpoint successfully saved to {ckpt_path}", flush=True)
+            }
+            torch.save(state_payload, ckpt_path)
+            torch.save(state_payload, artifacts_dir / "jev_champion_latest.pt")
+            print(f"\nChampion model checkpoint successfully saved to {ckpt_path} and jev_champion_latest.pt", flush=True)
 
             elapsed_seconds = time.time() - start_time
             cost_usd = elapsed_seconds * (hourly_rate / 3600.0)
@@ -271,20 +293,24 @@ if modal is not None:
         image=train_image,
         gpu="A10G",
         volumes={"/artifacts": volume},
-        timeout=1800,  # 30 min strict timeout
+        timeout=3600,  # 60 min strict timeout
     )
     def train_on_modal_a10g(
-        num_tasks: int = 15,
-        examples_per_task: int = 250,
+        base_model: str = "Qwen/Qwen3-4B",
+        num_tasks: int = 20,
+        examples_per_task: int = 350,
         ce_epochs: int = 1,
         rlcd_epochs: int = 2,
-        batch_size: int = 8,
-        lr_ce: float = 2e-4,
-        lr_rlcd: float = 5e-5,
+        batch_size: int = 16,
+        lr_ce: float = 1e-4,
+        lr_rlcd: float = 3e-5,
+        lora_r: int = 32,
+        lora_alpha: int = 64,
     ) -> dict:
         return _run_cloud_pipeline(
             gpu_name="A10G",
             hourly_rate=1.10,
+            base_model=base_model,
             num_tasks=num_tasks,
             examples_per_task=examples_per_task,
             ce_epochs=ce_epochs,
@@ -292,6 +318,8 @@ if modal is not None:
             batch_size=batch_size,
             lr_ce=lr_ce,
             lr_rlcd=lr_rlcd,
+            lora_r=lora_r,
+            lora_alpha=lora_alpha,
         )
 
 
@@ -299,20 +327,24 @@ if modal is not None:
         image=train_image,
         gpu="L40S",
         volumes={"/artifacts": volume},
-        timeout=1800,  # 30 min strict timeout
+        timeout=5400,  # 90 min strict timeout
     )
     def train_on_modal_l40s(
-        num_tasks: int = 15,
-        examples_per_task: int = 250,
+        base_model: str = "Qwen/Qwen3-4B",
+        num_tasks: int = 20,
+        examples_per_task: int = 350,
         ce_epochs: int = 1,
         rlcd_epochs: int = 2,
-        batch_size: int = 16,
-        lr_ce: float = 2e-4,
-        lr_rlcd: float = 5e-5,
+        batch_size: int = 20,
+        lr_ce: float = 1e-4,
+        lr_rlcd: float = 3e-5,
+        lora_r: int = 32,
+        lora_alpha: int = 64,
     ) -> dict:
         return _run_cloud_pipeline(
             gpu_name="L40S",
             hourly_rate=1.95,
+            base_model=base_model,
             num_tasks=num_tasks,
             examples_per_task=examples_per_task,
             ce_epochs=ce_epochs,
@@ -320,34 +352,29 @@ if modal is not None:
             batch_size=batch_size,
             lr_ce=lr_ce,
             lr_rlcd=lr_rlcd,
+            lora_r=lora_r,
+            lora_alpha=lora_alpha,
         )
 
 
     @app.local_entrypoint()
     def main(
-        gpu_type: str = "A10G",
-        num_tasks: int = 15,
-        examples_per_task: int = 250,
+        gpu_type: str = "L40S",
+        base_model: str = "Qwen/Qwen3-4B",
+        num_tasks: int = 20,
+        examples_per_task: int = 350,
         ce_epochs: int = 1,
         rlcd_epochs: int = 2,
-        batch_size: int = 8,
-        lr_ce: float = 2e-4,
-        lr_rlcd: float = 5e-5,
+        batch_size: int = 20,
+        lr_ce: float = 1e-4,
+        lr_rlcd: float = 3e-5,
+        lora_r: int = 32,
+        lora_alpha: int = 64,
     ):
         if gpu_type.upper() == "L40S":
-            print("Targeting NVIDIA L40S (48GB Ada Lovelace)...", flush=True)
+            print(f"Targeting NVIDIA L40S (48GB Ada Lovelace) with {base_model}...", flush=True)
             result = train_on_modal_l40s.remote(
-                num_tasks=num_tasks,
-                examples_per_task=examples_per_task,
-                ce_epochs=ce_epochs,
-                rlcd_epochs=rlcd_epochs,
-                batch_size=batch_size if batch_size != 8 else 16,
-                lr_ce=lr_ce,
-                lr_rlcd=lr_rlcd,
-            )
-        else:
-            print("Targeting NVIDIA A10G (24GB Ampere)...", flush=True)
-            result = train_on_modal_a10g.remote(
+                base_model=base_model,
                 num_tasks=num_tasks,
                 examples_per_task=examples_per_task,
                 ce_epochs=ce_epochs,
@@ -355,6 +382,22 @@ if modal is not None:
                 batch_size=batch_size,
                 lr_ce=lr_ce,
                 lr_rlcd=lr_rlcd,
+                lora_r=lora_r,
+                lora_alpha=lora_alpha,
+            )
+        else:
+            print(f"Targeting NVIDIA A10G (24GB Ampere) with {base_model}...", flush=True)
+            result = train_on_modal_a10g.remote(
+                base_model=base_model,
+                num_tasks=num_tasks,
+                examples_per_task=examples_per_task,
+                ce_epochs=ce_epochs,
+                rlcd_epochs=rlcd_epochs,
+                batch_size=batch_size,
+                lr_ce=lr_ce,
+                lr_rlcd=lr_rlcd,
+                lora_r=lora_r,
+                lora_alpha=lora_alpha,
             )
 
         print("\nCloud execution returned:", flush=True)

@@ -43,6 +43,9 @@ def main():
     parser.add_argument("--lr-ce", type=float, default=2e-4, help="Learning rate for CE warmup")
     parser.add_argument("--lr-rlcd", type=float, default=5e-5, help="Learning rate for RLCD")
     parser.add_argument("--gpu-type", type=str, default="A10G", choices=["A10G", "L40S"], help="Modal GPU type")
+    parser.add_argument("--base-model", type=str, default="Qwen/Qwen3-4B", help="HuggingFace base model")
+    parser.add_argument("--lora-r", type=int, default=32, help="LoRA rank")
+    parser.add_argument("--lora-alpha", type=int, default=64, help="LoRA alpha")
     parser.add_argument("--dry-run", action="store_true", help="Print command and estimated cost without launching")
     args = parser.parse_args()
 
@@ -52,13 +55,20 @@ def main():
 
     # Hourly rate
     rate_hr = 1.10 if args.gpu_type == "A10G" else 1.95
-    # High-throughput batching estimate (~10-15 mins wall clock)
-    est_hours = 0.15 + 0.05 * (args.ce_epochs + args.rlcd_epochs)
+    # Accurate throughput-based estimate
+    est_examples = args.tasks * args.examples
+    est_batches_per_ep = est_examples / max(1, args.batch_size)
+    sec_per_batch = 1.0 if args.gpu_type == "L40S" else 1.8
+    est_train_sec = est_batches_per_ep * sec_per_batch * (args.ce_epochs + args.rlcd_epochs)
+    est_seconds = 180 + est_train_sec
+    est_hours = est_seconds / 3600.0
     est_cost = est_hours * rate_hr
 
     print("=" * 70, flush=True)
     print("MODAL SCALED TRAINING PRE-FLIGHT CHECK", flush=True)
     print("=" * 70, flush=True)
+    print(f"Base Model:          {args.base_model}", flush=True)
+    print(f"LoRA Rank / Alpha:   r={args.lora_r}, alpha={args.lora_alpha}", flush=True)
     print(f"Total Budget:        ${budget_cfg.total_budget:.2f} USD", flush=True)
     print(f"Cumulative Spend:    ${cum_spend:.4f} USD", flush=True)
     print(f"Remaining Budget:    ${remaining:.4f} USD", flush=True)
@@ -89,6 +99,7 @@ def main():
         "run",
         str(modal_script),
         "--gpu-type", args.gpu_type,
+        "--base-model", args.base_model,
         "--num-tasks", str(args.tasks),
         "--examples-per-task", str(args.examples),
         "--ce-epochs", str(args.ce_epochs),
@@ -96,6 +107,8 @@ def main():
         "--batch-size", str(args.batch_size),
         "--lr-ce", str(args.lr_ce),
         "--lr-rlcd", str(args.lr_rlcd),
+        "--lora-r", str(args.lora_r),
+        "--lora-alpha", str(args.lora_alpha),
     ]
 
     print(f"Executing: {' '.join(cmd)}", flush=True)

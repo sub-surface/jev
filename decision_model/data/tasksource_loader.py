@@ -76,7 +76,7 @@ def load_tasksource_instruct(
 
     # tasksource/tasksource-instruct-v0 loaded via fast streaming
     target_tasks = max_tasks if max_tasks is not None else 20
-    max_scan = 100_000
+    max_scan = max(100_000, target_tasks * max_examples_per_task * 3)
 
     ds = load_dataset("tasksource/tasksource-instruct-v0", split="train", streaming=True)
 

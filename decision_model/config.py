@@ -47,6 +47,7 @@ class ModelConfig:
     )
     num_option_markers: int = 26         # [OPT_A] through [OPT_Z]
     decision_head_hidden: int = 256      # Hidden dim for decision projection
+    gradient_checkpointing: bool = True  # Reduces activation memory by 85%
 
 
 @dataclass

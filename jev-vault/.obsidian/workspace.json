@@ -11,14 +11,12 @@
             "id": "7f7b29ee079f6ce4",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "image",
               "state": {
-                "file": "Theory/Epiplexity-and-Bounded-Information.md",
-                "mode": "preview",
-                "source": false
+                "file": "figures/h100_epoch_5.gif"
               },
-              "icon": "lucide-file",
-              "title": "Epiplexity-and-Bounded-Information"
+              "icon": "lucide-image",
+              "title": "h100_epoch_5"
             }
           }
         ]
@@ -99,7 +97,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Theory/Epiplexity-and-Bounded-Information.md",
+                "file": "figures/h100_epoch_5.gif",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -118,7 +116,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Theory/Epiplexity-and-Bounded-Information.md",
+                "file": "figures/h100_epoch_5.gif",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
@@ -161,7 +159,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Theory/Epiplexity-and-Bounded-Information.md",
+                "file": "figures/h100_epoch_5.gif",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -190,17 +188,32 @@
       "omnisearch:Omnisearch": false
     }
   },
-  "active": "8916fc568b1c073d",
+  "active": "7f7b29ee079f6ce4",
   "lastOpenFiles": [
-    "Literature/Rewarding Doubt A Reinforcement Learning Approach to Calibrated Confidence Expression of Large Language Models.md",
+    "Experiments/EXP-006-Modal-L40S-Scaled-Qwen3-4B.md",
+    "figures/fig38_qwen3_4b_scaling_and_calibration.png",
+    "Plans/PLAN-002-Chinchilla-Optimal-Decision-Foundation.md",
+    "Plans",
+    "Theory/Post_Training_Epistemic_Regimes.md",
+    "Experiments/EXP-005-Modal-L40S-Scaled-RLCD-MultiTask.md",
+    "figures/fig37_modal_scaled_rlcd_generalization.png",
+    "data/literature_comparative_metrics.json",
+    "data",
     "figures/fig36_risk_coverage_pareto_frontiers.png",
+    "Theory/Epiplexity-and-Bounded-Information.md",
+    "Literature/NeurIPS-2019-verified-uncertainty-calibration-Paper.pdf",
+    "Literature/malik19a.pdf",
+    "Literature/2026.findings-acl.610.pdf",
+    "Literature/2510.08226v2.pdf",
+    "Literature/2509.25760v2.pdf",
+    "Literature/ICLR-2026-beyond-binary-rewards-training-lms-to-reason-about-their-uncertainty-Paper-Conference.pdf",
+    "Literature/Rewarding Doubt A Reinforcement Learning Approach to Calibrated Confidence Expression of Large Language Models.md",
     "figures/fig35_latent_geometry_and_mechanistic_interp.png",
     "figures/fig34_reliability_diagrams_calibration.png",
     "figures/fig33_rlcd_vs_ce_training_dynamics.png",
     "Theory/RLCD_Physics_and_Gradient_Dynamics.md",
     "docs/RLCD-Decision-Model-Architecture.md",
     "src/openjev_engine_v2.py",
-    "src/New Python File.py",
     "Theory/Domain-C-Formal-Proof-Synthesis.md",
     "Theory/Leela-Style-TriProcess-Training.md",
     "Theory/Domain-B-Cellular-Automata-ARC.md",
@@ -211,23 +224,13 @@
     "Theory/Beyond-Next-Token-Prediction-and-Looped-Architectures.md",
     "Index.md",
     "analysis/Analysis_Dashboard.md",
-    "src/openjev_engine.py",
-    "src/__pycache__/stockfish_validator.cpython-312.pyc",
     "docs/modalpricing.md",
     "Literature/RLCD Reinforcement Learning from Contrastive Distillation for LM Alignment.md",
     "figures/stockfish_match_game_2.gif",
     "figures/stockfish_match_game_1.gif",
-    "src/stockfish_validator.py",
     "figures/h100_epoch_5.gif",
-    "modal_cloud/modal_train_eret_large_scale.py",
-    "analysis/jev_champion.pt",
-    "src/train_eret_tactical_curriculum.py",
     "figures/eret_v1_selfplay.gif",
-    "src/__pycache__/jev_autoresearch.cpython-312.pyc",
-    "src/__pycache__/batched_bitter_mcts.cpython-312.pyc",
     "analysis/AUTORESEARCH_LEADERBOARD.md",
-    "figures/game_epoch_2.gif",
-    "figures/game_epoch_1.gif",
     "Permanent-Bot-Hosting-Guide.md",
     "Lichess-Bot-Guide.md",
     "Architectures/Jev-Gated-Residual-JGR.md",

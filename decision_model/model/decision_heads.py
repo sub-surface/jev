@@ -64,6 +64,7 @@ class JevDecisionModel(nn.Module):
         target_modules: Optional[list[str]] = None,
         head_hidden: int = 256,
         torch_dtype: torch.dtype = torch.bfloat16 if torch.cuda.is_bf16_supported() else torch.float16,
+        gradient_checkpointing: bool = False,
     ):
         super().__init__()
         self.base_model_name = base_model_name
@@ -82,6 +83,8 @@ class JevDecisionModel(nn.Module):
         # Apply LoRA if requested
         if use_lora:
             targets = target_modules or ["q_proj", "k_proj", "v_proj", "o_proj"]
+            if gradient_checkpointing:
+                self.backbone.enable_input_require_grads()
             peft_config = LoraConfig(
                 r=lora_r,
                 lora_alpha=lora_alpha,
@@ -90,6 +93,9 @@ class JevDecisionModel(nn.Module):
                 bias="none",
             )
             self.backbone = get_peft_model(self.backbone, peft_config)
+            if gradient_checkpointing:
+                self.backbone.gradient_checkpointing_enable()
+                print("Gradient checkpointing enabled on backbone (activation memory reduced by ~85%).", flush=True)
             print("LoRA adapter attached. Trainable parameters:", flush=True)
             self.backbone.print_trainable_parameters()
 
@@ -145,27 +151,43 @@ class JevDecisionModel(nn.Module):
         batch: TokenizedBatch,
     ) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
         """
-        Padded forward pass returning dense tensors for vectorized loss computation.
+        High-performance batched forward pass returning dense tensors for vectorized loss computation.
+        Uses batched GPU gather to extract all option marker representations in a single GPU operation.
 
         Returns:
             padded_logits: (batch, max_k) with -inf mask on invalid options
             padded_probs: (batch, max_k) with 0.0 mask on invalid options
             valid_mask: (batch, max_k) boolean mask
         """
-        batch_logits, batch_probs = self.forward_batch(batch)
-        batch_size = len(batch_logits)
-        max_k = max(len(l) for l in batch_logits)
-        device = batch.input_ids.device
+        outputs = self.backbone(
+            input_ids=batch.input_ids,
+            attention_mask=batch.attention_mask,
+        )
+        last_hidden = outputs.last_hidden_state  # (batch, seq_len, hidden_size)
 
-        padded_logits = torch.full((batch_size, max_k), float("-inf"), device=device, dtype=torch.float32)
-        padded_probs = torch.zeros((batch_size, max_k), device=device, dtype=torch.float32)
+        batch_size = len(batch.marker_positions)
+        max_k = max(len(p) for p in batch.marker_positions)
+        device = last_hidden.device
+
+        padded_pos = torch.zeros((batch_size, max_k), device=device, dtype=torch.long)
         valid_mask = torch.zeros((batch_size, max_k), device=device, dtype=torch.bool)
-
-        for b in range(batch_size):
-            k = len(batch_logits[b])
-            padded_logits[b, :k] = batch_logits[b].to(torch.float32)
-            padded_probs[b, :k] = batch_probs[b].to(torch.float32)
+        for b, pos in enumerate(batch.marker_positions):
+            k = len(pos)
+            padded_pos[b, :k] = torch.tensor(pos, device=device, dtype=torch.long)
             valid_mask[b, :k] = True
+
+        pos_expanded = padded_pos.unsqueeze(-1).expand(-1, -1, last_hidden.size(-1))
+        h_opts = torch.gather(last_hidden, dim=1, index=pos_expanded)  # (batch, max_k, hidden_size)
+
+        # Single batched forward pass through OptionScorer
+        logits = self.scorer(h_opts)  # (batch, max_k)
+        padded_logits = torch.where(
+            valid_mask,
+            logits.to(torch.float32),
+            torch.tensor(float("-inf"), device=device, dtype=torch.float32),
+        )
+        padded_probs = F.softmax(padded_logits, dim=-1)
+        padded_probs = torch.where(valid_mask, padded_probs, torch.zeros_like(padded_probs))
 
         return padded_logits, padded_probs, valid_mask
 
@@ -193,6 +215,7 @@ def build_jev_decision_model(
         lora_dropout=config.lora_dropout,
         target_modules=config.lora_target_modules,
         head_hidden=config.decision_head_hidden,
+        gradient_checkpointing=getattr(config, "gradient_checkpointing", True),
     )
 
     # Resize token embeddings to include [OPT_A]..[OPT_Z]
