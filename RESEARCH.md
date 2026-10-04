@@ -173,6 +173,24 @@ Each experiment lives in `experiments/eNNN_*`. Each has:
 - No `modal run` / `modal deploy` without a written note in the experiment README, covering: why a laptop can't do it, the expected cost, and the kill criteria.
 - Nothing above E003 needs cloud.
 
+
+## Decisions and the next queue (2026-10-04, end of session)
+
+**Owner decisions:**
+- The SGD-vs-structure gap on Golay is *recorded as a finding*, not chased further for now.
+- LMFDB downloads are approved.
+- **No further cloud compute** until the owner says otherwise.
+- The Lean idea is welcome, provided it keeps the ground-floor spirit: everything in bits, exact verifiers as labels.
+
+**Next experiments.** All are local and pre-registered here; none has been run yet.
+
+| ID | Question | Prediction | Data / cost |
+|---|---|---|---|
+| E008 | **Murmurations on the ledger.** Fetch about 10^4–10^5 elliptic curves with rank and a_p (LMFDB API, `ec_curvedata` / `ec_mwbsd`; check the current API first). Predict the sign of a_p for curves in a conductor window. Does knowing the rank (and root number) buy bits, averaged over the family? | Yes, small but significant DSC from rank: per-curve signs stay about 1 bit, but rank-conditioned averages oscillate (He–Lee–Oliver–Pozdnyakov). | LMFDB download, CPU |
+| E009 | **Lean on the ground floor (language flagship, v0).** Serialise mathlib proof states as bit streams. Predict tactic success, with Lean (or logged outcomes) as the exact verifier. Ledger: generic byte-level observers vs a structure-aware observer (goal-shape features). Escalation question: when does a one-pass guess beat calling the prover? | Calibrated one-pass guesses save most prover calls on easy goals and none on hard ones; the confidence gate is a weak proxy (as in E001). | Start from an existing dataset (LeanDojo-style traces) rather than running Lean; check licensing first |
+| E010 | **Yoneda test.** Embed every source family (E001, E002B, E004, E006, E007) by its vector of code lengths across a fixed observer bank. Do the clusters recover generator families? Which observers separate families that look identical to all the others? | Families separate exactly where some observer has nonzero DSC; pseudorandom and noise collapse together (indistinguishable to bounded observers). | CPU, minutes |
+| E011 | **Discovering the field for CM curves.** Give the learner candidate quadratic fields and let MDL choose the Hecke-character features (instead of handing over p = a² + b²). | MDL picks Q(i) for y² = x³ − x and Q(√−3) for y² = x³ + 1. | CPU |
+
 ## 7. Standards (lessons from the old repo, written as rules)
 
 1. **Every reported number is produced and saved by a script in the repo.** No hand-typed figures, ever.
