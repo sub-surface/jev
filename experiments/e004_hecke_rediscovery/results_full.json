@@ -1,0 +1,50 @@
+{
+ "N": 4000,
+ "discovery": {
+  "R_complete_holds_fraction": 0.5891714236291299,
+  "R_coprime_holds_fraction": 1.0,
+  "R_coprime_pairs_tested": 3406,
+  "R_power_weights_consistent": [
+   12
+  ],
+  "R_power_checks": 30
+ },
+ "discovered_weight": 12,
+ "ledger_second_half": {
+  "KT-0": {
+   "bits": 1.0002275930816351,
+   "DSC": 0.0,
+   "MCB": 0.00028602301961022647
+  },
+  "KT-8": {
+   "bits": 1.0738962154899243,
+   "DSC": 0.0006744924279026288,
+   "MCB": 0.07462913785580205
+  },
+  "CTW-16": {
+   "bits": 1.0002313296975152,
+   "DSC": 1.1102230246251565e-16,
+   "MCB": 0.0002897596354903831
+  },
+  "complete-multiplicative": {
+   "bits": 0.9246124609047421,
+   "DSC": 0.07641047517064548,
+   "MCB": 0.0010813660133627279
+  },
+  "coprime-multiplicative": {
+   "bits": 0.12847279418733248,
+   "DSC": 0.8719641130893679,
+   "MCB": 0.000495337214675512
+  },
+  "hecke (w=12)": {
+   "bits": 0.12405657578385967,
+   "DSC": 0.876480523018077,
+   "MCB": 0.0005955287399117409
+  }
+ },
+ "prime_density_second_half": 0.1235,
+ "prime_power_density_second_half": 0.128,
+ "fraction_tau_p_positive (Sato-Tate predicts ~1/2)": 0.5036363636363637,
+ "tau_zero_n (Lehmer)": [],
+ "seconds": 2
+}

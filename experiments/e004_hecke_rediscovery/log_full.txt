@@ -1,0 +1,8 @@
+discovery on n <= 2000 : {'R_complete_holds_fraction': 0.5891714236291299, 'R_coprime_holds_fraction': 1.0, 'R_coprime_pairs_tested': 3406, 'R_power_weights_consistent': [12], 'R_power_checks': 30}
+                        KT-0: bits 1.000  DSC 0.000  MCB 0.000
+                        KT-8: bits 1.074  DSC 0.001  MCB 0.075
+                      CTW-16: bits 1.000  DSC 0.000  MCB 0.000
+     complete-multiplicative: bits 0.925  DSC 0.076  MCB 0.001
+      coprime-multiplicative: bits 0.128  DSC 0.872  MCB 0.000
+                hecke (w=12): bits 0.124  DSC 0.876  MCB 0.001
+{'N': 4000, 'discovered_weight': 12, 'prime_density_second_half': 0.1235, 'prime_power_density_second_half': 0.128, 'fraction_tau_p_positive (Sato-Tate predicts ~1/2)': 0.5036363636363637, 'tau_zero_n (Lehmer)': [], 'seconds': 2}

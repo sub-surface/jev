@@ -1,0 +1,2810 @@
+{
+ "config": {
+  "n": 8192,
+  "seeds": [
+   0,
+   1,
+   2
+  ],
+  "ctw_depth": 12
+ },
+ "seconds": 29,
+ "ledger": {
+  "bernoulli(0.3)": {
+   "KT-0": {
+    "bits_per_symbol": 0.8838,
+    "asymptote": 0.8903,
+    "learning_cost_bits": -53.3255,
+    "MCB": 0.0009,
+    "DSC": 0.0001,
+    "UNC": 0.8829
+   },
+   "KT-1": {
+    "bits_per_symbol": 0.8842,
+    "asymptote": 0.8901,
+    "learning_cost_bits": -48.6624,
+    "MCB": 0.0017,
+    "DSC": 0.0005,
+    "UNC": 0.8829
+   },
+   "KT-2": {
+    "bits_per_symbol": 0.8851,
+    "asymptote": 0.8904,
+    "learning_cost_bits": -43.1782,
+    "MCB": 0.0029,
+    "DSC": 0.0007,
+    "UNC": 0.8829
+   },
+   "KT-4": {
+    "bits_per_symbol": 0.8899,
+    "asymptote": 0.8912,
+    "learning_cost_bits": -10.5865,
+    "MCB": 0.0078,
+    "DSC": 0.0008,
+    "UNC": 0.8829
+   },
+   "KT-8": {
+    "bits_per_symbol": 0.9328,
+    "asymptote": 0.9107,
+    "learning_cost_bits": 181.0025,
+    "MCB": 0.0504,
+    "DSC": 0.0005,
+    "UNC": 0.8829
+   },
+   "KT-12": {
+    "bits_per_symbol": 1.0019,
+    "asymptote": 0.9826,
+    "learning_cost_bits": 158.0813,
+    "MCB": 0.1194,
+    "DSC": 0.0004,
+    "UNC": 0.8829
+   },
+   "CTW-12": {
+    "bits_per_symbol": 0.8839,
+    "asymptote": 0.8902,
+    "learning_cost_bits": -52.2974,
+    "MCB": 0.0013,
+    "DSC": 0.0003,
+    "UNC": 0.8829
+   }
+  },
+  "markov-3": {
+   "KT-0": {
+    "bits_per_symbol": 0.8807,
+    "asymptote": 0.8759,
+    "learning_cost_bits": 39.2883,
+    "MCB": 0.0012,
+    "DSC": 0.0004,
+    "UNC": 0.8798
+   },
+   "KT-1": {
+    "bits_per_symbol": 0.8409,
+    "asymptote": 0.8324,
+    "learning_cost_bits": 70.1738,
+    "MCB": 0.0018,
+    "DSC": 0.0407,
+    "UNC": 0.8798
+   },
+   "KT-2": {
+    "bits_per_symbol": 0.6818,
+    "asymptote": 0.6689,
+    "learning_cost_bits": 105.3882,
+    "MCB": 0.0024,
+    "DSC": 0.2005,
+    "UNC": 0.8798
+   },
+   "KT-4": {
+    "bits_per_symbol": 0.4721,
+    "asymptote": 0.4557,
+    "learning_cost_bits": 134.8444,
+    "MCB": 0.0039,
+    "DSC": 0.4116,
+    "UNC": 0.8798
+   },
+   "KT-8": {
+    "bits_per_symbol": 0.4938,
+    "asymptote": 0.4627,
+    "learning_cost_bits": 254.7234,
+    "MCB": 0.0078,
+    "DSC": 0.3938,
+    "UNC": 0.8798
+   },
+   "KT-12": {
+    "bits_per_symbol": 0.5453,
+    "asymptote": 0.4947,
+    "learning_cost_bits": 414.7209,
+    "MCB": 0.0129,
+    "DSC": 0.3475,
+    "UNC": 0.8798
+   },
+   "CTW-12": {
+    "bits_per_symbol": 0.471,
+    "asymptote": 0.4555,
+    "learning_cost_bits": 127.082,
+    "MCB": 0.0034,
+    "DSC": 0.4123,
+    "UNC": 0.8798
+   }
+  },
+  "periodic-23+5%": {
+   "KT-0": {
+    "bits_per_symbol": 0.9643,
+    "asymptote": 0.9618,
+    "learning_cost_bits": 20.6784,
+    "MCB": 0.0009,
+    "DSC": 0.0,
+    "UNC": 0.9635
+   },
+   "KT-1": {
+    "bits_per_symbol": 0.9048,
+    "asymptote": 0.9021,
+    "learning_cost_bits": 22.5677,
+    "MCB": 0.0014,
+    "DSC": 0.06,
+    "UNC": 0.9635
+   },
+   "KT-2": {
+    "bits_per_symbol": 0.8193,
+    "asymptote": 0.8113,
+    "learning_cost_bits": 65.1258,
+    "MCB": 0.0022,
+    "DSC": 0.1464,
+    "UNC": 0.9635
+   },
+   "KT-4": {
+    "bits_per_symbol": 0.7359,
+    "asymptote": 0.7281,
+    "learning_cost_bits": 63.7091,
+    "MCB": 0.0047,
+    "DSC": 0.2323,
+    "UNC": 0.9635
+   },
+   "KT-8": {
+    "bits_per_symbol": 0.5019,
+    "asymptote": 0.4591,
+    "learning_cost_bits": 350.1548,
+    "MCB": 0.0084,
+    "DSC": 0.47,
+    "UNC": 0.9635
+   },
+   "KT-12": {
+    "bits_per_symbol": 0.4471,
+    "asymptote": 0.3854,
+    "learning_cost_bits": 506.0083,
+    "MCB": 0.0189,
+    "DSC": 0.5353,
+    "UNC": 0.9635
+   },
+   "CTW-12": {
+    "bits_per_symbol": 0.4359,
+    "asymptote": 0.3745,
+    "learning_cost_bits": 502.7135,
+    "MCB": 0.0076,
+    "DSC": 0.5352,
+    "UNC": 0.9635
+   }
+  },
+  "thue-morse": {
+   "KT-0": {
+    "bits_per_symbol": 1.0008,
+    "asymptote": 1.0001,
+    "learning_cost_bits": 5.9955,
+    "MCB": 0.0008,
+    "DSC": 0.0,
+    "UNC": 1.0
+   },
+   "KT-1": {
+    "bits_per_symbol": 0.9198,
+    "asymptote": 0.9182,
+    "learning_cost_bits": 13.4054,
+    "MCB": 0.0014,
+    "DSC": 0.0815,
+    "UNC": 1.0
+   },
+   "KT-2": {
+    "bits_per_symbol": 0.6698,
+    "asymptote": 0.6674,
+    "learning_cost_bits": 19.4776,
+    "MCB": 0.0025,
+    "DSC": 0.3327,
+    "UNC": 1.0
+   },
+   "KT-4": {
+    "bits_per_symbol": 0.3403,
+    "asymptote": 0.334,
+    "learning_cost_bits": 51.6916,
+    "MCB": 0.0051,
+    "DSC": 0.6648,
+    "UNC": 1.0
+   },
+   "KT-8": {
+    "bits_per_symbol": 0.1811,
+    "asymptote": 0.1692,
+    "learning_cost_bits": 97.1288,
+    "MCB": 0.0102,
+    "DSC": 0.8292,
+    "UNC": 1.0
+   },
+   "KT-12": {
+    "bits_per_symbol": 0.1884,
+    "asymptote": 0.1706,
+    "learning_cost_bits": 145.2697,
+    "MCB": 0.0149,
+    "DSC": 0.8265,
+    "UNC": 1.0
+   },
+   "CTW-12": {
+    "bits_per_symbol": 0.1773,
+    "asymptote": 0.1682,
+    "learning_cost_bits": 74.7479,
+    "MCB": 0.0062,
+    "DSC": 0.8289,
+    "UNC": 1.0
+   }
+  },
+  "pseudorandom (LCG)": {
+   "KT-0": {
+    "bits_per_symbol": 1.0008,
+    "asymptote": 1.0001,
+    "learning_cost_bits": 6.1387,
+    "MCB": 0.0009,
+    "DSC": 0.0001,
+    "UNC": 1.0
+   },
+   "KT-1": {
+    "bits_per_symbol": 1.0015,
+    "asymptote": 1.0001,
+    "learning_cost_bits": 11.4531,
+    "MCB": 0.0016,
+    "DSC": 0.0001,
+    "UNC": 1.0
+   },
+   "KT-2": {
+    "bits_per_symbol": 1.0027,
+    "asymptote": 1.0005,
+    "learning_cost_bits": 17.5139,
+    "MCB": 0.0029,
+    "DSC": 0.0002,
+    "UNC": 1.0
+   },
+   "KT-4": {
+    "bits_per_symbol": 1.0082,
+    "asymptote": 1.0027,
+    "learning_cost_bits": 44.7934,
+    "MCB": 0.0085,
+    "DSC": 0.0003,
+    "UNC": 1.0
+   },
+   "KT-8": {
+    "bits_per_symbol": 1.0658,
+    "asymptote": 1.0309,
+    "learning_cost_bits": 286.022,
+    "MCB": 0.0662,
+    "DSC": 0.0004,
+    "UNC": 1.0
+   },
+   "KT-12": {
+    "bits_per_symbol": 1.1138,
+    "asymptote": 1.1577,
+    "learning_cost_bits": -359.7588,
+    "MCB": 0.1142,
+    "DSC": 0.0004,
+    "UNC": 1.0
+   },
+   "CTW-12": {
+    "bits_per_symbol": 1.0009,
+    "asymptote": 1.0001,
+    "learning_cost_bits": 7.1294,
+    "MCB": 0.0011,
+    "DSC": 0.0002,
+    "UNC": 1.0
+   }
+  },
+  "logistic map": {
+   "KT-0": {
+    "bits_per_symbol": 0.9955,
+    "asymptote": 0.997,
+    "learning_cost_bits": -13.0327,
+    "MCB": 0.0009,
+    "DSC": 0.0,
+    "UNC": 0.9946
+   },
+   "KT-1": {
+    "bits_per_symbol": 0.9924,
+    "asymptote": 0.9925,
+    "learning_cost_bits": -1.237,
+    "MCB": 0.0014,
+    "DSC": 0.0036,
+    "UNC": 0.9946
+   },
+   "KT-2": {
+    "bits_per_symbol": 0.9808,
+    "asymptote": 0.9764,
+    "learning_cost_bits": 35.3029,
+    "MCB": 0.0025,
+    "DSC": 0.0163,
+    "UNC": 0.9946
+   },
+   "KT-4": {
+    "bits_per_symbol": 0.9397,
+    "asymptote": 0.9319,
+    "learning_cost_bits": 63.6851,
+    "MCB": 0.0056,
+    "DSC": 0.0605,
+    "UNC": 0.9946
+   },
+   "KT-8": {
+    "bits_per_symbol": 0.9881,
+    "asymptote": 0.946,
+    "learning_cost_bits": 345.3462,
+    "MCB": 0.0429,
+    "DSC": 0.0494,
+    "UNC": 0.9946
+   },
+   "KT-12": {
+    "bits_per_symbol": 1.0806,
+    "asymptote": 1.0877,
+    "learning_cost_bits": -58.2277,
+    "MCB": 0.0949,
+    "DSC": 0.0089,
+    "UNC": 0.9946
+   },
+   "CTW-12": {
+    "bits_per_symbol": 0.9383,
+    "asymptote": 0.9325,
+    "learning_cost_bits": 47.6472,
+    "MCB": 0.0026,
+    "DSC": 0.0589,
+    "UNC": 0.9946
+   }
+  },
+  "minkowski ?(u)": {
+   "KT-0": {
+    "bits_per_symbol": 0.9992,
+    "asymptote": 0.9958,
+    "learning_cost_bits": 27.4406,
+    "MCB": 0.0031,
+    "DSC": 0.0023,
+    "UNC": 0.9983
+   },
+   "KT-1": {
+    "bits_per_symbol": 0.6489,
+    "asymptote": 0.6166,
+    "learning_cost_bits": 264.4953,
+    "MCB": 0.0024,
+    "DSC": 0.3518,
+    "UNC": 0.9983
+   },
+   "KT-2": {
+    "bits_per_symbol": 0.5945,
+    "asymptote": 0.5608,
+    "learning_cost_bits": 276.3935,
+    "MCB": 0.0027,
+    "DSC": 0.4064,
+    "UNC": 0.9983
+   },
+   "KT-4": {
+    "bits_per_symbol": 0.5709,
+    "asymptote": 0.5301,
+    "learning_cost_bits": 334.273,
+    "MCB": 0.0038,
+    "DSC": 0.4312,
+    "UNC": 0.9983
+   },
+   "KT-8": {
+    "bits_per_symbol": 0.5911,
+    "asymptote": 0.5388,
+    "learning_cost_bits": 428.2615,
+    "MCB": 0.0083,
+    "DSC": 0.4155,
+    "UNC": 0.9983
+   },
+   "KT-12": {
+    "bits_per_symbol": 0.6236,
+    "asymptote": 0.5681,
+    "learning_cost_bits": 454.7036,
+    "MCB": 0.007,
+    "DSC": 0.3816,
+    "UNC": 0.9983
+   },
+   "CTW-12": {
+    "bits_per_symbol": 0.5643,
+    "asymptote": 0.5233,
+    "learning_cost_bits": 335.3227,
+    "MCB": 0.0039,
+    "DSC": 0.4379,
+    "UNC": 0.9983
+   }
+  },
+  "regime shift": {
+   "KT-0": {
+    "bits_per_symbol": 0.9852,
+    "asymptote": 1.0401,
+    "learning_cost_bits": -449.372,
+    "MCB": 0.0431,
+    "DSC": 0.0422,
+    "UNC": 0.9844
+   },
+   "KT-1": {
+    "bits_per_symbol": 0.9816,
+    "asymptote": 1.0503,
+    "learning_cost_bits": -562.4584,
+    "MCB": 0.0525,
+    "DSC": 0.0553,
+    "UNC": 0.9844
+   },
+   "KT-2": {
+    "bits_per_symbol": 0.8828,
+    "asymptote": 0.9192,
+    "learning_cost_bits": -298.0389,
+    "MCB": 0.0613,
+    "DSC": 0.1628,
+    "UNC": 0.9844
+   },
+   "KT-4": {
+    "bits_per_symbol": 0.6059,
+    "asymptote": 0.6396,
+    "learning_cost_bits": -275.7191,
+    "MCB": 0.024,
+    "DSC": 0.4025,
+    "UNC": 0.9844
+   },
+   "KT-8": {
+    "bits_per_symbol": 0.5846,
+    "asymptote": 0.6102,
+    "learning_cost_bits": -209.2634,
+    "MCB": 0.013,
+    "DSC": 0.4127,
+    "UNC": 0.9844
+   },
+   "KT-12": {
+    "bits_per_symbol": 0.6337,
+    "asymptote": 0.6454,
+    "learning_cost_bits": -96.483,
+    "MCB": 0.0094,
+    "DSC": 0.3601,
+    "UNC": 0.9844
+   },
+   "CTW-12": {
+    "bits_per_symbol": 0.5618,
+    "asymptote": 0.5936,
+    "learning_cost_bits": -260.3651,
+    "MCB": 0.0134,
+    "DSC": 0.4359,
+    "UNC": 0.9844
+   }
+  }
+ },
+ "shift": [
+  {
+   "seed": 0,
+   "observer": "KT-3",
+   "window": "before",
+   "score": 0.36823893376100125,
+   "MCB": 0.00506921840506197,
+   "DSC": 0.5919810463781421,
+   "UNC": 0.9551507617340813
+  },
+  {
+   "seed": 0,
+   "observer": "KT-3",
+   "window": "just after",
+   "score": 1.05350800106611,
+   "MCB": 0.3222008264557208,
+   "DSC": 0.26428557984240564,
+   "UNC": 0.9955927544527948
+  },
+  {
+   "seed": 0,
+   "observer": "KT-3",
+   "window": "late after",
+   "score": 0.7973277855635298,
+   "MCB": 0.0657376425664632,
+   "DSC": 0.2621923463964544,
+   "UNC": 0.993782489393521
+  },
+  {
+   "seed": 0,
+   "observer": "CTW-12",
+   "window": "before",
+   "score": 0.36887997261749755,
+   "MCB": 0.0059217139403168195,
+   "DSC": 0.5921925030569006,
+   "UNC": 0.9551507617340813
+  },
+  {
+   "seed": 0,
+   "observer": "CTW-12",
+   "window": "just after",
+   "score": 0.942492939775906,
+   "MCB": 0.20908116259442455,
+   "DSC": 0.2621809772713134,
+   "UNC": 0.9955927544527948
+  },
+  {
+   "seed": 0,
+   "observer": "CTW-12",
+   "window": "late after",
+   "score": 0.729645809355627,
+   "MCB": 0.027068240336165394,
+   "DSC": 0.29120492037405943,
+   "UNC": 0.993782489393521
+  },
+  {
+   "seed": 1,
+   "observer": "KT-3",
+   "window": "before",
+   "score": 0.3803420142905693,
+   "MCB": 0.005261216911042976,
+   "DSC": 0.4028964572580442,
+   "UNC": 0.7779772546375705
+  },
+  {
+   "seed": 1,
+   "observer": "KT-3",
+   "window": "just after",
+   "score": 1.3588737571936875,
+   "MCB": 0.3831122343355706,
+   "DSC": 0.012218555413515686,
+   "UNC": 0.9879800782716326
+  },
+  {
+   "seed": 1,
+   "observer": "KT-3",
+   "window": "late after",
+   "score": 0.9377297608903814,
+   "MCB": 0.11163688202473965,
+   "DSC": 0.15099859395984272,
+   "UNC": 0.9770914728254845
+  },
+  {
+   "seed": 1,
+   "observer": "CTW-12",
+   "window": "before",
+   "score": 0.381327177462879,
+   "MCB": 0.006820899157662763,
+   "DSC": 0.4034709763323543,
+   "UNC": 0.7779772546375705
+  },
+  {
+   "seed": 1,
+   "observer": "CTW-12",
+   "window": "just after",
+   "score": 1.0269329701873935,
+   "MCB": 0.12062900855057657,
+   "DSC": 0.08167611663481567,
+   "UNC": 0.9879800782716326
+  },
+  {
+   "seed": 1,
+   "observer": "CTW-12",
+   "window": "late after",
+   "score": 0.8088718463973537,
+   "MCB": 0.027049510105053298,
+   "DSC": 0.19526913653318412,
+   "UNC": 0.9770914728254845
+  },
+  {
+   "seed": 2,
+   "observer": "KT-3",
+   "window": "before",
+   "score": 0.687183819205114,
+   "MCB": 0.004890866683836426,
+   "DSC": 0.31750822640082954,
+   "UNC": 0.9998011789221071
+  },
+  {
+   "seed": 2,
+   "observer": "KT-3",
+   "window": "just after",
+   "score": 1.4227553314390806,
+   "MCB": 0.6178219249014263,
+   "DSC": 0.14582862332836988,
+   "UNC": 0.9507620298660242
+  },
+  {
+   "seed": 2,
+   "observer": "KT-3",
+   "window": "late after",
+   "score": 0.5580639751223424,
+   "MCB": 0.16033848202937728,
+   "DSC": 0.552661237741614,
+   "UNC": 0.9503867308345791
+  },
+  {
+   "seed": 2,
+   "observer": "CTW-12",
+   "window": "before",
+   "score": 0.6875378664352028,
+   "MCB": 0.005721078423209347,
+   "DSC": 0.31798439091011366,
+   "UNC": 0.9998011789221071
+  },
+  {
+   "seed": 2,
+   "observer": "CTW-12",
+   "window": "just after",
+   "score": 0.35348278471864786,
+   "MCB": 0.057122860760524696,
+   "DSC": 0.654402105907901,
+   "UNC": 0.9507620298660242
+  },
+  {
+   "seed": 2,
+   "observer": "CTW-12",
+   "window": "late after",
+   "score": 0.24237191040538109,
+   "MCB": 0.01851413736538024,
+   "DSC": 0.7265289577945783,
+   "UNC": 0.9503867308345791
+  }
+ ],
+ "escalation": {
+  "bernoulli(0.3)": {
+   "gated": [
+    0.6766666666666667,
+    0.4572623851673007
+   ],
+   "random": [
+    0.6699999999999999,
+    0.4147891030391228
+   ],
+   "oracle": [
+    0.005,
+    0.0
+   ],
+   "s2_saves_bits_per_symbol": 0.00124442924052733,
+   "note": "S2 saves <0.01 bits/symbol; never escalate"
+  },
+  "markov-3": {
+   "gated": [
+    0.6883333333333334,
+    0.2310242892473045
+   ],
+   "random": [
+    0.9899999999999999,
+    0.004082482904638634
+   ],
+   "oracle": [
+    0.21,
+    0.1136515141415488
+   ],
+   "s2_saves_bits_per_symbol": 0.210791548154877
+  },
+  "periodic-23+5%": {
+   "gated": [
+    0.9666666666666668,
+    0.029533408577782225
+   ],
+   "random": [
+    0.9899999999999999,
+    1.1102230246251565e-16
+   ],
+   "oracle": [
+    0.3233333333333333,
+    0.12690766547200982
+   ],
+   "s2_saves_bits_per_symbol": 0.3834241594961149
+  },
+  "thue-morse": {
+   "gated": [
+    0.66,
+    0.0
+   ],
+   "random": [
+    0.9916666666666666,
+    0.0023570226039551605
+   ],
+   "oracle": [
+    0.49,
+    0.0
+   ],
+   "s2_saves_bits_per_symbol": 0.492433420777387
+  },
+  "pseudorandom (LCG)": {
+   "gated": [
+    1.0,
+    0.0
+   ],
+   "random": [
+    0.7833333333333333,
+    0.16499158227686112
+   ],
+   "oracle": [
+    0.005,
+    0.0
+   ],
+   "s2_saves_bits_per_symbol": 0.00173228877494284,
+   "note": "S2 saves <0.01 bits/symbol; never escalate"
+  },
+  "logistic map": {
+   "gated": [
+    1.0,
+    0.0
+   ],
+   "random": [
+    0.995,
+    0.004082482904638634
+   ],
+   "oracle": [
+    0.07666666666666666,
+    0.0023570226039551605
+   ],
+   "s2_saves_bits_per_symbol": 0.04242176589309543
+  },
+  "minkowski ?(u)": {
+   "gated": [
+    0.9816666666666666,
+    0.010274023338281637
+   ],
+   "random": [
+    0.985,
+    0.008164965809277268
+   ],
+   "oracle": [
+    0.02666666666666667,
+    0.006236095644623237
+   ],
+   "s2_saves_bits_per_symbol": 0.03026318926627436
+  },
+  "regime shift": {
+   "gated": [
+    0.9400000000000001,
+    0.01779513042005215
+   ],
+   "random": [
+    0.9899999999999999,
+    0.004082482904638634
+   ],
+   "oracle": [
+    0.255,
+    0.10870449239413553
+   ],
+   "s2_saves_bits_per_symbol": 0.32098573188386853
+  }
+ },
+ "competition": {
+  "KT-0": {
+   "KT-0": 1.0015443935839485,
+   "KT-4": 0.004065005576562778,
+   "CTW-12": 0.0044170791086830166,
+   "market": 0.004341582610172551
+  },
+  "KT-4": {
+   "KT-0": 1.0015359664178152,
+   "KT-4": 1.016893253380351,
+   "CTW-12": 0.050940420568343955,
+   "market": 0.051327374303871576
+  },
+  "CTW-12": {
+   "KT-0": 1.0015442216012942,
+   "KT-4": 1.0054897917256942,
+   "CTW-12": 1.0017837931613744,
+   "market": 1.0017868294189554
+  },
+  "market": {
+   "KT-0": 1.0015443935839483,
+   "KT-4": 1.0049525662045582,
+   "CTW-12": 1.0017794039169172,
+   "market": 1.001785449797749
+  }
+ },
+ "raw": [
+  {
+   "source": "bernoulli(0.3)",
+   "seed": 0,
+   "observer": "KT-0",
+   "bits_per_symbol": 0.8857346249554706,
+   "asymptote": 0.9019507314791042,
+   "learning_cost_bits": -132.84234464160613,
+   "score": 0.8857346249554706,
+   "MCB": 0.0010026580707661603,
+   "DSC": 0.00016943083841358675,
+   "UNC": 0.884901397723118
+  },
+  {
+   "source": "bernoulli(0.3)",
+   "seed": 0,
+   "observer": "KT-1",
+   "bits_per_symbol": 0.8856972552220155,
+   "asymptote": 0.9016709371840574,
+   "learning_cost_bits": -130.8564026330479,
+   "score": 0.8856972552220155,
+   "MCB": 0.001733229123593416,
+   "DSC": 0.0009373716246959818,
+   "UNC": 0.884901397723118
+  },
+  {
+   "source": "bernoulli(0.3)",
+   "seed": 0,
+   "observer": "KT-2",
+   "bits_per_symbol": 0.886231758635598,
+   "asymptote": 0.9012205713557704,
+   "learning_cost_bits": -122.78835380365243,
+   "score": 0.886231758635598,
+   "MCB": 0.0026214111533608975,
+   "DSC": 0.0012910502408809421,
+   "UNC": 0.884901397723118
+  },
+  {
+   "source": "bernoulli(0.3)",
+   "seed": 0,
+   "observer": "KT-4",
+   "bits_per_symbol": 0.8910439846954847,
+   "asymptote": 0.9031244807569248,
+   "learning_cost_bits": -98.96342373531698,
+   "score": 0.8910439846954847,
+   "MCB": 0.007297911305210958,
+   "DSC": 0.0011553243328442653,
+   "UNC": 0.884901397723118
+  },
+  {
+   "source": "bernoulli(0.3)",
+   "seed": 0,
+   "observer": "KT-8",
+   "bits_per_symbol": 0.9316931934140297,
+   "asymptote": 0.923299331186379,
+   "learning_cost_bits": 68.76251936891502,
+   "score": 0.9316931934140297,
+   "MCB": 0.047345184719433164,
+   "DSC": 0.0005533890285215337,
+   "UNC": 0.884901397723118
+  },
+  {
+   "source": "bernoulli(0.3)",
+   "seed": 0,
+   "observer": "KT-12",
+   "bits_per_symbol": 1.0032797752952758,
+   "asymptote": 1.0064407483976194,
+   "learning_cost_bits": -25.89469165439968,
+   "score": 1.0032797752952758,
+   "MCB": 0.11909990275109206,
+   "DSC": 0.0007215251789343124,
+   "UNC": 0.884901397723118
+  },
+  {
+   "source": "bernoulli(0.3)",
+   "seed": 0,
+   "observer": "CTW-12",
+   "bits_per_symbol": 0.8857892835815533,
+   "asymptote": 0.9018721944461601,
+   "learning_cost_bits": -131.75120580285935,
+   "score": 0.8857892835815533,
+   "MCB": 0.001342094311030273,
+   "DSC": 0.0004542084525950285,
+   "UNC": 0.884901397723118
+  },
+  {
+   "source": "bernoulli(0.3)",
+   "seed": 1,
+   "observer": "KT-0",
+   "bits_per_symbol": 0.8803863060227127,
+   "asymptote": 0.8823672685506665,
+   "learning_cost_bits": -16.228045028997116,
+   "score": 0.8803863060227127,
+   "MCB": 0.0008391135803114125,
+   "DSC": 5.886312497316304e-06,
+   "UNC": 0.8795530787548986
+  },
+  {
+   "source": "bernoulli(0.3)",
+   "seed": 1,
+   "observer": "KT-1",
+   "bits_per_symbol": 0.8811338719248742,
+   "asymptote": 0.8824388500851783,
+   "learning_cost_bits": -10.690381089211279,
+   "score": 0.8811338719248742,
+   "MCB": 0.001580793169975614,
+   "DSC": 0.0,
+   "UNC": 0.8795530787548986
+  },
+  {
+   "source": "bernoulli(0.3)",
+   "seed": 1,
+   "observer": "KT-2",
+   "bits_per_symbol": 0.8822974443976122,
+   "asymptote": 0.8824399601319588,
+   "learning_cost_bits": -1.1674888957680096,
+   "score": 0.8822974443976122,
+   "MCB": 0.00274436564271352,
+   "DSC": 0.0,
+   "UNC": 0.8795530787548986
+  },
+  {
+   "source": "bernoulli(0.3)",
+   "seed": 1,
+   "observer": "KT-4",
+   "bits_per_symbol": 0.8870281526648782,
+   "asymptote": 0.8820121809444177,
+   "learning_cost_bits": 41.09084033401258,
+   "score": 0.8870281526648782,
+   "MCB": 0.007602500388875555,
+   "DSC": 0.00012742647889596448,
+   "UNC": 0.8795530787548986
+  },
+  {
+   "source": "bernoulli(0.3)",
+   "seed": 1,
+   "observer": "KT-8",
+   "bits_per_symbol": 0.9305220827500169,
+   "asymptote": 0.9010664916079673,
+   "learning_cost_bits": 241.3002026356711,
+   "score": 0.9305220827500169,
+   "MCB": 0.051205049420470106,
+   "DSC": 0.00023604542535182738,
+   "UNC": 0.8795530787548986
+  },
+  {
+   "source": "bernoulli(0.3)",
+   "seed": 1,
+   "observer": "KT-12",
+   "bits_per_symbol": 0.9958768944526373,
+   "asymptote": 0.9753161675632369,
+   "learning_cost_bits": 168.4334746779667,
+   "score": 0.9958768944526373,
+   "MCB": 0.11668177002898106,
+   "DSC": 0.00035795433124241605,
+   "UNC": 0.8795530787548986
+  },
+  {
+   "source": "bernoulli(0.3)",
+   "seed": 1,
+   "observer": "CTW-12",
+   "bits_per_symbol": 0.8805074664424946,
+   "asymptote": 0.8823676458381471,
+   "learning_cost_bits": -15.238589609186114,
+   "score": 0.8805074664424946,
+   "MCB": 0.0009543876875959256,
+   "DSC": 0.0,
+   "UNC": 0.8795530787548986
+  },
+  {
+   "source": "bernoulli(0.3)",
+   "seed": 2,
+   "observer": "KT-0",
+   "bits_per_symbol": 0.8851469023100974,
+   "asymptote": 0.8864782054507698,
+   "learning_cost_bits": -10.906035328388892,
+   "score": 0.8851469023100974,
+   "MCB": 0.0009945354259094374,
+   "DSC": 0.00016130818968429494,
+   "UNC": 0.8843136750738723
+  },
+  {
+   "source": "bernoulli(0.3)",
+   "seed": 2,
+   "observer": "KT-1",
+   "bits_per_symbol": 0.8856311877290844,
+   "asymptote": 0.8861732207169689,
+   "learning_cost_bits": -4.440334236749528,
+   "score": 0.8856311877290844,
+   "MCB": 0.0018706521388631714,
+   "DSC": 0.0005531394836509884,
+   "UNC": 0.8843136750738723
+  },
+  {
+   "source": "bernoulli(0.3)",
+   "seed": 2,
+   "observer": "KT-2",
+   "bits_per_symbol": 0.8867681051592942,
+   "asymptote": 0.8874491091768208,
+   "learning_cost_bits": -5.578784911578499,
+   "score": 0.8867681051592942,
+   "MCB": 0.003205437126388322,
+   "DSC": 0.0007510070409664227,
+   "UNC": 0.8843136750738723
+  },
+  {
+   "source": "bernoulli(0.3)",
+   "seed": 2,
+   "observer": "KT-4",
+   "bits_per_symbol": 0.8916839523097717,
+   "asymptote": 0.8884963154005971,
+   "learning_cost_bits": 26.11312155995731,
+   "score": 0.8916839523097717,
+   "MCB": 0.008583486407267027,
+   "DSC": 0.0012132091713675797,
+   "UNC": 0.8843136750738723
+  },
+  {
+   "source": "bernoulli(0.3)",
+   "seed": 2,
+   "observer": "KT-8",
+   "bits_per_symbol": 0.936282557673263,
+   "asymptote": 0.9078469246347067,
+   "learning_cost_bits": 232.94470585185218,
+   "score": 0.936282557673263,
+   "MCB": 0.0526217263573423,
+   "DSC": 0.0006528437579516044,
+   "UNC": 0.8843136750738723
+  },
+  {
+   "source": "bernoulli(0.3)",
+   "seed": 2,
+   "observer": "KT-12",
+   "bits_per_symbol": 1.0064797945877806,
+   "asymptote": 0.9659884461733204,
+   "learning_cost_bits": 331.7051262112582,
+   "score": 1.0064797945877806,
+   "MCB": 0.12236894182362867,
+   "DSC": 0.00020282230972035187,
+   "UNC": 0.8843136750738723
+  },
+  {
+   "source": "bernoulli(0.3)",
+   "seed": 2,
+   "observer": "CTW-12",
+   "bits_per_symbol": 0.8852672704468745,
+   "asymptote": 0.8864760688307257,
+   "learning_cost_bits": -9.902476360509144,
+   "score": 0.8852672704468745,
+   "MCB": 0.0014892726531010592,
+   "DSC": 0.0005356772800988452,
+   "UNC": 0.8843136750738723
+  },
+  {
+   "source": "markov-3",
+   "seed": 0,
+   "observer": "KT-0",
+   "bits_per_symbol": 0.9528047930654493,
+   "asymptote": 0.9505057952480568,
+   "learning_cost_bits": 18.833390120079095,
+   "score": 0.9528047930654493,
+   "MCB": 0.0008332268262929432,
+   "DSC": 0.0,
+   "UNC": 0.9519715662391564
+  },
+  {
+   "source": "markov-3",
+   "seed": 0,
+   "observer": "KT-1",
+   "bits_per_symbol": 0.9519790963013905,
+   "asymptote": 0.948403474396663,
+   "learning_cost_bits": 29.29149464352819,
+   "score": 0.9519790963013905,
+   "MCB": 0.001090937113680135,
+   "DSC": 0.0010834070514459393,
+   "UNC": 0.9519715662391564
+  },
+  {
+   "source": "markov-3",
+   "seed": 0,
+   "observer": "KT-2",
+   "bits_per_symbol": 0.7287073248131353,
+   "asymptote": 0.7073769752627521,
+   "learning_cost_bits": 174.73822351673923,
+   "score": 0.7287073248131353,
+   "MCB": 0.0024506556184555883,
+   "DSC": 0.22571489704447667,
+   "UNC": 0.9519715662391564
+  },
+  {
+   "source": "markov-3",
+   "seed": 0,
+   "observer": "KT-4",
+   "bits_per_symbol": 0.3785882549487435,
+   "asymptote": 0.35838719627915994,
+   "learning_cost_bits": 165.48707262122846,
+   "score": 0.3785882549487435,
+   "MCB": 0.0040903955745758,
+   "DSC": 0.5774737068649887,
+   "UNC": 0.9519715662391564
+  },
+  {
+   "source": "markov-3",
+   "seed": 0,
+   "observer": "KT-8",
+   "bits_per_symbol": 0.3938535107647818,
+   "asymptote": 0.3609047780967042,
+   "learning_cost_bits": 269.91601801689205,
+   "score": 0.3938535107647818,
+   "MCB": 0.006749946045343569,
+   "DSC": 0.564868001519718,
+   "UNC": 0.9519715662391564
+  },
+  {
+   "source": "markov-3",
+   "seed": 0,
+   "observer": "KT-12",
+   "bits_per_symbol": 0.42761393066374875,
+   "asymptote": 0.3782419955691346,
+   "learning_cost_bits": 404.4548922950793,
+   "score": 0.42761393066374875,
+   "MCB": 0.010410202987700012,
+   "DSC": 0.5347678385631076,
+   "UNC": 0.9519715662391564
+  },
+  {
+   "source": "markov-3",
+   "seed": 0,
+   "observer": "CTW-12",
+   "bits_per_symbol": 0.3778595505157906,
+   "asymptote": 0.35829568391835875,
+   "learning_cost_bits": 160.26719516616203,
+   "score": 0.3778595505157906,
+   "MCB": 0.003398962660978777,
+   "DSC": 0.5775109783843445,
+   "UNC": 0.9519715662391564
+  },
+  {
+   "source": "markov-3",
+   "seed": 1,
+   "observer": "KT-0",
+   "bits_per_symbol": 0.6892345574742038,
+   "asymptote": 0.6775195586998176,
+   "learning_cost_bits": 95.96926995977168,
+   "score": 0.6892345574742038,
+   "MCB": 0.001859990728312999,
+   "DSC": 0.001026761767551343,
+   "UNC": 0.6884013285134422
+  },
+  {
+   "source": "markov-3",
+   "seed": 1,
+   "observer": "KT-1",
+   "bits_per_symbol": 0.6755223998513293,
+   "asymptote": 0.6627006283817444,
+   "learning_cost_bits": 105.03595187884011,
+   "score": 0.6755223998513293,
+   "MCB": 0.0028036286858876824,
+   "DSC": 0.015682557348000503,
+   "UNC": 0.6884013285134422
+  },
+  {
+   "source": "markov-3",
+   "seed": 1,
+   "observer": "KT-2",
+   "bits_per_symbol": 0.4972625365655084,
+   "asymptote": 0.4828014601725733,
+   "learning_cost_bits": 118.46513781092418,
+   "score": 0.4972625365655084,
+   "MCB": 0.0024486054646983835,
+   "DSC": 0.19358739741263215,
+   "UNC": 0.6884013285134422
+  },
+  {
+   "source": "markov-3",
+   "seed": 1,
+   "observer": "KT-4",
+   "bits_per_symbol": 0.34311922438165227,
+   "asymptote": 0.3267036000734025,
+   "learning_cost_bits": 134.47679433318234,
+   "score": 0.34311922438165227,
+   "MCB": 0.0035654739165005833,
+   "DSC": 0.3488475780482905,
+   "UNC": 0.6884013285134422
+  },
+  {
+   "source": "markov-3",
+   "seed": 1,
+   "observer": "KT-8",
+   "bits_per_symbol": 0.3637435992702114,
+   "asymptote": 0.335876875331105,
+   "learning_cost_bits": 228.28420250915914,
+   "score": 0.3637435992702114,
+   "MCB": 0.005896500676602856,
+   "DSC": 0.33055422991983363,
+   "UNC": 0.6884013285134422
+  },
+  {
+   "source": "markov-3",
+   "seed": 1,
+   "observer": "KT-12",
+   "bits_per_symbol": 0.40735000525747445,
+   "asymptote": 0.3673353791952077,
+   "learning_cost_bits": 327.7998167020895,
+   "score": 0.40735000525747445,
+   "MCB": 0.008515378663356388,
+   "DSC": 0.2895667019193241,
+   "UNC": 0.6884013285134422
+  },
+  {
+   "source": "markov-3",
+   "seed": 1,
+   "observer": "CTW-12",
+   "bits_per_symbol": 0.342618464269224,
+   "asymptote": 0.32615793534183046,
+   "learning_cost_bits": 134.8446529732077,
+   "score": 0.342618464269224,
+   "MCB": 0.003517459945003243,
+   "DSC": 0.3493003241892214,
+   "UNC": 0.6884013285134422
+  },
+  {
+   "source": "markov-3",
+   "seed": 2,
+   "observer": "KT-0",
+   "bits_per_symbol": 0.9999414847699695,
+   "asymptote": 0.9995676892203099,
+   "learning_cost_bits": 3.0621331428113363,
+   "score": 0.9999414847699695,
+   "MCB": 0.000890379952995235,
+   "DSC": 5.715337479472726e-05,
+   "UNC": 0.999108258191769
+  },
+  {
+   "source": "markov-3",
+   "seed": 2,
+   "observer": "KT-1",
+   "bits_per_symbol": 0.8952854792677125,
+   "asymptote": 0.8859844610000117,
+   "learning_cost_bits": 76.19394164900493,
+   "score": 0.8952854792677125,
+   "MCB": 0.0014542293679237206,
+   "DSC": 0.10527700829198017,
+   "UNC": 0.999108258191769
+  },
+  {
+   "source": "markov-3",
+   "seed": 2,
+   "observer": "KT-2",
+   "bits_per_symbol": 0.8193885757464971,
+   "asymptote": 0.8165856774014669,
+   "learning_cost_bits": 22.96134324248751,
+   "score": 0.8193885757464971,
+   "MCB": 0.0024213953359872864,
+   "DSC": 0.1821410777812591,
+   "UNC": 0.999108258191769
+  },
+  {
+   "source": "markov-3",
+   "seed": 2,
+   "observer": "KT-4",
+   "bits_per_symbol": 0.6947139042169886,
+   "asymptote": 0.6819491027395982,
+   "learning_cost_bits": 104.56925370278209,
+   "score": 0.6947139042169886,
+   "MCB": 0.004189098968515048,
+   "DSC": 0.30858345294329537,
+   "UNC": 0.999108258191769
+  },
+  {
+   "source": "markov-3",
+   "seed": 2,
+   "observer": "KT-8",
+   "bits_per_symbol": 0.723879976176691,
+   "asymptote": 0.6914129196080656,
+   "learning_cost_bits": 265.97012741017846,
+   "score": 0.723879976176691,
+   "MCB": 0.010695527533678417,
+   "DSC": 0.2859238095487564,
+   "UNC": 0.999108258191769
+  },
+  {
+   "source": "markov-3",
+   "seed": 2,
+   "observer": "KT-12",
+   "bits_per_symbol": 0.8009337334001219,
+   "asymptote": 0.738444969503725,
+   "learning_cost_bits": 511.90795383928395,
+   "score": 0.8009337334001219,
+   "MCB": 0.01992367731815703,
+   "DSC": 0.21809820210980413,
+   "UNC": 0.999108258191769
+  },
+  {
+   "source": "markov-3",
+   "seed": 2,
+   "observer": "CTW-12",
+   "bits_per_symbol": 0.6925057778754953,
+   "asymptote": 0.6819913407321572,
+   "learning_cost_bits": 86.1342690782262,
+   "score": 0.6925057778754953,
+   "MCB": 0.003345721410387914,
+   "DSC": 0.3099482017266616,
+   "UNC": 0.999108258191769
+  },
+  {
+   "source": "periodic-23+5%",
+   "seed": 0,
+   "observer": "KT-0",
+   "bits_per_symbol": 0.9024806710706185,
+   "asymptote": 0.8946523167725288,
+   "learning_cost_bits": 64.1298784099507,
+   "score": 0.9024806710706185,
+   "MCB": 0.0009088208324082858,
+   "DSC": 7.559370796639264e-05,
+   "UNC": 0.9016474439461766
+  },
+  {
+   "source": "periodic-23+5%",
+   "seed": 0,
+   "observer": "KT-1",
+   "bits_per_symbol": 0.7493751899239739,
+   "asymptote": 0.7397488920920181,
+   "learning_cost_bits": 78.85863183938233,
+   "score": 0.7493751899239739,
+   "MCB": 0.0013735239336613025,
+   "DSC": 0.15364577795586398,
+   "UNC": 0.9016474439461766
+  },
+  {
+   "source": "periodic-23+5%",
+   "seed": 0,
+   "observer": "KT-2",
+   "bits_per_symbol": 0.7329897072864686,
+   "asymptote": 0.7204651428674438,
+   "learning_cost_bits": 102.6012317206506,
+   "score": 0.7329897072864686,
+   "MCB": 0.002101465261126978,
+   "DSC": 0.17075920192083494,
+   "UNC": 0.9016474439461766
+  },
+  {
+   "source": "periodic-23+5%",
+   "seed": 0,
+   "observer": "KT-4",
+   "bits_per_symbol": 0.7111349296318663,
+   "asymptote": 0.6926458978913624,
+   "learning_cost_bits": 151.46214801820838,
+   "score": 0.7111349296318663,
+   "MCB": 0.0040993846428662994,
+   "DSC": 0.19461189895717657,
+   "UNC": 0.9016474439461766
+  },
+  {
+   "source": "periodic-23+5%",
+   "seed": 0,
+   "observer": "KT-8",
+   "bits_per_symbol": 0.5298130478944467,
+   "asymptote": 0.4787550863023103,
+   "learning_cost_bits": 418.2668213627818,
+   "score": 0.5298130478944467,
+   "MCB": 0.009331771005069545,
+   "DSC": 0.3811661670567994,
+   "UNC": 0.9016474439461766
+  },
+  {
+   "source": "periodic-23+5%",
+   "seed": 0,
+   "observer": "KT-12",
+   "bits_per_symbol": 0.4708362327423881,
+   "asymptote": 0.3940437551848031,
+   "learning_cost_bits": 629.083976151736,
+   "score": 0.4708362327423881,
+   "MCB": 0.019518655029928167,
+   "DSC": 0.4503298662337166,
+   "UNC": 0.9016474439461766
+  },
+  {
+   "source": "periodic-23+5%",
+   "seed": 0,
+   "observer": "CTW-12",
+   "bits_per_symbol": 0.45483194055753473,
+   "asymptote": 0.38955166311816414,
+   "learning_cost_bits": 534.7760327833244,
+   "score": 0.45483194055753473,
+   "MCB": 0.007000159613053669,
+   "DSC": 0.4538156630016955,
+   "UNC": 0.9016474439461766
+  },
+  {
+   "source": "periodic-23+5%",
+   "seed": 1,
+   "observer": "KT-0",
+   "bits_per_symbol": 0.9999782609051397,
+   "asymptote": 0.999114665586097,
+   "learning_cost_bits": 7.074572853598792,
+   "score": 0.9999782609051397,
+   "MCB": 0.000833226578017543,
+   "DSC": 3.3306690738754696e-16,
+   "UNC": 0.9991450343271225
+  },
+  {
+   "source": "periodic-23+5%",
+   "seed": 1,
+   "observer": "KT-1",
+   "bits_per_symbol": 0.9999728542298838,
+   "asymptote": 0.9982762137639296,
+   "learning_cost_bits": 13.898878697097123,
+   "score": 0.9999728542298838,
+   "MCB": 0.0013473363328676546,
+   "DSC": 0.0005195164301063926,
+   "UNC": 0.9991450343271225
+  },
+  {
+   "source": "periodic-23+5%",
+   "seed": 1,
+   "observer": "KT-2",
+   "bits_per_symbol": 0.8090576905939438,
+   "asymptote": 0.8000934790604118,
+   "learning_cost_bits": 73.43482088269442,
+   "score": 0.8090576905939438,
+   "MCB": 0.0023721387380876147,
+   "DSC": 0.19245948247126632,
+   "UNC": 0.9991450343271225
+  },
+  {
+   "source": "periodic-23+5%",
+   "seed": 1,
+   "observer": "KT-4",
+   "bits_per_symbol": 0.6981058380582353,
+   "asymptote": 0.6923132325352199,
+   "learning_cost_bits": 47.453024444542685,
+   "score": 0.6981058380582353,
+   "MCB": 0.005038018669431099,
+   "DSC": 0.3060772149383183,
+   "UNC": 0.9991450343271225
+  },
+  {
+   "source": "periodic-23+5%",
+   "seed": 1,
+   "observer": "KT-8",
+   "bits_per_symbol": 0.525249605049795,
+   "asymptote": 0.505560670389569,
+   "learning_cost_bits": 161.29175273657177,
+   "score": 0.525249605049795,
+   "MCB": 0.006485590867016944,
+   "DSC": 0.4803810201443445,
+   "UNC": 0.9991450343271225
+  },
+  {
+   "source": "periodic-23+5%",
+   "seed": 1,
+   "observer": "KT-12",
+   "bits_per_symbol": 0.4559926794822486,
+   "asymptote": 0.4197837178506683,
+   "learning_cost_bits": 296.6238136859057,
+   "score": 0.4559926794822486,
+   "MCB": 0.01408915273054051,
+   "DSC": 0.5572415075754145,
+   "UNC": 0.9991450343271225
+  },
+  {
+   "source": "periodic-23+5%",
+   "seed": 1,
+   "observer": "CTW-12",
+   "bits_per_symbol": 0.4491686421745031,
+   "asymptote": 0.40695950527083197,
+   "learning_cost_bits": 345.7772495148738,
+   "score": 0.4491686421745031,
+   "MCB": 0.006983884873195956,
+   "DSC": 0.5569602770258154,
+   "UNC": 0.9991450343271225
+  },
+  {
+   "source": "periodic-23+5%",
+   "seed": 2,
+   "observer": "KT-0",
+   "bits_per_symbol": 0.9904428210276066,
+   "asymptote": 0.9915621150966547,
+   "learning_cost_bits": -9.169257013641786,
+   "score": 0.9904428210276066,
+   "MCB": 0.0008361183144243167,
+   "DSC": 2.891688421491345e-06,
+   "UNC": 0.9896095944016038
+  },
+  {
+   "source": "periodic-23+5%",
+   "seed": 2,
+   "observer": "KT-1",
+   "bits_per_symbol": 0.9651304914151884,
+   "asymptote": 0.968188878457694,
+   "learning_cost_bits": -25.05430665220557,
+   "score": 0.9651304914151884,
+   "MCB": 0.001374021834584016,
+   "DSC": 0.02585312482099944,
+   "UNC": 0.9896095944016038
+  },
+  {
+   "source": "periodic-23+5%",
+   "seed": 2,
+   "observer": "KT-2",
+   "bits_per_symbol": 0.9158425118962902,
+   "asymptote": 0.9134815042598503,
+   "learning_cost_bits": 19.341374557715074,
+   "score": 0.9158425118962902,
+   "MCB": 0.0022491819263712465,
+   "DSC": 0.07601626443168485,
+   "UNC": 0.9896095944016038
+  },
+  {
+   "source": "periodic-23+5%",
+   "seed": 2,
+   "observer": "KT-4",
+   "bits_per_symbol": 0.7985139489498512,
+   "asymptote": 0.799464624450309,
+   "learning_cost_bits": -7.787933699750887,
+   "score": 0.7985139489498512,
+   "MCB": 0.004981651654411667,
+   "DSC": 0.19607729710616428,
+   "UNC": 0.9896095944016038
+  },
+  {
+   "source": "periodic-23+5%",
+   "seed": 2,
+   "observer": "KT-8",
+   "bits_per_symbol": 0.4505075764047667,
+   "asymptote": 0.3930239601681566,
+   "learning_cost_bits": 470.9057842103095,
+   "score": 0.4505075764047667,
+   "MCB": 0.009264479611846677,
+   "DSC": 0.5483664976086837,
+   "UNC": 0.9896095944016038
+  },
+  {
+   "source": "periodic-23+5%",
+   "seed": 2,
+   "observer": "KT-12",
+   "bits_per_symbol": 0.4146020499545473,
+   "asymptote": 0.3422977229441923,
+   "learning_cost_bits": 592.3170468688284,
+   "score": 0.4146020499545473,
+   "MCB": 0.023192103888917237,
+   "DSC": 0.5981996483359737,
+   "UNC": 0.9896095944016038
+  },
+  {
+   "source": "periodic-23+5%",
+   "seed": 2,
+   "observer": "CTW-12",
+   "bits_per_symbol": 0.40361684855632013,
+   "asymptote": 0.32700708050457306,
+   "learning_cost_bits": 627.5872198799117,
+   "score": 0.40361684855632013,
+   "MCB": 0.00882497340923366,
+   "DSC": 0.5948177192545173,
+   "UNC": 0.9896095944016038
+  },
+  {
+   "source": "thue-morse",
+   "seed": 0,
+   "observer": "KT-0",
+   "bits_per_symbol": 1.0008332265737665,
+   "asymptote": 1.0001013203485285,
+   "learning_cost_bits": 5.995775797149207,
+   "score": 1.0008332265737665,
+   "MCB": 0.000833226573766499,
+   "DSC": 0.0,
+   "UNC": 1.0
+  },
+  {
+   "source": "thue-morse",
+   "seed": 0,
+   "observer": "KT-1",
+   "bits_per_symbol": 0.9196873136476159,
+   "asymptote": 0.9181727651721426,
+   "learning_cost_bits": 12.40718111107714,
+   "score": 0.9196873136476159,
+   "MCB": 0.001472902821630373,
+   "DSC": 0.08178558917401446,
+   "UNC": 1.0
+  },
+  {
+   "source": "thue-morse",
+   "seed": 0,
+   "observer": "KT-2",
+   "bits_per_symbol": 0.6698158332170709,
+   "asymptote": 0.6673969815626678,
+   "learning_cost_bits": 19.815232752870468,
+   "score": 0.6698158332170709,
+   "MCB": 0.002427513820361993,
+   "DSC": 0.33261168060329105,
+   "UNC": 1.0
+  },
+  {
+   "source": "thue-morse",
+   "seed": 0,
+   "observer": "KT-4",
+   "bits_per_symbol": 0.34025028976064675,
+   "asymptote": 0.33402100056091066,
+   "learning_cost_bits": 51.030337124237604,
+   "score": 0.34025028976064675,
+   "MCB": 0.00514064289571825,
+   "DSC": 0.6648903531350715,
+   "UNC": 1.0
+  },
+  {
+   "source": "thue-morse",
+   "seed": 0,
+   "observer": "KT-8",
+   "bits_per_symbol": 0.18111887834028628,
+   "asymptote": 0.16922190449274777,
+   "learning_cost_bits": 97.4600097590356,
+   "score": 0.18111887834028628,
+   "MCB": 0.010244710458200385,
+   "DSC": 0.8291258321179141,
+   "UNC": 1.0
+  },
+  {
+   "source": "thue-morse",
+   "seed": 0,
+   "observer": "KT-12",
+   "bits_per_symbol": 0.18837808841339676,
+   "asymptote": 0.17064342793813472,
+   "learning_cost_bits": 145.28233861334678,
+   "score": 0.18837808841339676,
+   "MCB": 0.014862396466046424,
+   "DSC": 0.8264843080526496,
+   "UNC": 1.0
+  },
+  {
+   "source": "thue-morse",
+   "seed": 0,
+   "observer": "CTW-12",
+   "bits_per_symbol": 0.1774477979328239,
+   "asymptote": 0.16821621753562185,
+   "learning_cost_bits": 75.62510661387886,
+   "score": 0.1774477979328239,
+   "MCB": 0.006140660517280794,
+   "DSC": 0.828692862584457,
+   "UNC": 1.0
+  },
+  {
+   "source": "thue-morse",
+   "seed": 1,
+   "observer": "KT-0",
+   "bits_per_symbol": 1.0008331835781035,
+   "asymptote": 1.00010137767608,
+   "learning_cost_bits": 5.994953949375808,
+   "score": 1.0008331835781035,
+   "MCB": 0.000833226573766721,
+   "DSC": 0.0,
+   "UNC": 0.9999999570043367
+  },
+  {
+   "source": "thue-morse",
+   "seed": 1,
+   "observer": "KT-1",
+   "bits_per_symbol": 0.9199315187995823,
+   "asymptote": 0.918173367119353,
+   "learning_cost_bits": 14.40277856443853,
+   "score": 0.9199315187995823,
+   "MCB": 0.0012913239863358017,
+   "DSC": 0.0813597621910902,
+   "UNC": 0.9999999570043367
+  },
+  {
+   "source": "thue-morse",
+   "seed": 1,
+   "observer": "KT-2",
+   "bits_per_symbol": 0.6696938274256321,
+   "asymptote": 0.6673986161806927,
+   "learning_cost_bits": 18.80237051854322,
+   "score": 0.6696938274256321,
+   "MCB": 0.0024753747699223227,
+   "DSC": 0.33278150434862697,
+   "UNC": 0.9999999570043367
+  },
+  {
+   "source": "thue-morse",
+   "seed": 1,
+   "observer": "KT-4",
+   "bits_per_symbol": 0.34049443085851927,
+   "asymptote": 0.33402375551799446,
+   "learning_cost_bits": 53.00777238957945,
+   "score": 0.34049443085851927,
+   "MCB": 0.00513074274222336,
+   "DSC": 0.6646362688880408,
+   "UNC": 0.9999999570043367
+  },
+  {
+   "source": "thue-morse",
+   "seed": 1,
+   "observer": "KT-8",
+   "bits_per_symbol": 0.18099707022420886,
+   "asymptote": 0.169222953278438,
+   "learning_cost_bits": 96.45356601975476,
+   "score": 0.18099707022420886,
+   "MCB": 0.010368168152978557,
+   "DSC": 0.8293710549331065,
+   "UNC": 0.9999999570043367
+  },
+  {
+   "source": "thue-morse",
+   "seed": 1,
+   "observer": "KT-12",
+   "bits_per_symbol": 0.18837731543601502,
+   "asymptote": 0.17064728364928597,
+   "learning_cost_bits": 145.24442039688444,
+   "score": 0.18837731543601502,
+   "MCB": 0.014656852114031865,
+   "DSC": 0.8262794936823536,
+   "UNC": 0.9999999570043367
+  },
+  {
+   "source": "thue-morse",
+   "seed": 1,
+   "observer": "CTW-12",
+   "bits_per_symbol": 0.17764906965978394,
+   "asymptote": 0.16822293460109722,
+   "learning_cost_bits": 77.21889840076152,
+   "score": 0.17764906965978394,
+   "MCB": 0.006403162249398159,
+   "DSC": 0.8287540495939509,
+   "UNC": 0.9999999570043367
+  },
+  {
+   "source": "thue-morse",
+   "seed": 2,
+   "observer": "KT-0",
+   "bits_per_symbol": 1.0008332265737665,
+   "asymptote": 1.0001013203485287,
+   "learning_cost_bits": 5.995775797147389,
+   "score": 1.0008332265737665,
+   "MCB": 0.000833226573766721,
+   "DSC": 2.220446049250313e-16,
+   "UNC": 1.0
+  },
+  {
+   "source": "thue-morse",
+   "seed": 2,
+   "observer": "KT-1",
+   "bits_per_symbol": 0.9198094807328454,
+   "asymptote": 0.9181729802174039,
+   "learning_cost_bits": 13.40621222249695,
+   "score": 0.9198094807328454,
+   "MCB": 0.001291130390619899,
+   "DSC": 0.08148164965777449,
+   "UNC": 1.0
+  },
+  {
+   "source": "thue-morse",
+   "seed": 2,
+   "observer": "KT-2",
+   "bits_per_symbol": 0.6698158332170709,
+   "asymptote": 0.6673969815626677,
+   "learning_cost_bits": 19.815232752871225,
+   "score": 0.6698158332170709,
+   "MCB": 0.0025795050920705,
+   "DSC": 0.33276367187499956,
+   "UNC": 1.0
+  },
+  {
+   "source": "thue-morse",
+   "seed": 2,
+   "observer": "KT-4",
+   "bits_per_symbol": 0.3402500315344502,
+   "asymptote": 0.3340199676561245,
+   "learning_cost_bits": 51.03668329124377,
+   "score": 0.3402500315344502,
+   "MCB": 0.005130484066646124,
+   "DSC": 0.6648804525321959,
+   "UNC": 1.0
+  },
+  {
+   "source": "thue-morse",
+   "seed": 2,
+   "observer": "KT-8",
+   "bits_per_symbol": 0.18111836188761565,
+   "asymptote": 0.16921983868206517,
+   "learning_cost_bits": 97.47270209986951,
+   "score": 0.18111836188761565,
+   "MCB": 0.010134326149469408,
+   "DSC": 0.8290159642618538,
+   "UNC": 1.0
+  },
+  {
+   "source": "thue-morse",
+   "seed": 2,
+   "observer": "KT-12",
+   "bits_per_symbol": 0.18837808841339676,
+   "asymptote": 0.17064342793813472,
+   "learning_cost_bits": 145.28233861334678,
+   "score": 0.18837808841339676,
+   "MCB": 0.01523110773087838,
+   "DSC": 0.8268530193174817,
+   "UNC": 1.0
+  },
+  {
+   "source": "thue-morse",
+   "seed": 2,
+   "observer": "CTW-12",
+   "bits_per_symbol": 0.17692836393500516,
+   "asymptote": 0.16821258786902837,
+   "learning_cost_bits": 71.3996375324817,
+   "score": 0.17692836393500516,
+   "MCB": 0.006060279227421833,
+   "DSC": 0.8291319152924167,
+   "UNC": 1.0
+  },
+  {
+   "source": "pseudorandom (LCG)",
+   "seed": 0,
+   "observer": "KT-0",
+   "bits_per_symbol": 1.0008160282404253,
+   "asymptote": 1.000124251742787,
+   "learning_cost_bits": 5.667033068651277,
+   "score": 1.0008160282404253,
+   "MCB": 0.0008844812152034587,
+   "DSC": 5.125464135147251e-05,
+   "UNC": 0.9999828016665733
+  },
+  {
+   "source": "pseudorandom (LCG)",
+   "seed": 0,
+   "observer": "KT-1",
+   "bits_per_symbol": 1.001519684186063,
+   "asymptote": 1.0002863011887968,
+   "learning_cost_bits": 10.103873513605107,
+   "score": 1.001519684186063,
+   "MCB": 0.001576258305514111,
+   "DSC": 3.937578602442038e-05,
+   "UNC": 0.9999828016665733
+  },
+  {
+   "source": "pseudorandom (LCG)",
+   "seed": 0,
+   "observer": "KT-2",
+   "bits_per_symbol": 1.0025595645823557,
+   "asymptote": 1.0004012548908392,
+   "learning_cost_bits": 17.680872992902923,
+   "score": 1.0025595645823557,
+   "MCB": 0.0026621749603422673,
+   "DSC": 8.541204455980722e-05,
+   "UNC": 0.9999828016665733
+  },
+  {
+   "source": "pseudorandom (LCG)",
+   "seed": 0,
+   "observer": "KT-4",
+   "bits_per_symbol": 1.007731558986434,
+   "asymptote": 1.0011719194388669,
+   "learning_cost_bits": 53.73656717366946,
+   "score": 1.007731558986434,
+   "MCB": 0.008021503754415571,
+   "DSC": 0.00027274643455488246,
+   "UNC": 0.9999828016665733
+  },
+  {
+   "source": "pseudorandom (LCG)",
+   "seed": 0,
+   "observer": "KT-8",
+   "bits_per_symbol": 1.062913973054031,
+   "asymptote": 1.0333401619396567,
+   "learning_cost_bits": 242.26866064895356,
+   "score": 1.062913973054031,
+   "MCB": 0.06354964070414204,
+   "DSC": 0.0006184693166844113,
+   "UNC": 0.9999828016665733
+  },
+  {
+   "source": "pseudorandom (LCG)",
+   "seed": 0,
+   "observer": "KT-12",
+   "bits_per_symbol": 1.1112189703515147,
+   "asymptote": 1.1716744336596527,
+   "learning_cost_bits": -495.25115542026526,
+   "score": 1.1112189703515147,
+   "MCB": 0.11177318947798809,
+   "DSC": 0.0005370207930466275,
+   "UNC": 0.9999828016665733
+  },
+  {
+   "source": "pseudorandom (LCG)",
+   "seed": 0,
+   "observer": "CTW-12",
+   "bits_per_symbol": 1.0009372689389422,
+   "asymptote": 1.0001251645540918,
+   "learning_cost_bits": 6.652759120692937,
+   "score": 1.0009372689389422,
+   "MCB": 0.001019168861887021,
+   "DSC": 6.470158951810134e-05,
+   "UNC": 0.9999828016665733
+  },
+  {
+   "source": "pseudorandom (LCG)",
+   "seed": 1,
+   "observer": "KT-0",
+   "bits_per_symbol": 1.0008142654035348,
+   "asymptote": 1.0000440498203016,
+   "learning_cost_bits": 6.309606057845696,
+   "score": 1.0008142654035348,
+   "MCB": 0.0009974197527319317,
+   "DSC": 0.00016419317887128582,
+   "UNC": 0.9999810388296742
+  },
+  {
+   "source": "pseudorandom (LCG)",
+   "seed": 1,
+   "observer": "KT-1",
+   "bits_per_symbol": 1.0014629119430114,
+   "asymptote": 0.9998961594362946,
+   "learning_cost_bits": 12.834836535023438,
+   "score": 1.0014629119430114,
+   "MCB": 0.001682270690493759,
+   "DSC": 0.00020039757715650808,
+   "UNC": 0.9999810388296742
+  },
+  {
+   "source": "pseudorandom (LCG)",
+   "seed": 1,
+   "observer": "KT-2",
+   "bits_per_symbol": 1.0026283596154375,
+   "asymptote": 0.9997371029315519,
+   "learning_cost_bits": 23.685174754392023,
+   "score": 1.0026283596154375,
+   "MCB": 0.003009854032896442,
+   "DSC": 0.00036253324713309,
+   "UNC": 0.9999810388296742
+  },
+  {
+   "source": "pseudorandom (LCG)",
+   "seed": 1,
+   "observer": "KT-4",
+   "bits_per_symbol": 1.0082419249319776,
+   "asymptote": 1.0028333808705803,
+   "learning_cost_bits": 44.30679295096778,
+   "score": 1.0082419249319776,
+   "MCB": 0.00840994460814859,
+   "DSC": 0.00014905850584512326,
+   "UNC": 0.9999810388296742
+  },
+  {
+   "source": "pseudorandom (LCG)",
+   "seed": 1,
+   "observer": "KT-8",
+   "bits_per_symbol": 1.0672923119775772,
+   "asymptote": 1.0259213337097557,
+   "learning_cost_bits": 338.9110539699936,
+   "score": 1.0672923119775772,
+   "MCB": 0.06763552352341007,
+   "DSC": 0.00032425037550698477,
+   "UNC": 0.9999810388296742
+  },
+  {
+   "source": "pseudorandom (LCG)",
+   "seed": 1,
+   "observer": "KT-12",
+   "bits_per_symbol": 1.1135520755086579,
+   "asymptote": 1.140760101135399,
+   "learning_cost_bits": -222.88814593426233,
+   "score": 1.1135520755086579,
+   "MCB": 0.11384149286758927,
+   "DSC": 0.0002704561886055501,
+   "UNC": 0.9999810388296742
+  },
+  {
+   "source": "pseudorandom (LCG)",
+   "seed": 1,
+   "observer": "CTW-12",
+   "bits_per_symbol": 1.0009352143221488,
+   "asymptote": 1.000043214327103,
+   "learning_cost_bits": 7.307263959415008,
+   "score": 1.0009352143221488,
+   "MCB": 0.0013375355882142559,
+   "DSC": 0.0003833600957395822,
+   "UNC": 0.9999810388296742
+  },
+  {
+   "source": "pseudorandom (LCG)",
+   "seed": 2,
+   "observer": "KT-0",
+   "bits_per_symbol": 1.0008124165730579,
+   "asymptote": 1.000026335518112,
+   "learning_cost_bits": 6.4395760021173025,
+   "score": 1.0008124165730579,
+   "MCB": 0.0008372475328837226,
+   "DSC": 4.020959013861791e-06,
+   "UNC": 0.999979189999188
+  },
+  {
+   "source": "pseudorandom (LCG)",
+   "seed": 2,
+   "observer": "KT-1",
+   "bits_per_symbol": 1.0015213570690848,
+   "asymptote": 1.000127253235268,
+   "learning_cost_bits": 11.42049860662699,
+   "score": 1.0015213570690848,
+   "MCB": 0.0015883721476321888,
+   "DSC": 4.620507773533955e-05,
+   "UNC": 0.999979189999188
+  },
+  {
+   "source": "pseudorandom (LCG)",
+   "seed": 2,
+   "observer": "KT-2",
+   "bits_per_symbol": 1.0028151231132831,
+   "asymptote": 1.001450896137587,
+   "learning_cost_bits": 11.17574738490215,
+   "score": 1.0028151231132831,
+   "MCB": 0.003000858384684446,
+   "DSC": 0.00016492527058931117,
+   "UNC": 0.999979189999188
+  },
+  {
+   "source": "pseudorandom (LCG)",
+   "seed": 2,
+   "observer": "KT-4",
+   "bits_per_symbol": 1.0085298599025805,
+   "asymptote": 1.0040942183579178,
+   "learning_cost_bits": 36.3367755338769,
+   "score": 1.0085298599025805,
+   "MCB": 0.009117959263374997,
+   "DSC": 0.0005672893599825146,
+   "UNC": 0.999979189999188
+  },
+  {
+   "source": "pseudorandom (LCG)",
+   "seed": 2,
+   "observer": "KT-8",
+   "bits_per_symbol": 1.067250417270867,
+   "asymptote": 1.0334508102120283,
+   "learning_cost_bits": 276.88638102600675,
+   "score": 1.067250417270867,
+   "MCB": 0.0675379122694516,
+   "DSC": 0.0002666849977726038,
+   "UNC": 0.999979189999188
+  },
+  {
+   "source": "pseudorandom (LCG)",
+   "seed": 2,
+   "observer": "KT-12",
+   "bits_per_symbol": 1.1167241230356,
+   "asymptote": 1.1608082579063876,
+   "learning_cost_bits": -361.1372328614907,
+   "score": 1.1167241230356,
+   "MCB": 0.11710905356216683,
+   "DSC": 0.0003641205257548519,
+   "UNC": 0.999979189999188
+  },
+  {
+   "source": "pseudorandom (LCG)",
+   "seed": 2,
+   "observer": "CTW-12",
+   "bits_per_symbol": 1.0009336977251568,
+   "asymptote": 1.0000269362149081,
+   "learning_cost_bits": 7.4281902919580824,
+   "score": 1.0009336977251568,
+   "MCB": 0.0010779158739147032,
+   "DSC": 0.0001234081479458693,
+   "UNC": 0.999979189999188
+  },
+  {
+   "source": "logistic map",
+   "seed": 0,
+   "observer": "KT-0",
+   "bits_per_symbol": 0.9955899568282596,
+   "asymptote": 0.9947679287225895,
+   "learning_cost_bits": 6.734054241649232,
+   "score": 0.9955899568282596,
+   "MCB": 0.000837306089489509,
+   "DSC": 4.0794895206364146e-06,
+   "UNC": 0.9947567302282907
+  },
+  {
+   "source": "logistic map",
+   "seed": 0,
+   "observer": "KT-1",
+   "bits_per_symbol": 0.9916905161086886,
+   "asymptote": 0.9891012907616809,
+   "learning_cost_bits": 21.21093404268685,
+   "score": 0.9916905161086886,
+   "MCB": 0.0014771214847729697,
+   "DSC": 0.004543335604375032,
+   "UNC": 0.9947567302282907
+  },
+  {
+   "source": "logistic map",
+   "seed": 0,
+   "observer": "KT-2",
+   "bits_per_symbol": 0.9824265707596458,
+   "asymptote": 0.9769966661892672,
+   "learning_cost_bits": 44.481778240541615,
+   "score": 0.9824265707596458,
+   "MCB": 0.0022964492299129002,
+   "DSC": 0.014626608698557808,
+   "UNC": 0.9947567302282907
+  },
+  {
+   "source": "logistic map",
+   "seed": 0,
+   "observer": "KT-4",
+   "bits_per_symbol": 0.9376632322513136,
+   "asymptote": 0.9357906828469036,
+   "learning_cost_bits": 15.339924720927335,
+   "score": 0.9376632322513136,
+   "MCB": 0.005480824911426652,
+   "DSC": 0.0625743228884037,
+   "UNC": 0.9947567302282907
+  },
+  {
+   "source": "logistic map",
+   "seed": 0,
+   "observer": "KT-8",
+   "bits_per_symbol": 0.985979793455533,
+   "asymptote": 0.9504955282164828,
+   "learning_cost_bits": 290.68710083829984,
+   "score": 0.985979793455533,
+   "MCB": 0.04248801642799693,
+   "DSC": 0.05126495320075464,
+   "UNC": 0.9947567302282907
+  },
+  {
+   "source": "logistic map",
+   "seed": 0,
+   "observer": "KT-12",
+   "bits_per_symbol": 1.0757349503575928,
+   "asymptote": 1.098196196643503,
+   "learning_cost_bits": -184.00252957417686,
+   "score": 1.0757349503575928,
+   "MCB": 0.09188915760801364,
+   "DSC": 0.010910937478711524,
+   "UNC": 0.9947567302282907
+  },
+  {
+   "source": "logistic map",
+   "seed": 0,
+   "observer": "CTW-12",
+   "bits_per_symbol": 0.9366183288911654,
+   "asymptote": 0.9368214766828376,
+   "learning_cost_bits": -1.6641867093784484,
+   "score": 0.9366183288911654,
+   "MCB": 0.0022626748181175937,
+   "DSC": 0.06040107615524293,
+   "UNC": 0.9947567302282907
+  },
+  {
+   "source": "logistic map",
+   "seed": 1,
+   "observer": "KT-0",
+   "bits_per_symbol": 0.9954078940375675,
+   "asymptote": 0.9983864942552894,
+   "learning_cost_bits": -24.400692983577912,
+   "score": 0.9954078940375675,
+   "MCB": 0.0008633040251405655,
+   "DSC": 3.0077424256202967e-05,
+   "UNC": 0.9945746674366831
+  },
+  {
+   "source": "logistic map",
+   "seed": 1,
+   "observer": "KT-1",
+   "bits_per_symbol": 0.9911864694236743,
+   "asymptote": 0.9917171961304242,
+   "learning_cost_bits": -4.347713181695623,
+   "score": 0.9911864694236743,
+   "MCB": 0.0013190522737197563,
+   "DSC": 0.0047072502867285815,
+   "UNC": 0.9945746674366831
+  },
+  {
+   "source": "logistic map",
+   "seed": 1,
+   "observer": "KT-2",
+   "bits_per_symbol": 0.9806221730533298,
+   "asymptote": 0.9769443732185105,
+   "learning_cost_bits": 30.128536246839044,
+   "score": 0.9806221730533298,
+   "MCB": 0.002640040265734056,
+   "DSC": 0.016592534649087387,
+   "UNC": 0.9945746674366831
+  },
+  {
+   "source": "logistic map",
+   "seed": 1,
+   "observer": "KT-4",
+   "bits_per_symbol": 0.9415940036374933,
+   "asymptote": 0.9308783280745425,
+   "learning_cost_bits": 87.78281421169292,
+   "score": 0.9415940036374933,
+   "MCB": 0.005237942889419478,
+   "DSC": 0.05821860668860923,
+   "UNC": 0.9945746674366831
+  },
+  {
+   "source": "logistic map",
+   "seed": 1,
+   "observer": "KT-8",
+   "bits_per_symbol": 0.9900788942843,
+   "asymptote": 0.9479093748491273,
+   "learning_cost_bits": 345.4527032129347,
+   "score": 0.9900788942843,
+   "MCB": 0.042165428748677014,
+   "DSC": 0.046661201901060156,
+   "UNC": 0.9945746674366831
+  },
+  {
+   "source": "logistic map",
+   "seed": 1,
+   "observer": "KT-12",
+   "bits_per_symbol": 1.0829974019484294,
+   "asymptote": 1.0925886238599878,
+   "learning_cost_bits": -78.57128989948531,
+   "score": 1.0829974019484294,
+   "MCB": 0.0957390476571317,
+   "DSC": 0.007316313145385389,
+   "UNC": 0.9945746674366831
+  },
+  {
+   "source": "logistic map",
+   "seed": 1,
+   "observer": "CTW-12",
+   "bits_per_symbol": 0.9406496323735741,
+   "asymptote": 0.9310546477744248,
+   "learning_cost_bits": 78.60211383623133,
+   "score": 0.9406496323735741,
+   "MCB": 0.00265103941261835,
+   "DSC": 0.05657607447572732,
+   "UNC": 0.9945746674366831
+  },
+  {
+   "source": "logistic map",
+   "seed": 2,
+   "observer": "KT-0",
+   "bits_per_symbol": 0.995377247013038,
+   "asymptote": 0.997993409492328,
+   "learning_cost_bits": -21.431603030343744,
+   "score": 0.995377247013038,
+   "MCB": 0.0009055768054935243,
+   "DSC": 7.235020445495177e-05,
+   "UNC": 0.9945440204119994
+  },
+  {
+   "source": "logistic map",
+   "seed": 2,
+   "observer": "KT-1",
+   "bits_per_symbol": 0.9942952882327514,
+   "asymptote": 0.9968067733306138,
+   "learning_cost_bits": -20.574085921689505,
+   "score": 0.9942952882327514,
+   "MCB": 0.0013152321412599477,
+   "DSC": 0.0015639643205079823,
+   "UNC": 0.9945440204119994
+  },
+  {
+   "source": "logistic map",
+   "seed": 2,
+   "observer": "KT-2",
+   "bits_per_symbol": 0.9792103070760202,
+   "asymptote": 0.9753897102475715,
+   "learning_cost_bits": 31.29832921865203,
+   "score": 0.9792103070760202,
+   "MCB": 0.0024503445734892493,
+   "DSC": 0.017784057909468465,
+   "UNC": 0.9945440204119994
+  },
+  {
+   "source": "logistic map",
+   "seed": 2,
+   "observer": "KT-4",
+   "bits_per_symbol": 0.9398053074642356,
+   "asymptote": 0.929071364486321,
+   "learning_cost_bits": 87.93246087507647,
+   "score": 0.9398053074642356,
+   "MCB": 0.006043277260368907,
+   "DSC": 0.060781990208132686,
+   "UNC": 0.9945440204119994
+  },
+  {
+   "source": "logistic map",
+   "seed": 2,
+   "observer": "KT-8",
+   "bits_per_symbol": 0.9882963573964364,
+   "asymptote": 0.9394805934820392,
+   "learning_cost_bits": 399.89873798674216,
+   "score": 0.9882963573964364,
+   "MCB": 0.04390409433806697,
+   "DSC": 0.05015175735362998,
+   "UNC": 0.9945440204119994
+  },
+  {
+   "source": "logistic map",
+   "seed": 2,
+   "observer": "KT-12",
+   "bits_per_symbol": 1.0831680562539117,
+   "asymptote": 1.072439222429674,
+   "learning_cost_bits": 87.89060668815637,
+   "score": 1.0831680562539117,
+   "MCB": 0.09701902620963443,
+   "DSC": 0.008394990367722177,
+   "UNC": 0.9945440204119994
+  },
+  {
+   "source": "logistic map",
+   "seed": 2,
+   "observer": "CTW-12",
+   "bits_per_symbol": 0.93772579194497,
+   "asymptote": 0.929668686695092,
+   "learning_cost_bits": 66.00380620699997,
+   "score": 0.93772579194497,
+   "MCB": 0.0029160985673055695,
+   "DSC": 0.05973432703433501,
+   "UNC": 0.9945440204119994
+  },
+  {
+   "source": "minkowski ?(u)",
+   "seed": 0,
+   "observer": "KT-0",
+   "bits_per_symbol": 0.9999903474282282,
+   "asymptote": 0.9973262669947872,
+   "learning_cost_bits": 21.824146910748425,
+   "score": 0.9999903474282282,
+   "MCB": 0.0032505268096758577,
+   "DSC": 0.002417300231718711,
+   "UNC": 0.9991571208502711
+  },
+  {
+   "source": "minkowski ?(u)",
+   "seed": 0,
+   "observer": "KT-1",
+   "bits_per_symbol": 0.6168640188280623,
+   "asymptote": 0.5700577637374722,
+   "learning_cost_bits": 383.43684170211446,
+   "score": 0.6168640188280623,
+   "MCB": 0.00245460415380927,
+   "DSC": 0.38474770617601806,
+   "UNC": 0.9991571208502711
+  },
+  {
+   "source": "minkowski ?(u)",
+   "seed": 0,
+   "observer": "KT-2",
+   "bits_per_symbol": 0.5666304210696099,
+   "asymptote": 0.5064251115555223,
+   "learning_cost_bits": 493.2018955394064,
+   "score": 0.5666304210696099,
+   "MCB": 0.0030420799378756413,
+   "DSC": 0.4355687797185368,
+   "UNC": 0.9991571208502711
+  },
+  {
+   "source": "minkowski ?(u)",
+   "seed": 0,
+   "observer": "KT-4",
+   "bits_per_symbol": 0.5385113437880561,
+   "asymptote": 0.4758405427641526,
+   "learning_cost_bits": 513.3992019878174,
+   "score": 0.5385113437880561,
+   "MCB": 0.0035680696500702824,
+   "DSC": 0.46421384671228527,
+   "UNC": 0.9991571208502711
+  },
+  {
+   "source": "minkowski ?(u)",
+   "seed": 0,
+   "observer": "KT-8",
+   "bits_per_symbol": 0.5596447870285722,
+   "asymptote": 0.4882075850262509,
+   "learning_cost_bits": 585.213558803017,
+   "score": 0.5596447870285722,
+   "MCB": 0.0072842712111736985,
+   "DSC": 0.44679660503287255,
+   "UNC": 0.9991571208502711
+  },
+  {
+   "source": "minkowski ?(u)",
+   "seed": 0,
+   "observer": "KT-12",
+   "bits_per_symbol": 0.587740148335244,
+   "asymptote": 0.5137551985238296,
+   "learning_cost_bits": 606.0847088551074,
+   "score": 0.587740148335244,
+   "MCB": 0.0054839424004531345,
+   "DSC": 0.4169009149154802,
+   "UNC": 0.9991571208502711
+  },
+  {
+   "source": "minkowski ?(u)",
+   "seed": 0,
+   "observer": "CTW-12",
+   "bits_per_symbol": 0.5338287520490992,
+   "asymptote": 0.4734731296959196,
+   "learning_cost_bits": 494.43325831724815,
+   "score": 0.5338287520490992,
+   "MCB": 0.0038510175331898377,
+   "DSC": 0.46917938633436174,
+   "UNC": 0.9991571208502711
+  },
+  {
+   "source": "minkowski ?(u)",
+   "seed": 1,
+   "observer": "KT-0",
+   "bits_per_symbol": 1.0007805562462302,
+   "asymptote": 0.9999823637660077,
+   "learning_cost_bits": 6.538792797984171,
+   "score": 1.0007805562462302,
+   "MCB": 0.003310093879920206,
+   "DSC": 0.0024768673058923607,
+   "UNC": 0.9999473296722023
+  },
+  {
+   "source": "minkowski ?(u)",
+   "seed": 1,
+   "observer": "KT-1",
+   "bits_per_symbol": 0.6802085997361248,
+   "asymptote": 0.6477528020254208,
+   "learning_cost_bits": 265.8778948460869,
+   "score": 0.6802085997361248,
+   "MCB": 0.0018833329230912854,
+   "DSC": 0.32162206285916883,
+   "UNC": 0.9999473296722023
+  },
+  {
+   "source": "minkowski ?(u)",
+   "seed": 1,
+   "observer": "KT-2",
+   "bits_per_symbol": 0.6231848840825118,
+   "asymptote": 0.5842356755533749,
+   "learning_cost_bits": 319.0719162706912,
+   "score": 0.6231848840825118,
+   "MCB": 0.0025010252704023017,
+   "DSC": 0.3792634708600928,
+   "UNC": 0.9999473296722023
+  },
+  {
+   "source": "minkowski ?(u)",
+   "seed": 1,
+   "observer": "KT-4",
+   "bits_per_symbol": 0.6018864535990252,
+   "asymptote": 0.5532538754059088,
+   "learning_cost_bits": 398.3980805580088,
+   "score": 0.6018864535990252,
+   "MCB": 0.004080114594715578,
+   "DSC": 0.4021409906678928,
+   "UNC": 0.9999473296722023
+  },
+  {
+   "source": "minkowski ?(u)",
+   "seed": 1,
+   "observer": "KT-8",
+   "bits_per_symbol": 0.619188450154079,
+   "asymptote": 0.5552640095101264,
+   "learning_cost_bits": 523.6690177552593,
+   "score": 0.619188450154079,
+   "MCB": 0.009796900824021293,
+   "DSC": 0.39055578034214466,
+   "UNC": 0.9999473296722023
+  },
+  {
+   "source": "minkowski ?(u)",
+   "seed": 1,
+   "observer": "KT-12",
+   "bits_per_symbol": 0.6529988871454608,
+   "asymptote": 0.5863978883132269,
+   "learning_cost_bits": 545.5953824336598,
+   "score": 0.6529988871454608,
+   "MCB": 0.00834725092076094,
+   "DSC": 0.35529569344750245,
+   "UNC": 0.9999473296722023
+  },
+  {
+   "source": "minkowski ?(u)",
+   "seed": 1,
+   "observer": "CTW-12",
+   "bits_per_symbol": 0.5916831727942982,
+   "asymptote": 0.5433432800256364,
+   "learning_cost_bits": 396.0004015608773,
+   "score": 0.5916831727942982,
+   "MCB": 0.003647389657067901,
+   "DSC": 0.4119115465349721,
+   "UNC": 0.9999473296722023
+  },
+  {
+   "source": "minkowski ?(u)",
+   "seed": 2,
+   "observer": "KT-0",
+   "bits_per_symbol": 0.9966973897662439,
+   "asymptote": 0.9901106092379388,
+   "learning_cost_bits": 53.958906087876535,
+   "score": 0.9966973897662439,
+   "MCB": 0.002707658082361619,
+   "DSC": 0.0018744314879538537,
+   "UNC": 0.9958641631718361
+  },
+  {
+   "source": "minkowski ?(u)",
+   "seed": 2,
+   "observer": "KT-1",
+   "bits_per_symbol": 0.6495869485608872,
+   "asymptote": 0.6319879341709519,
+   "learning_cost_bits": 144.17112588234983,
+   "score": 0.6495869485608872,
+   "MCB": 0.0028637063588692335,
+   "DSC": 0.3491409209698182,
+   "UNC": 0.9958641631718361
+  },
+  {
+   "source": "minkowski ?(u)",
+   "seed": 2,
+   "observer": "KT-2",
+   "bits_per_symbol": 0.5938217380947111,
+   "asymptote": 0.5917579406187923,
+   "learning_cost_bits": 16.906628922726682,
+   "score": 0.5938217380947111,
+   "MCB": 0.002415452252435779,
+   "DSC": 0.40445787732956084,
+   "UNC": 0.9958641631718361
+  },
+  {
+   "source": "minkowski ?(u)",
+   "seed": 2,
+   "observer": "KT-4",
+   "bits_per_symbol": 0.5723359930444374,
+   "asymptote": 0.5612249420638342,
+   "learning_cost_bits": 91.02172963310167,
+   "score": 0.5723359930444374,
+   "MCB": 0.003713286472766919,
+   "DSC": 0.42724145660016566,
+   "UNC": 0.9958641631718361
+  },
+  {
+   "source": "minkowski ?(u)",
+   "seed": 2,
+   "observer": "KT-8",
+   "bits_per_symbol": 0.5945383396914964,
+   "asymptote": 0.5730659353129535,
+   "learning_cost_bits": 175.90193666902377,
+   "score": 0.5945383396914964,
+   "MCB": 0.007949510127392423,
+   "DSC": 0.40927533360773216,
+   "UNC": 0.9958641631718361
+  },
+  {
+   "source": "minkowski ?(u)",
+   "seed": 2,
+   "observer": "KT-12",
+   "bits_per_symbol": 0.6301592265311173,
+   "asymptote": 0.604227731981575,
+   "learning_cost_bits": 212.43080334985072,
+   "score": 0.6301592265311173,
+   "MCB": 0.0070426579871943895,
+   "DSC": 0.3727475946279132,
+   "UNC": 0.9958641631718361
+  },
+  {
+   "source": "minkowski ?(u)",
+   "seed": 2,
+   "observer": "CTW-12",
+   "bits_per_symbol": 0.5673355506046124,
+   "asymptote": 0.5532322412003683,
+   "learning_cost_bits": 115.53431063956768,
+   "score": 0.5673355506046124,
+   "MCB": 0.0041432365407276794,
+   "DSC": 0.4326718491079514,
+   "UNC": 0.9958641631718361
+  },
+  {
+   "source": "regime shift",
+   "seed": 0,
+   "observer": "KT-0",
+   "bits_per_symbol": 0.9952227121282198,
+   "asymptote": 1.0255177710221055,
+   "learning_cost_bits": -248.1771224587117,
+   "score": 0.9952227121282198,
+   "MCB": 0.019276719147305,
+   "DSC": 0.01844349254548916,
+   "UNC": 0.9943894855264039
+  },
+  {
+   "source": "regime shift",
+   "seed": 0,
+   "observer": "KT-1",
+   "bits_per_symbol": 0.9875452892966496,
+   "asymptote": 1.0089818015111014,
+   "learning_cost_bits": -175.60790806078924,
+   "score": 0.9875452892966496,
+   "MCB": 0.016909265044713462,
+   "DSC": 0.023753461274467758,
+   "UNC": 0.9943894855264039
+  },
+  {
+   "source": "regime shift",
+   "seed": 0,
+   "observer": "KT-2",
+   "bits_per_symbol": 0.92973128039314,
+   "asymptote": 0.9960779397595408,
+   "learning_cost_bits": -543.5118335295558,
+   "score": 0.92973128039314,
+   "MCB": 0.06252894027985145,
+   "DSC": 0.12718714541311538,
+   "UNC": 0.9943894855264039
+  },
+  {
+   "source": "regime shift",
+   "seed": 0,
+   "observer": "KT-4",
+   "bits_per_symbol": 0.6309192823834866,
+   "asymptote": 0.7914810979982936,
+   "learning_cost_bits": -1315.3223935164986,
+   "score": 0.6309192823834866,
+   "MCB": 0.04212673374927045,
+   "DSC": 0.4055969368921878,
+   "UNC": 0.9943894855264039
+  },
+  {
+   "source": "regime shift",
+   "seed": 0,
+   "observer": "KT-8",
+   "bits_per_symbol": 0.6249394809637737,
+   "asymptote": 0.7724920636115438,
+   "learning_cost_bits": -1208.7507570505327,
+   "score": 0.6249394809637737,
+   "MCB": 0.02115605267867604,
+   "DSC": 0.39060605724130626,
+   "UNC": 0.9943894855264039
+  },
+  {
+   "source": "regime shift",
+   "seed": 0,
+   "observer": "KT-12",
+   "bits_per_symbol": 0.6674050622557528,
+   "asymptote": 0.8145933674922424,
+   "learning_cost_bits": -1205.766596497323,
+   "score": 0.6674050622557528,
+   "MCB": 0.010022153715506632,
+   "DSC": 0.33700657698615777,
+   "UNC": 0.9943894855264039
+  },
+  {
+   "source": "regime shift",
+   "seed": 0,
+   "observer": "CTW-12",
+   "bits_per_symbol": 0.5917038324692508,
+   "asymptote": 0.729645809355627,
+   "learning_cost_bits": -1130.0206746531928,
+   "score": 0.5917038324692508,
+   "MCB": 0.023525653748158515,
+   "DSC": 0.4262113068053116,
+   "UNC": 0.9943894855264039
+  },
+  {
+   "source": "regime shift",
+   "seed": 1,
+   "observer": "KT-0",
+   "bits_per_symbol": 0.9695419675461234,
+   "asymptote": 1.1239715507585566,
+   "learning_cost_bits": -1265.087145676253,
+   "score": 0.9695419675461234,
+   "MCB": 0.09339678652169425,
+   "DSC": 0.09256355978668562,
+   "UNC": 0.9687087408111148
+  },
+  {
+   "source": "regime shift",
+   "seed": 1,
+   "observer": "KT-1",
+   "bits_per_symbol": 0.9659141272039298,
+   "asymptote": 1.1316203744791014,
+   "learning_cost_bits": -1357.4655776782056,
+   "score": 0.9659141272039298,
+   "MCB": 0.07282888109080021,
+   "DSC": 0.07562349469798524,
+   "UNC": 0.9687087408111148
+  },
+  {
+   "source": "regime shift",
+   "seed": 1,
+   "observer": "KT-2",
+   "bits_per_symbol": 0.8572706271596288,
+   "asymptote": 1.095730567719601,
+   "learning_cost_bits": -1953.4638330672929,
+   "score": 0.8572706271596288,
+   "MCB": 0.06586094353469163,
+   "DSC": 0.17729905718617767,
+   "UNC": 0.9687087408111148
+  },
+  {
+   "source": "regime shift",
+   "seed": 1,
+   "observer": "KT-4",
+   "bits_per_symbol": 0.6606324472009601,
+   "asymptote": 0.8329902287417065,
+   "learning_cost_bits": -1411.9549463817946,
+   "score": 0.6606324472009601,
+   "MCB": 0.01328275521621003,
+   "DSC": 0.3213590488263647,
+   "UNC": 0.9687087408111148
+  },
+  {
+   "source": "regime shift",
+   "seed": 1,
+   "observer": "KT-8",
+   "bits_per_symbol": 0.6428778993730073,
+   "asymptote": 0.8312936076117609,
+   "learning_cost_bits": -1543.5014818918685,
+   "score": 0.6428778993730073,
+   "MCB": 0.011046899303118307,
+   "DSC": 0.3368777407412258,
+   "UNC": 0.9687087408111148
+  },
+  {
+   "source": "regime shift",
+   "seed": 1,
+   "observer": "KT-12",
+   "bits_per_symbol": 0.6947498282606396,
+   "asymptote": 0.8835002486713095,
+   "learning_cost_bits": -1546.2434440042084,
+   "score": 0.6947498282606396,
+   "MCB": 0.009192366396055918,
+   "DSC": 0.28315127894653114,
+   "UNC": 0.9687087408111148
+  },
+  {
+   "source": "regime shift",
+   "seed": 1,
+   "observer": "CTW-12",
+   "bits_per_symbol": 0.6211763109081366,
+   "asymptote": 0.8088718463973537,
+   "learning_cost_bits": -1537.6018267276654,
+   "score": 0.6211763109081366,
+   "MCB": 0.011119780447307326,
+   "DSC": 0.3586522103502855,
+   "UNC": 0.9687087408111148
+  },
+  {
+   "source": "regime shift",
+   "seed": 2,
+   "observer": "KT-0",
+   "bits_per_symbol": 0.9908211198742499,
+   "asymptote": 0.9706614278389267,
+   "learning_cost_bits": 165.1481971533683,
+   "score": 0.9908211198742499,
+   "MCB": 0.0165399048866659,
+   "DSC": 0.015706678262587426,
+   "UNC": 0.9899878932501714
+  },
+  {
+   "source": "regime shift",
+   "seed": 2,
+   "observer": "KT-1",
+   "bits_per_symbol": 0.991428529383376,
+   "asymptote": 1.010264176911613,
+   "learning_cost_bits": -154.3016245513175,
+   "score": 0.991428529383376,
+   "MCB": 0.0678826498646381,
+   "DSC": 0.06644201373143355,
+   "UNC": 0.9899878932501714
+  },
+  {
+   "source": "regime shift",
+   "seed": 2,
+   "observer": "KT-2",
+   "bits_per_symbol": 0.8614963118895537,
+   "asymptote": 0.6658348135598693,
+   "learning_cost_bits": 1602.8589943167742,
+   "score": 0.8614963118895537,
+   "MCB": 0.05541117468772028,
+   "DSC": 0.18390275604833806,
+   "UNC": 0.9899878932501714
+  },
+  {
+   "source": "regime shift",
+   "seed": 2,
+   "observer": "KT-4",
+   "bits_per_symbol": 0.5261350184272444,
+   "asymptote": 0.29418675895301194,
+   "learning_cost_bits": 1900.1201416129122,
+   "score": 0.5261350184272444,
+   "MCB": 0.016549451202180765,
+   "DSC": 0.4804023260251078,
+   "UNC": 0.9899878932501714
+  },
+  {
+   "source": "regime shift",
+   "seed": 2,
+   "observer": "KT-8",
+   "bits_per_symbol": 0.4861032323739857,
+   "asymptote": 0.22676950518786715,
+   "learning_cost_bits": 2124.461893108683,
+   "score": 0.4861032323739857,
+   "MCB": 0.006729511868063087,
+   "DSC": 0.5106141727442488,
+   "UNC": 0.9899878932501714
+  },
+  {
+   "source": "regime shift",
+   "seed": 2,
+   "observer": "KT-12",
+   "bits_per_symbol": 0.5388276982684892,
+   "asymptote": 0.2382221060290283,
+   "learning_cost_bits": 2462.5610116256635,
+   "score": 0.5388276982684892,
+   "MCB": 0.008931790856020028,
+   "DSC": 0.4600919858377023,
+   "UNC": 0.9899878932501714
+  },
+  {
+   "source": "regime shift",
+   "seed": 2,
+   "observer": "CTW-12",
+   "bits_per_symbol": 0.47266088041332927,
+   "asymptote": 0.24237191040538109,
+   "learning_cost_bits": 1886.5272423051113,
+   "score": 0.47266088041332927,
+   "MCB": 0.005468404362011736,
+   "DSC": 0.5227954171988539,
+   "UNC": 0.9899878932501714
+  }
+ ]
+}

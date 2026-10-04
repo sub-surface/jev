@@ -1,0 +1,46 @@
+# QUESTIONS: the registry
+
+Status values:
+- **answered:** resolved, with a pointer to the evidence.
+- **partial:** some of it is answered.
+- **open:** a test exists but has not been run.
+- **speculative:** no test exists yet.
+
+Never delete a row. Mark it instead.
+
+| ID | Question (owner's framing kept) | Status | Where / next test |
+|---|---|---|---|
+| Q01 | Can we take this all the way back to Shannon, with predicting and calibrating binary sequences as the ground floor ("it from bit")? | **answered: yes** | E001; [[code-length-is-log-loss]] |
+| Q02 | Could calibration introduce a new way of thinking about information? | **partial** | The exact bits ledger is MCB − DSC + UNC ([[corp-decomposition]]). Information is observer-relative ([[bounded-observer-information]]). *Open:* is "information relative to an observer class" already fully formalised by outcome indistinguishability / multicalibration? Literature pass pending. |
+| Q03 | Calibration ≠ inference. What does it take to *infer structure* about the probabilities? | open | [[inference-vs-calibration]]. E002 tests whether calibration under mechanism-preserving shift is the signature. |
+| Q04 | Can a model be right without local learnable structure, by inferring large leaps through latent space? Is that predictive coding? | partial | Leaps = posterior concentration / amortised inference, *not* predictive coding (which is local and iterative). See [[jumps-are-posterior-concentration]] and [[predictive-coding]]. Test in E002. |
+| Q05 | Is there a maximally globally coherent organisation of the Library of Babel, or a universal way to locate entries? Is the process always functional? | partial | Every predictor is a coordinate system on the library. The universal one is uncomputable, and every computable one has adversarial blind spots. See [[library-of-babel-as-coordinates]] and [[no-universal-computable-predictor]]. |
+| Q06 | Which category-theoretic descriptions are appropriate? | partial | Coalgebra (streams), Markov categories (calibration, the data-processing inequality), lenses (learning). See [[category-theory-fit]]. *Open:* CORP and calibration as Markov-category theorems. |
+| Q07 | Competition, exchange and communication: adversarial signals rippling competitively through networks. | partial | Diagonals and log-score markets are measured in E001 §E. *Open:* the dynamics of *networks* of predictors that trade and attack (E003 self-play). |
+| Q08 | Is inference a morphism that doesn't conserve information? | **answered (two senses)** | Shannon: it can only lose information ([[data-processing-inequality]]). Bounded observer: computation can *create* usable information ([[bounded-observer-information]]). Both hold. |
+| Q09 | Computation creates information (epiplexity). Can we measure it? | partial | E001: the LCG source has DSC = 0 for all bounded observers. The learning-cost proxy is broken on non-stationary and noise sources and needs a held-out prequential definition. |
+| Q10 | Initialise with the j-invariant / bring in modular forms? | speculative | No mechanism is known. The real bridges are mediants/Stern–Brocot and Minkowski ?. See [[mediants-are-bayesian-updating]] and [[minkowski-question-mark]]. A test would need a source whose symmetry is modular. |
+| Q11 | Symmetry groups of the network; Noether; learning and forgetting as broken conservation. | open | The base is established (Kunin et al. 2021). Test: does conserved-quantity drift predict forgetting under regime shifts? See [[symmetry-conservation-in-learning]]. |
+| Q12 | Surreals built from zero, with a Stern–Brocot / Farey / j-boundary bridge to "construct any sequence". | speculative | The three trees are one binary object ([[surreal-sign-expansions]]). *Open:* a predictor native to the sign-expansion tree that beats CTW on something. |
+| Q13 | Orbifolds and optimisation: a discrete optimiser navigating cusps; its relation to isotonic decomposition (`mod.py`). | speculative → open | See [[loss-landscape-orbifold]]. The testable piece is [[mdl-snapped-recalibration]] (Stern–Brocot-quantised PAV against plain PAV). |
+| Q14 | Why does this lead to sphere packing? | answered (math) / open (ML) | Codes → lattices → Conway → Monster → j ([[codes-lattices-moonshine]]). The ML test is lattice versus scalar quantisation. |
+| Q15 | A model with the Monster's dimension; simulating a CFT. | speculative | NN field theory is real. Width alone is meaningless and would need Monster-equivariance. See [[nn-field-theory]]. |
+| Q16 | Can nets calibrate on the outputs of quantum algorithms? | speculative | [[quantum-sources]]: a hard-source family for the zoo, later. |
+| Q17 | Does escalate → distill-back give continual learning? | open (E000: no gain) | Retest with gain-gating plus an ε-audit, with a learner that has no ceiling (E004). |
+| Q18 | Which training target gives *generality*? | open | Meta-train on a prior over generating programs. Score by the code-length surface ([[intelligence-target]]). This is E002. |
+| Q19 | Reframe toward optimising *intelligence* (Chollet, Sutton, …). | partial | The target is drafted in [[intelligence-target]]. The literature pass was interrupted by the usage limit, so re-run it. |
+| Q20 | Are there other updates beyond Shannon besides epiplexity (Kolmogorov, …)? | open | Candidates to verify: V-information, Levin Kt, logical depth, sophistication, pseudo-entropy, OI. The literature pass was interrupted. |
+| Q21 | A big demonstration of all these concepts together. | open | Build an interactive page on the E001 engine: the sources, the observers, the live bits ledger, shifts, gates and diagonals. |
+| Q22 | (from session 1) Is the goal to beat TypeSafe's hosted Jev, or open science on the idea? | open | Owner decision. |
+| Q23 | Replace E8 quantisation with the Leech lattice? | open | About 8% lower distortion than E8 at the same rate; the open question is decoder cost. Test: quantise latents/weights, measure bits per parameter. [[codes-lattices-moonshine]] |
+| Q24 | Is a 196883/196884-dim network special? | conjecture (refined) | Only through Monster-equivariance: by Schur, the linear layers are scalars and the Griess product is the only rich operation. Gate: first show M24 symmetry earns bits on Golay streams. [[golay-symmetry-testbed]] |
+| Q25 | Is learning a breaking of symmetry that increases information (Noether)? | partial | Yes for the *prior's* symmetry (information gained = KL). The *world's* symmetry should be respected (E002). Noether quantities = memory of the init. See [[learning-as-symmetry-breaking]] |
+| Q26 | Decompose Lean/mathlib into binary sequences and learn their structure (with a Monster net)? | open (the Monster part is speculative) | Lean is an exact verifier, so it is a first-class label source ([[ai-verified-mathematics]]). Start with a generic sequence model on the ledger. |
+| Q27 | Do Langlands / automorphic forms ↔ Galois / class field theory give fruitful structure for learning? | partial | E002B is the GL(1) rung: a multiplicativity-aware observer pays only for the primes. Next rung: GL(2) (tau, a_p). See [[langlands-ladder]] and [[murmurations]] |
+| Q28 | Does Wiles' modularity help with learning on orbifolds? | speculative | Modular curves *are* orbifolds (H / Gamma_0(N)), and modularity says E is a quotient of J_0(N). No learning mechanism is known. Analogy to keep: R = T as an identifiability statement. |
+| Q29 | The Jacobian conjecture (disproved for n ≥ 3, 2026) and Navier–Stokes (blowup announced, 2026): are they relevant? | partial | Local invertibility does not imply global ([[local-vs-global-conservation]]). Both came with machine-checkable artifacts ([[ai-verified-mathematics]]). Verify the primary sources. |
+| Q30 | Coprimality in modular-form coefficients, and Hecke operators? | partial | Hecke ⇒ multiplicativity for coprime arguments, so the primes carry the information ([[hecke-multiplicativity]], [[primes-are-the-information]]). Can a learner discover the Hecke recursion? |
+| Q31 | Why is 24 omnipresent? | partial (facts) | See [[the-number-24]]: η^24, Leech, c = 24, Golay/M24, the 70² identity, and the link between 23 and Δ mod 23. Whether these are one phenomenon is the moonshine question itself. |
+| Q32 | Can a learner close the gap that SGD couldn't on Golay? | **answered: yes (E003)** | Model selection over G-invariant linear codes: optimal from one codeword. Next: *discover* the group from data. |
+| Q33 | Can a learner rediscover Hecke structure (GL(2))? | **answered within a tiny grammar (E004)** | Coprime-only multiplicativity, and weight 12 found uniquely. Next: an MDL search over a richer grammar; a_p(E); murmurations. |
+| Q34 | Can symmetries themselves be discovered from data, rather than given? | open | Search over permutations (or over generators) that preserve the empirical code or sequence statistics, scored by bits. This is the next level of the ladder of abstraction. |

@@ -1,0 +1,26 @@
+A golay
+facts: {'weight_distribution': {0: 1, 8: 759, 12: 2576, 16: 759, 24: 1}, 'group_order': 6072, 'octad_orbits_under_group': [759]}
+  eps=0.0 seed=0 N=4: KT-phase 1.010  CTW-12-phase 1.014  MLP 7.506  MLP+g 1.413  orbit-Bayes 0.844  span-Bayes 1.039
+  eps=0.0 seed=0 N=16: KT-phase 1.006  CTW-12-phase 1.010  MLP 6.537  MLP+g 1.423  orbit-Bayes 0.620  span-Bayes 0.542
+  eps=0.0 seed=0 N=64: KT-phase 1.004  CTW-12-phase 1.005  MLP 5.205  MLP+g 0.978  orbit-Bayes 0.542  span-Bayes 0.542
+  eps=0.0 seed=0 N=256: KT-phase 1.002  CTW-12-phase 1.002  MLP 1.730  MLP+g 1.000  span-Bayes 0.542
+  eps=0.0 seed=0 N=1024: KT-phase 1.000  CTW-12-phase 1.000  MLP 1.016  MLP+g 1.002  span-Bayes 0.542
+  eps=0.0 seed=1 N=4: KT-phase 1.011  CTW-12-phase 1.015  MLP 7.316  MLP+g 1.428  orbit-Bayes 0.784  span-Bayes 1.042
+  eps=0.0 seed=1 N=16: KT-phase 1.009  CTW-12-phase 1.012  MLP 6.748  MLP+g 1.006  orbit-Bayes 0.542  span-Bayes 0.542
+  eps=0.0 seed=1 N=64: KT-phase 1.005  CTW-12-phase 1.006  MLP 4.742  MLP+g 1.002  orbit-Bayes 0.542  span-Bayes 0.542
+  eps=0.0 seed=1 N=256: KT-phase 1.002  CTW-12-phase 1.002  MLP 1.849  MLP+g 1.001  span-Bayes 0.542
+  eps=0.0 seed=1 N=1024: KT-phase 1.000  CTW-12-phase 1.000  MLP 1.009  MLP+g 1.000  span-Bayes 0.542
+  eps=0.03 seed=0 N=4: KT-phase 1.011  CTW-12-phase 1.015  MLP 7.790  MLP+g 1.340  orbit-Bayes 0.948
+  eps=0.03 seed=0 N=16: KT-phase 1.007  CTW-12-phase 1.010  MLP 6.400  MLP+g 1.103  orbit-Bayes 0.843
+  eps=0.03 seed=0 N=64: KT-phase 1.004  CTW-12-phase 1.005  MLP 5.283  MLP+g 1.004  orbit-Bayes 0.812
+  eps=0.03 seed=0 N=256: KT-phase 1.001  CTW-12-phase 1.002  MLP 1.739  MLP+g 1.000
+  eps=0.03 seed=0 N=1024: KT-phase 1.000  CTW-12-phase 1.000  MLP 1.021  MLP+g 1.001
+  eps=0.03 seed=1 N=4: KT-phase 1.012  CTW-12-phase 1.016  MLP 7.369  MLP+g 1.181  orbit-Bayes 0.942
+  eps=0.03 seed=1 N=16: KT-phase 1.010  CTW-12-phase 1.013  MLP 6.620  MLP+g 1.029  orbit-Bayes 0.828
+  eps=0.03 seed=1 N=64: KT-phase 1.005  CTW-12-phase 1.007  MLP 5.011  MLP+g 1.001  orbit-Bayes 0.818
+  eps=0.03 seed=1 N=256: KT-phase 1.002  CTW-12-phase 1.002  MLP 1.739  MLP+g 1.000
+  eps=0.03 seed=1 N=1024: KT-phase 1.000  CTW-12-phase 1.000  MLP 1.012  MLP+g 1.000
+B arithmetic
+  liouville lambda(n): KT-0 1.000  KT-8 1.042  CTW-16 1.000  multiplicative 0.000  | prime density 0.116
+  legendre (n/1000003): KT-0 1.000  KT-8 1.041  CTW-16 1.001  multiplicative 0.116  | prime density 0.116
+done in 761s

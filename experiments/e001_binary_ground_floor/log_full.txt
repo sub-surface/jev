@@ -1,0 +1,19 @@
+A ledger
+C shift
+D escalation
+E competition
+      bernoulli(0.3): KT-0 0.884  KT-1 0.884  KT-2 0.885  KT-4 0.890  KT-8 0.933  KT-12 1.002  CTW-12 0.884
+            markov-3: KT-0 0.881  KT-1 0.841  KT-2 0.682  KT-4 0.472  KT-8 0.494  KT-12 0.545  CTW-12 0.471
+      periodic-23+5%: KT-0 0.964  KT-1 0.905  KT-2 0.819  KT-4 0.736  KT-8 0.502  KT-12 0.447  CTW-12 0.436
+          thue-morse: KT-0 1.001  KT-1 0.920  KT-2 0.670  KT-4 0.340  KT-8 0.181  KT-12 0.188  CTW-12 0.177
+  pseudorandom (LCG): KT-0 1.001  KT-1 1.002  KT-2 1.003  KT-4 1.008  KT-8 1.066  KT-12 1.114  CTW-12 1.001
+        logistic map: KT-0 0.996  KT-1 0.992  KT-2 0.981  KT-4 0.940  KT-8 0.988  KT-12 1.081  CTW-12 0.938
+      minkowski ?(u): KT-0 0.999  KT-1 0.649  KT-2 0.595  KT-4 0.571  KT-8 0.591  KT-12 0.624  CTW-12 0.564
+        regime shift: KT-0 0.985  KT-1 0.982  KT-2 0.883  KT-4 0.606  KT-8 0.585  KT-12 0.634  CTW-12 0.562
+escalation (fraction to S2 for 99%): {'bernoulli(0.3)': 0.6766666666666667, 'markov-3': 0.6883333333333334, 'periodic-23+5%': 0.9666666666666668, 'thue-morse': 0.66, 'pseudorandom (LCG)': 1.0, 'logistic map': 1.0, 'minkowski ?(u)': 0.9816666666666666, 'regime shift': 0.9400000000000001}
+competition (row = adversary of, col = observer):
+      KT-0: {'KT-0': 1.0015443935839485, 'KT-4': 0.004065005576562778, 'CTW-12': 0.0044170791086830166, 'market': 0.004341582610172551}
+      KT-4: {'KT-0': 1.0015359664178152, 'KT-4': 1.016893253380351, 'CTW-12': 0.050940420568343955, 'market': 0.051327374303871576}
+    CTW-12: {'KT-0': 1.0015442216012942, 'KT-4': 1.0054897917256942, 'CTW-12': 1.0017837931613744, 'market': 1.0017868294189554}
+    market: {'KT-0': 1.0015443935839483, 'KT-4': 1.0049525662045582, 'CTW-12': 1.0017794039169172, 'market': 1.001785449797749}
+done in 32s

@@ -1,31 +1,32 @@
-# Environment variables and secrets
+# secrets
 .env
 .env*
+!.env.example
 *.token
 secrets/
-tokens/
 
-# Python & Virtual Environments
+# python
 .venv/
 venv/
 __pycache__/
 *.pyc
-*.pyo
-*.pyd
 .pytest_cache/
 
-# Cloudflare & Node
+# node / cloudflare
 node_modules/
 .wrangler/
-package-lock.json
 
-# IDE & OS files
+# editors / os
 .vscode/
 .idea/
 .DS_Store
 Thumbs.db
 *.log
 
-# Large binaries & engines
+# binaries & large artifacts (experiment checkpoints are regenerable; results JSON/PNGs are tracked)
 *.exe
-tools/stockfish/
+experiments/**/*.pt
+experiments/**/*.ckpt
+
+# tool scratch
+.playwright-mcp/

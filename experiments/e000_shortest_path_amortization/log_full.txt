@@ -1,0 +1,24 @@
+Q1/Q2/Q4: amortisation, escalation, shift
+  seed 0 n=   250: iid acc 0.293 smECE 0.033 S2 needed 0.99 | shift acc 0.284 smECE 0.025
+  seed 0 n=  1000: iid acc 0.611 smECE 0.022 S2 needed 0.91 | shift acc 0.626 smECE 0.049
+  seed 0 n=  4000: iid acc 0.731 smECE 0.015 S2 needed 0.74 | shift acc 0.686 smECE 0.023
+  seed 0 n= 16000: iid acc 0.709 smECE 0.016 S2 needed 0.78 | shift acc 0.697 smECE 0.032
+  seed 0 n= 64000: iid acc 0.777 smECE 0.016 S2 needed 0.66 | shift acc 0.791 smECE 0.051
+  seed 1 n=   250: iid acc 0.254 smECE 0.029 S2 needed 0.99 | shift acc 0.273 smECE 0.007
+  seed 1 n=  1000: iid acc 0.584 smECE 0.034 S2 needed 0.93 | shift acc 0.616 smECE 0.039
+  seed 1 n=  4000: iid acc 0.725 smECE 0.018 S2 needed 0.76 | shift acc 0.687 smECE 0.028
+  seed 1 n= 16000: iid acc 0.715 smECE 0.017 S2 needed 0.73 | shift acc 0.709 smECE 0.041
+  seed 1 n= 64000: iid acc 0.773 smECE 0.016 S2 needed 0.64 | shift acc 0.793 smECE 0.057
+  seed 2 n=   250: iid acc 0.307 smECE 0.015 S2 needed 0.99 | shift acc 0.326 smECE 0.040
+  seed 2 n=  1000: iid acc 0.593 smECE 0.042 S2 needed 0.91 | shift acc 0.620 smECE 0.033
+  seed 2 n=  4000: iid acc 0.724 smECE 0.018 S2 needed 0.77 | shift acc 0.690 smECE 0.019
+  seed 2 n= 16000: iid acc 0.713 smECE 0.019 S2 needed 0.75 | shift acc 0.722 smECE 0.028
+  seed 2 n= 64000: iid acc 0.772 smECE 0.016 S2 needed 0.65 | shift acc 0.797 smECE 0.046
+Q3: distill-back loop
+  seed 0 least_confident: final acc 0.718 smECE 0.018
+  seed 0          random: final acc 0.721 smECE 0.023
+  seed 1 least_confident: final acc 0.721 smECE 0.017
+  seed 1          random: final acc 0.730 smECE 0.015
+  seed 2 least_confident: final acc 0.716 smECE 0.017
+  seed 2          random: final acc 0.724 smECE 0.023
+done in 598s -> results_full.json

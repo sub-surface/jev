@@ -1,10 +1,13 @@
-# JEV / ERET Dependencies
-torch>=2.0.0
-chess>=1.10.0
-numpy>=1.24.0
-Pillow>=10.0.0
-requests>=2.31.0
-fastapi>=0.100.0
-uvicorn>=0.23.0
-modal>=0.60.0
-python-dotenv>=1.0.0
+# core research stack (calib/, experiments/, tests/) — runs on a laptop, no cloud SDKs
+numpy>=1.26
+scipy>=1.11
+torch>=2.2
+matplotlib>=3.8
+pytest>=8
+
+# language-model experiments (E003+), install when needed
+# transformers>=4.45
+# peft>=0.12
+# datasets>=2.20
+
+# the Lichess bot has its own requirements: bot/lichess/requirements.txt

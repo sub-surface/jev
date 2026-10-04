@@ -1,0 +1,1595 @@
+{
+ "summary": {
+  "eps=0.0 N=1 symmetry + linearity": [
+   0.5,
+   0.0
+  ],
+  "eps=0.0 N=1 linearity only": [
+   1.0052,
+   0.0001
+  ],
+  "eps=0.0 N=2 symmetry + linearity": [
+   0.5,
+   0.0
+  ],
+  "eps=0.0 N=2 linearity only": [
+   1.0051,
+   0.0002
+  ],
+  "eps=0.0 N=4 symmetry + linearity": [
+   0.5,
+   0.0
+  ],
+  "eps=0.0 N=4 linearity only": [
+   1.0039,
+   0.0022
+  ],
+  "eps=0.0 N=16 symmetry + linearity": [
+   0.5,
+   0.0
+  ],
+  "eps=0.0 N=16 linearity only": [
+   0.5,
+   0.0
+  ],
+  "eps=0.03 N=1 symmetry + linearity": [
+   0.94,
+   0.1201
+  ],
+  "eps=0.03 N=1 linearity only": [
+   1.0061,
+   0.0
+  ],
+  "eps=0.03 N=2 symmetry + linearity": [
+   0.7545,
+   0.123
+  ],
+  "eps=0.03 N=2 linearity only": [
+   1.0116,
+   0.0
+  ],
+  "eps=0.03 N=4 symmetry + linearity": [
+   0.8201,
+   0.1458
+  ],
+  "eps=0.03 N=4 linearity only": [
+   1.0211,
+   0.0
+  ],
+  "eps=0.03 N=16 symmetry + linearity": [
+   0.6945,
+   0.0082
+  ],
+  "eps=0.03 N=16 linearity only": [
+   1.0002,
+   0.0456
+  ]
+ },
+ "rows": [
+  {
+   "eps": 0.0,
+   "seed": 0,
+   "N": 1,
+   "learner": "symmetry + linearity",
+   "candidate_dims": [
+    12,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim12": 1.0,
+    "dim24": 0.0
+   },
+   "bits": 0.5000008156053506,
+   "score": 0.5000008156053506,
+   "MCB": 8.809326983733046e-05,
+   "DSC": 0.5000837154515769,
+   "UNC": 0.9999964377870902
+  },
+  {
+   "eps": 0.0,
+   "seed": 0,
+   "N": 1,
+   "learner": "linearity only",
+   "candidate_dims": [
+    1,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim1": 0.0,
+    "dim24": 1.0
+   },
+   "bits": 1.0049809916700057,
+   "score": 1.0049809916700057,
+   "MCB": 0.004989300001198016,
+   "DSC": 4.746118282605849e-06,
+   "UNC": 0.9999964377870902
+  },
+  {
+   "eps": 0.0,
+   "seed": 0,
+   "N": 2,
+   "learner": "symmetry + linearity",
+   "candidate_dims": [
+    12,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim12": 1.0,
+    "dim24": 0.0
+   },
+   "bits": 0.5000007213478811,
+   "score": 0.5000007213478811,
+   "MCB": 8.799901236783425e-05,
+   "DSC": 0.5000837154515769,
+   "UNC": 0.9999964377870902
+  },
+  {
+   "eps": 0.0,
+   "seed": 0,
+   "N": 2,
+   "learner": "linearity only",
+   "candidate_dims": [
+    2,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim2": 0.0,
+    "dim24": 1.0
+   },
+   "bits": 1.0049809916700057,
+   "score": 1.0049809916700057,
+   "MCB": 0.004991974083566775,
+   "DSC": 7.420200651364617e-06,
+   "UNC": 0.9999964377870902
+  },
+  {
+   "eps": 0.0,
+   "seed": 0,
+   "N": 4,
+   "learner": "symmetry + linearity",
+   "candidate_dims": [
+    12,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim12": 1.0,
+    "dim24": 0.0
+   },
+   "bits": 0.5000007213478811,
+   "score": 0.5000007213478811,
+   "MCB": 8.799901236783425e-05,
+   "DSC": 0.5000837154515769,
+   "UNC": 0.9999964377870902
+  },
+  {
+   "eps": 0.0,
+   "seed": 0,
+   "N": 4,
+   "learner": "linearity only",
+   "candidate_dims": [
+    4,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim4": 0.0,
+    "dim24": 1.0
+   },
+   "bits": 1.0052587690470345,
+   "score": 1.0052587690470345,
+   "MCB": 0.005267077378226848,
+   "DSC": 4.746118282605849e-06,
+   "UNC": 0.9999964377870902
+  },
+  {
+   "eps": 0.0,
+   "seed": 0,
+   "N": 16,
+   "learner": "symmetry + linearity",
+   "candidate_dims": [
+    12,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim12": 1.0,
+    "dim24": 0.0
+   },
+   "bits": 0.5000007213478811,
+   "score": 0.5000007213478811,
+   "MCB": 8.799901236783425e-05,
+   "DSC": 0.5000837154515769,
+   "UNC": 0.9999964377870902
+  },
+  {
+   "eps": 0.0,
+   "seed": 0,
+   "N": 16,
+   "learner": "linearity only",
+   "candidate_dims": [
+    12,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim12": 1.0,
+    "dim24": 0.0
+   },
+   "bits": 0.5000007213478811,
+   "score": 0.5000007213478811,
+   "MCB": 8.799901236783425e-05,
+   "DSC": 0.5000837154515769,
+   "UNC": 0.9999964377870902
+  },
+  {
+   "eps": 0.0,
+   "seed": 1,
+   "N": 1,
+   "learner": "symmetry + linearity",
+   "candidate_dims": [
+    12,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim12": 1.0,
+    "dim24": 0.0
+   },
+   "bits": 0.5000008156053506,
+   "score": 0.5000008156053506,
+   "MCB": 1.1947568793191365e-05,
+   "DSC": 0.49997907183615997,
+   "UNC": 0.9999679398727174
+  },
+  {
+   "eps": 0.0,
+   "seed": 1,
+   "N": 1,
+   "learner": "linearity only",
+   "candidate_dims": [
+    1,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim1": 0.0,
+    "dim24": 1.0
+   },
+   "bits": 1.0052587690470345,
+   "score": 1.0052587690470345,
+   "MCB": 0.005582415402174634,
+   "DSC": 0.000291586227857521,
+   "UNC": 0.9999679398727174
+  },
+  {
+   "eps": 0.0,
+   "seed": 1,
+   "N": 2,
+   "learner": "symmetry + linearity",
+   "candidate_dims": [
+    12,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim12": 1.0,
+    "dim24": 0.0
+   },
+   "bits": 0.5000007213478811,
+   "score": 0.5000007213478811,
+   "MCB": 1.185331132369516e-05,
+   "DSC": 0.49997907183615997,
+   "UNC": 0.9999679398727174
+  },
+  {
+   "eps": 0.0,
+   "seed": 1,
+   "N": 2,
+   "learner": "linearity only",
+   "candidate_dims": [
+    2,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim2": 0.0,
+    "dim24": 1.0
+   },
+   "bits": 1.0052587690470345,
+   "score": 1.0052587690470345,
+   "MCB": 0.005582415402174634,
+   "DSC": 0.000291586227857521,
+   "UNC": 0.9999679398727174
+  },
+  {
+   "eps": 0.0,
+   "seed": 1,
+   "N": 4,
+   "learner": "symmetry + linearity",
+   "candidate_dims": [
+    12,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim12": 1.0,
+    "dim24": 0.0
+   },
+   "bits": 0.5000007213478811,
+   "score": 0.5000007213478811,
+   "MCB": 1.185331132369516e-05,
+   "DSC": 0.49997907183615997,
+   "UNC": 0.9999679398727174
+  },
+  {
+   "eps": 0.0,
+   "seed": 1,
+   "N": 4,
+   "learner": "linearity only",
+   "candidate_dims": [
+    4,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim4": 0.0,
+    "dim24": 1.0
+   },
+   "bits": 1.0052587690470345,
+   "score": 1.0052587690470345,
+   "MCB": 0.005582415402174634,
+   "DSC": 0.000291586227857521,
+   "UNC": 0.9999679398727174
+  },
+  {
+   "eps": 0.0,
+   "seed": 1,
+   "N": 16,
+   "learner": "symmetry + linearity",
+   "candidate_dims": [
+    12,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim12": 1.0,
+    "dim24": 0.0
+   },
+   "bits": 0.5000007213478811,
+   "score": 0.5000007213478811,
+   "MCB": 1.185331132369516e-05,
+   "DSC": 0.49997907183615997,
+   "UNC": 0.9999679398727174
+  },
+  {
+   "eps": 0.0,
+   "seed": 1,
+   "N": 16,
+   "learner": "linearity only",
+   "candidate_dims": [
+    12,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim12": 1.0,
+    "dim24": 0.0
+   },
+   "bits": 0.5000007213478811,
+   "score": 0.5000007213478811,
+   "MCB": 1.185331132369516e-05,
+   "DSC": 0.49997907183615997,
+   "UNC": 0.9999679398727174
+  },
+  {
+   "eps": 0.0,
+   "seed": 2,
+   "N": 1,
+   "learner": "symmetry + linearity",
+   "candidate_dims": [
+    12,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim12": 1.0,
+    "dim24": 0.0
+   },
+   "bits": 0.5000008156053506,
+   "score": 0.5000008156053506,
+   "MCB": 8.156053498131755e-07,
+   "DSC": 0.4998254446710242,
+   "UNC": 0.999825444671025
+  },
+  {
+   "eps": 0.0,
+   "seed": 2,
+   "N": 1,
+   "learner": "linearity only",
+   "candidate_dims": [
+    1,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim1": 0.0,
+    "dim24": 1.0
+   },
+   "bits": 1.0052587690470345,
+   "score": 1.0052587690470345,
+   "MCB": 0.005674548513075139,
+   "DSC": 0.00024122413706562096,
+   "UNC": 0.999825444671025
+  },
+  {
+   "eps": 0.0,
+   "seed": 2,
+   "N": 2,
+   "learner": "symmetry + linearity",
+   "candidate_dims": [
+    12,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim12": 1.0,
+    "dim24": 0.0
+   },
+   "bits": 0.5000007213478811,
+   "score": 0.5000007213478811,
+   "MCB": 7.213478803169693e-07,
+   "DSC": 0.4998254446710242,
+   "UNC": 0.999825444671025
+  },
+  {
+   "eps": 0.0,
+   "seed": 2,
+   "N": 2,
+   "learner": "linearity only",
+   "candidate_dims": [
+    2,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim2": 0.0,
+    "dim24": 1.0
+   },
+   "bits": 1.0047032142929766,
+   "score": 1.0047032142929766,
+   "MCB": 0.005684477543128064,
+   "DSC": 0.0008067079211764305,
+   "UNC": 0.999825444671025
+  },
+  {
+   "eps": 0.0,
+   "seed": 2,
+   "N": 4,
+   "learner": "symmetry + linearity",
+   "candidate_dims": [
+    12,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim12": 1.0,
+    "dim24": 0.0
+   },
+   "bits": 0.5000007213478811,
+   "score": 0.5000007213478811,
+   "MCB": 7.213478803169693e-07,
+   "DSC": 0.4998254446710242,
+   "UNC": 0.999825444671025
+  },
+  {
+   "eps": 0.0,
+   "seed": 2,
+   "N": 4,
+   "learner": "linearity only",
+   "candidate_dims": [
+    4,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim4": 0.0,
+    "dim24": 1.0
+   },
+   "bits": 1.0041476595389187,
+   "score": 1.0041476595389187,
+   "MCB": 0.0057346272113665275,
+   "DSC": 0.0014124123434727798,
+   "UNC": 0.999825444671025
+  },
+  {
+   "eps": 0.0,
+   "seed": 2,
+   "N": 16,
+   "learner": "symmetry + linearity",
+   "candidate_dims": [
+    12,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim12": 1.0,
+    "dim24": 0.0
+   },
+   "bits": 0.5000007213478811,
+   "score": 0.5000007213478811,
+   "MCB": 7.213478803169693e-07,
+   "DSC": 0.4998254446710242,
+   "UNC": 0.999825444671025
+  },
+  {
+   "eps": 0.0,
+   "seed": 2,
+   "N": 16,
+   "learner": "linearity only",
+   "candidate_dims": [
+    12,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim12": 1.0,
+    "dim24": 0.0
+   },
+   "bits": 0.5000007213478811,
+   "score": 0.5000007213478811,
+   "MCB": 7.213478803169693e-07,
+   "DSC": 0.4998254446710242,
+   "UNC": 0.999825444671025
+  },
+  {
+   "eps": 0.0,
+   "seed": 3,
+   "N": 1,
+   "learner": "symmetry + linearity",
+   "candidate_dims": [
+    12,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim12": 1.0,
+    "dim24": 0.0
+   },
+   "bits": 0.5000008156053506,
+   "score": 0.5000008156053506,
+   "MCB": 6.493728492534823e-05,
+   "DSC": 0.5000071255693548,
+   "UNC": 0.9999430038897801
+  },
+  {
+   "eps": 0.0,
+   "seed": 3,
+   "N": 1,
+   "learner": "linearity only",
+   "candidate_dims": [
+    1,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim1": 0.0,
+    "dim24": 1.0
+   },
+   "bits": 1.0052587690470345,
+   "score": 1.0052587690470345,
+   "MCB": 0.0056418922482186495,
+   "DSC": 0.0003261270909642455,
+   "UNC": 0.9999430038897801
+  },
+  {
+   "eps": 0.0,
+   "seed": 3,
+   "N": 2,
+   "learner": "symmetry + linearity",
+   "candidate_dims": [
+    12,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim12": 1.0,
+    "dim24": 0.0
+   },
+   "bits": 0.5000007213478811,
+   "score": 0.5000007213478811,
+   "MCB": 6.484302745585202e-05,
+   "DSC": 0.5000071255693548,
+   "UNC": 0.9999430038897801
+  },
+  {
+   "eps": 0.0,
+   "seed": 3,
+   "N": 2,
+   "learner": "linearity only",
+   "candidate_dims": [
+    2,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim2": 0.0,
+    "dim24": 1.0
+   },
+   "bits": 1.0052587690470345,
+   "score": 1.0052587690470345,
+   "MCB": 0.0056418922482186495,
+   "DSC": 0.0003261270909642455,
+   "UNC": 0.9999430038897801
+  },
+  {
+   "eps": 0.0,
+   "seed": 3,
+   "N": 4,
+   "learner": "symmetry + linearity",
+   "candidate_dims": [
+    12,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim12": 1.0,
+    "dim24": 0.0
+   },
+   "bits": 0.5000007213478811,
+   "score": 0.5000007213478811,
+   "MCB": 6.484302745585202e-05,
+   "DSC": 0.5000071255693548,
+   "UNC": 0.9999430038897801
+  },
+  {
+   "eps": 0.0,
+   "seed": 3,
+   "N": 4,
+   "learner": "linearity only",
+   "candidate_dims": [
+    4,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim4": 0.0,
+    "dim24": 1.0
+   },
+   "bits": 1.0052587690470345,
+   "score": 1.0052587690470345,
+   "MCB": 0.005623828820319643,
+   "DSC": 0.0003080636630652389,
+   "UNC": 0.9999430038897801
+  },
+  {
+   "eps": 0.0,
+   "seed": 3,
+   "N": 16,
+   "learner": "symmetry + linearity",
+   "candidate_dims": [
+    12,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim12": 1.0,
+    "dim24": 0.0
+   },
+   "bits": 0.5000007213478811,
+   "score": 0.5000007213478811,
+   "MCB": 6.484302745585202e-05,
+   "DSC": 0.5000071255693548,
+   "UNC": 0.9999430038897801
+  },
+  {
+   "eps": 0.0,
+   "seed": 3,
+   "N": 16,
+   "learner": "linearity only",
+   "candidate_dims": [
+    12,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim12": 1.0,
+    "dim24": 0.0
+   },
+   "bits": 0.5000007213478811,
+   "score": 0.5000007213478811,
+   "MCB": 6.484302745585202e-05,
+   "DSC": 0.5000071255693548,
+   "UNC": 0.9999430038897801
+  },
+  {
+   "eps": 0.0,
+   "seed": 4,
+   "N": 1,
+   "learner": "symmetry + linearity",
+   "candidate_dims": [
+    12,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim12": 1.0,
+    "dim24": 0.0
+   },
+   "bits": 0.5000008156053506,
+   "score": 0.5000008156053506,
+   "MCB": 7.6069908119758e-05,
+   "DSC": 0.49990069897379413,
+   "UNC": 0.999825444671025
+  },
+  {
+   "eps": 0.0,
+   "seed": 4,
+   "N": 1,
+   "learner": "linearity only",
+   "candidate_dims": [
+    1,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim1": 0.0,
+    "dim24": 1.0
+   },
+   "bits": 1.0052587690470345,
+   "score": 1.0052587690470345,
+   "MCB": 0.006865307458693071,
+   "DSC": 0.0014319830826835522,
+   "UNC": 0.999825444671025
+  },
+  {
+   "eps": 0.0,
+   "seed": 4,
+   "N": 2,
+   "learner": "symmetry + linearity",
+   "candidate_dims": [
+    12,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim12": 1.0,
+    "dim24": 0.0
+   },
+   "bits": 0.5000007213478811,
+   "score": 0.5000007213478811,
+   "MCB": 7.59756506502618e-05,
+   "DSC": 0.49990069897379413,
+   "UNC": 0.999825444671025
+  },
+  {
+   "eps": 0.0,
+   "seed": 4,
+   "N": 2,
+   "learner": "linearity only",
+   "candidate_dims": [
+    2,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim2": 0.0,
+    "dim24": 1.0
+   },
+   "bits": 1.0052587690470345,
+   "score": 1.0052587690470345,
+   "MCB": 0.006865307458693071,
+   "DSC": 0.0014319830826835522,
+   "UNC": 0.999825444671025
+  },
+  {
+   "eps": 0.0,
+   "seed": 4,
+   "N": 4,
+   "learner": "symmetry + linearity",
+   "candidate_dims": [
+    12,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim12": 1.0,
+    "dim24": 0.0
+   },
+   "bits": 0.5000007213478811,
+   "score": 0.5000007213478811,
+   "MCB": 7.59756506502618e-05,
+   "DSC": 0.49990069897379413,
+   "UNC": 0.999825444671025
+  },
+  {
+   "eps": 0.0,
+   "seed": 4,
+   "N": 4,
+   "learner": "linearity only",
+   "candidate_dims": [
+    4,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim4": 1.0,
+    "dim24": 0.0
+   },
+   "bits": 0.9997032215064554,
+   "score": 0.9997032215064554,
+   "MCB": 0.005630001705443255,
+   "DSC": 0.005752224870012812,
+   "UNC": 0.999825444671025
+  },
+  {
+   "eps": 0.0,
+   "seed": 4,
+   "N": 16,
+   "learner": "symmetry + linearity",
+   "candidate_dims": [
+    12,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim12": 1.0,
+    "dim24": 0.0
+   },
+   "bits": 0.5000007213478811,
+   "score": 0.5000007213478811,
+   "MCB": 7.59756506502618e-05,
+   "DSC": 0.49990069897379413,
+   "UNC": 0.999825444671025
+  },
+  {
+   "eps": 0.0,
+   "seed": 4,
+   "N": 16,
+   "learner": "linearity only",
+   "candidate_dims": [
+    12,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim12": 1.0,
+    "dim24": 0.0
+   },
+   "bits": 0.5000007213478811,
+   "score": 0.5000007213478811,
+   "MCB": 7.59756506502618e-05,
+   "DSC": 0.49990069897379413,
+   "UNC": 0.999825444671025
+  },
+  {
+   "eps": 0.03,
+   "seed": 0,
+   "N": 1,
+   "learner": "symmetry + linearity",
+   "candidate_dims": [
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim24": 1.0
+   },
+   "bits": 1.0,
+   "score": 1.0,
+   "MCB": 1.0941101521777519e-05,
+   "DSC": 3.180596797047741e-08,
+   "UNC": 0.9999890907044462
+  },
+  {
+   "eps": 0.03,
+   "seed": 0,
+   "N": 1,
+   "learner": "linearity only",
+   "candidate_dims": [
+    1,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim1": 0.0129,
+    "dim24": 0.9871
+   },
+   "bits": 1.006095933337539,
+   "score": 1.006095933337539,
+   "MCB": 0.006368847009645129,
+   "DSC": 0.0002620043765523272,
+   "UNC": 0.9999890907044462
+  },
+  {
+   "eps": 0.03,
+   "seed": 0,
+   "N": 2,
+   "learner": "symmetry + linearity",
+   "candidate_dims": [
+    12,
+    23,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim12": 1.0,
+    "dim23": 0.0,
+    "dim24": 0.0
+   },
+   "bits": 0.7041106679220325,
+   "score": 0.7041106679220325,
+   "MCB": 0.003956567523271337,
+   "DSC": 0.29983499030568506,
+   "UNC": 0.9999890907044462
+  },
+  {
+   "eps": 0.03,
+   "seed": 0,
+   "N": 2,
+   "learner": "linearity only",
+   "candidate_dims": [
+    2,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim2": 1.0,
+    "dim24": 0.0
+   },
+   "bits": 1.0116363109210544,
+   "score": 1.0116363109210544,
+   "MCB": 0.013014029549220707,
+   "DSC": 0.001366809332612462,
+   "UNC": 0.9999890907044462
+  },
+  {
+   "eps": 0.03,
+   "seed": 0,
+   "N": 4,
+   "learner": "symmetry + linearity",
+   "candidate_dims": [
+    12,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim12": 1.0,
+    "dim24": 0.0
+   },
+   "bits": 0.7041103981988158,
+   "score": 0.7041103981988158,
+   "MCB": 0.004026541493702629,
+   "DSC": 0.299905233999333,
+   "UNC": 0.9999890907044462
+  },
+  {
+   "eps": 0.03,
+   "seed": 0,
+   "N": 4,
+   "learner": "linearity only",
+   "candidate_dims": [
+    4,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim4": 1.0,
+    "dim24": 0.0
+   },
+   "bits": 1.0210503996212892,
+   "score": 1.0210503996212892,
+   "MCB": 0.021893147281093928,
+   "DSC": 0.0008318383642509364,
+   "UNC": 0.9999890907044462
+  },
+  {
+   "eps": 0.03,
+   "seed": 0,
+   "N": 16,
+   "learner": "symmetry + linearity",
+   "candidate_dims": [
+    12,
+    23,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim24": 0.0,
+    "dim12": 1.0,
+    "dim23": 0.0
+   },
+   "bits": 0.7041103981979199,
+   "score": 0.7041103981979199,
+   "MCB": 0.0035549596682683537,
+   "DSC": 0.2994336521747947,
+   "UNC": 0.9999890907044462
+  },
+  {
+   "eps": 0.03,
+   "seed": 0,
+   "N": 16,
+   "learner": "linearity only",
+   "candidate_dims": [
+    16,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim16": 1.0,
+    "dim24": 0.0
+   },
+   "bits": 0.9947916738749418,
+   "score": 0.9947916738749418,
+   "MCB": 0.04180730668378463,
+   "DSC": 0.04700472351328899,
+   "UNC": 0.9999890907044462
+  },
+  {
+   "eps": 0.03,
+   "seed": 1,
+   "N": 1,
+   "learner": "symmetry + linearity",
+   "candidate_dims": [
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim24": 1.0
+   },
+   "bits": 1.0,
+   "score": 1.0,
+   "MCB": 0.0006450523414420761,
+   "DSC": 0.0003063932556152116,
+   "UNC": 0.9996613409141731
+  },
+  {
+   "eps": 0.03,
+   "seed": 1,
+   "N": 1,
+   "learner": "linearity only",
+   "candidate_dims": [
+    1,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim1": 0.9977,
+    "dim24": 0.0023
+   },
+   "bits": 1.006095933337539,
+   "score": 1.006095933337539,
+   "MCB": 0.007977785006846538,
+   "DSC": 0.0015431925834806792,
+   "UNC": 0.9996613409141731
+  },
+  {
+   "eps": 0.03,
+   "seed": 1,
+   "N": 2,
+   "learner": "symmetry + linearity",
+   "candidate_dims": [
+    12,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim12": 1.0,
+    "dim24": 0.0
+   },
+   "bits": 0.6845838644192666,
+   "score": 0.6845838644192666,
+   "MCB": 0.005685841829250138,
+   "DSC": 0.3207633183241567,
+   "UNC": 0.9996613409141731
+  },
+  {
+   "eps": 0.03,
+   "seed": 1,
+   "N": 2,
+   "learner": "linearity only",
+   "candidate_dims": [
+    2,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim2": 0.9266,
+    "dim24": 0.0734
+   },
+   "bits": 1.0116363109210549,
+   "score": 1.0116363109210549,
+   "MCB": 0.012287998677492973,
+   "DSC": 0.0003130286706112262,
+   "UNC": 0.9996613409141731
+  },
+  {
+   "eps": 0.03,
+   "seed": 1,
+   "N": 4,
+   "learner": "symmetry + linearity",
+   "candidate_dims": [
+    23,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim24": 0.5896,
+    "dim23": 0.4104
+   },
+   "bits": 0.9979242346545273,
+   "score": 0.9979242346545273,
+   "MCB": 0.002071045492648582,
+   "DSC": 0.003808151752294431,
+   "UNC": 0.9996613409141731
+  },
+  {
+   "eps": 0.03,
+   "seed": 1,
+   "N": 4,
+   "learner": "linearity only",
+   "candidate_dims": [
+    4,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim4": 1.0,
+    "dim24": 0.0
+   },
+   "bits": 1.0210503996198876,
+   "score": 1.0210503996198876,
+   "MCB": 0.021560288864972743,
+   "DSC": 0.00017123015925823992,
+   "UNC": 0.9996613409141731
+  },
+  {
+   "eps": 0.03,
+   "seed": 1,
+   "N": 16,
+   "learner": "symmetry + linearity",
+   "candidate_dims": [
+    12,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim12": 1.0,
+    "dim24": 0.0
+   },
+   "bits": 0.6845838643162021,
+   "score": 0.6845838643162021,
+   "MCB": 0.005322443023317969,
+   "DSC": 0.320399919621289,
+   "UNC": 0.9996613409141731
+  },
+  {
+   "eps": 0.03,
+   "seed": 1,
+   "N": 16,
+   "learner": "linearity only",
+   "candidate_dims": [
+    16,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim16": 1.0,
+    "dim24": 0.0
+   },
+   "bits": 1.0308830559780569,
+   "score": 1.0308830559780569,
+   "MCB": 0.0352887096452037,
+   "DSC": 0.004066994581319983,
+   "UNC": 0.9996613409141731
+  },
+  {
+   "eps": 0.03,
+   "seed": 2,
+   "N": 1,
+   "learner": "symmetry + linearity",
+   "candidate_dims": [
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim24": 1.0
+   },
+   "bits": 1.0,
+   "score": 1.0,
+   "MCB": 0.0006545726196517387,
+   "DSC": 0.0005154193183968259,
+   "UNC": 0.9998608466987451
+  },
+  {
+   "eps": 0.03,
+   "seed": 2,
+   "N": 1,
+   "learner": "linearity only",
+   "candidate_dims": [
+    1,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim1": 0.0,
+    "dim24": 1.0
+   },
+   "bits": 1.006095933337539,
+   "score": 1.006095933337539,
+   "MCB": 0.007186099300570903,
+   "DSC": 0.0009510126617769954,
+   "UNC": 0.9998608466987451
+  },
+  {
+   "eps": 0.03,
+   "seed": 2,
+   "N": 2,
+   "learner": "symmetry + linearity",
+   "candidate_dims": [
+    12,
+    23,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim23": 0.0052,
+    "dim12": 0.9903,
+    "dim24": 0.0045
+   },
+   "bits": 0.6846082535726588,
+   "score": 0.6846082535726588,
+   "MCB": 0.004219200054836225,
+   "DSC": 0.31947179318092256,
+   "UNC": 0.9998608466987451
+  },
+  {
+   "eps": 0.03,
+   "seed": 2,
+   "N": 2,
+   "learner": "linearity only",
+   "candidate_dims": [
+    2,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim2": 1.0,
+    "dim24": 0.0
+   },
+   "bits": 1.0116363109210544,
+   "score": 1.0116363109210544,
+   "MCB": 0.012305394477417075,
+   "DSC": 0.0005299302551077245,
+   "UNC": 0.9998608466987451
+  },
+  {
+   "eps": 0.03,
+   "seed": 2,
+   "N": 4,
+   "learner": "symmetry + linearity",
+   "candidate_dims": [
+    23,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim24": 0.6949,
+    "dim23": 0.3051
+   },
+   "bits": 0.9993496952474552,
+   "score": 0.9993496952474552,
+   "MCB": 0.0012025484031245037,
+   "DSC": 0.0017136998544143855,
+   "UNC": 0.9998608466987451
+  },
+  {
+   "eps": 0.03,
+   "seed": 2,
+   "N": 4,
+   "learner": "linearity only",
+   "candidate_dims": [
+    4,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim4": 1.0,
+    "dim24": 0.0
+   },
+   "bits": 1.021050399665247,
+   "score": 1.021050399665247,
+   "MCB": 0.0232098202871025,
+   "DSC": 0.002020267320600677,
+   "UNC": 0.9998608466987451
+  },
+  {
+   "eps": 0.03,
+   "seed": 2,
+   "N": 16,
+   "learner": "symmetry + linearity",
+   "candidate_dims": [
+    12,
+    23,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim12": 1.0,
+    "dim23": 0.0,
+    "dim24": 0.0
+   },
+   "bits": 0.684607983848546,
+   "score": 0.684607983848546,
+   "MCB": 0.003760613010645786,
+   "DSC": 0.31901347586084483,
+   "UNC": 0.9998608466987451
+  },
+  {
+   "eps": 0.03,
+   "seed": 2,
+   "N": 16,
+   "learner": "linearity only",
+   "candidate_dims": [
+    15,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim15": 1.0,
+    "dim24": 0.0
+   },
+   "bits": 0.9134043166133253,
+   "score": 0.9134043166133253,
+   "MCB": 0.026227674700995407,
+   "DSC": 0.11268420478641517,
+   "UNC": 0.9998608466987451
+  },
+  {
+   "eps": 0.03,
+   "seed": 3,
+   "N": 1,
+   "learner": "symmetry + linearity",
+   "candidate_dims": [
+    12,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim12": 1.0,
+    "dim24": 0.0
+   },
+   "bits": 0.6998483521831443,
+   "score": 0.6998483521831443,
+   "MCB": 0.00630548488020044,
+   "DSC": 0.3064551289530162,
+   "UNC": 0.9999979962559601
+  },
+  {
+   "eps": 0.03,
+   "seed": 3,
+   "N": 1,
+   "learner": "linearity only",
+   "candidate_dims": [
+    1,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim1": 0.0,
+    "dim24": 1.0
+   },
+   "bits": 1.006095933337539,
+   "score": 1.006095933337539,
+   "MCB": 0.006170027788646726,
+   "DSC": 7.209070706781784e-05,
+   "UNC": 0.9999979962559601
+  },
+  {
+   "eps": 0.03,
+   "seed": 3,
+   "N": 2,
+   "learner": "symmetry + linearity",
+   "candidate_dims": [
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim24": 1.0
+   },
+   "bits": 1.0,
+   "score": 1.0,
+   "MCB": 9.29177103186074e-05,
+   "DSC": 9.091396627869397e-05,
+   "UNC": 0.9999979962559601
+  },
+  {
+   "eps": 0.03,
+   "seed": 3,
+   "N": 2,
+   "learner": "linearity only",
+   "candidate_dims": [
+    2,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim2": 0.9954,
+    "dim24": 0.0046
+   },
+   "bits": 1.0116363109210544,
+   "score": 1.0116363109210544,
+   "MCB": 0.011923634914342118,
+   "DSC": 0.0002853202492477669,
+   "UNC": 0.9999979962559601
+  },
+  {
+   "eps": 0.03,
+   "seed": 3,
+   "N": 4,
+   "learner": "symmetry + linearity",
+   "candidate_dims": [
+    12,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim12": 1.0,
+    "dim24": 0.0
+   },
+   "bits": 0.6998481490034191,
+   "score": 0.6998481490034191,
+   "MCB": 0.005804581170125389,
+   "DSC": 0.3059544284226664,
+   "UNC": 0.9999979962559601
+  },
+  {
+   "eps": 0.03,
+   "seed": 3,
+   "N": 4,
+   "learner": "linearity only",
+   "candidate_dims": [
+    4,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim4": 1.0,
+    "dim24": 0.0
+   },
+   "bits": 1.0210503996198903,
+   "score": 1.0210503996198903,
+   "MCB": 0.021661511712092296,
+   "DSC": 0.0006091083481620796,
+   "UNC": 0.9999979962559601
+  },
+  {
+   "eps": 0.03,
+   "seed": 3,
+   "N": 16,
+   "learner": "symmetry + linearity",
+   "candidate_dims": [
+    12,
+    23,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim12": 1.0,
+    "dim23": 0.0,
+    "dim24": 0.0
+   },
+   "bits": 0.699848149003419,
+   "score": 0.699848149003419,
+   "MCB": 0.005777003079846299,
+   "DSC": 0.3059268503323874,
+   "UNC": 0.9999979962559601
+  },
+  {
+   "eps": 0.03,
+   "seed": 3,
+   "N": 16,
+   "learner": "linearity only",
+   "candidate_dims": [
+    16,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim16": 1.0,
+    "dim24": 0.0
+   },
+   "bits": 1.0308702333965758,
+   "score": 1.0308702333965758,
+   "MCB": 0.03272591924279844,
+   "DSC": 0.0018536821021827299,
+   "UNC": 0.9999979962559601
+  },
+  {
+   "eps": 0.03,
+   "seed": 4,
+   "N": 1,
+   "learner": "symmetry + linearity",
+   "candidate_dims": [
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim24": 1.0
+   },
+   "bits": 1.0,
+   "score": 1.0,
+   "MCB": 0.0022599631637887363,
+   "DSC": 0.002227903036506107,
+   "UNC": 0.9999679398727174
+  },
+  {
+   "eps": 0.03,
+   "seed": 4,
+   "N": 1,
+   "learner": "linearity only",
+   "candidate_dims": [
+    1,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim1": 0.0,
+    "dim24": 1.0
+   },
+   "bits": 1.006095933337539,
+   "score": 1.006095933337539,
+   "MCB": 0.007777627664452225,
+   "DSC": 0.0016496341996306008,
+   "UNC": 0.9999679398727174
+  },
+  {
+   "eps": 0.03,
+   "seed": 4,
+   "N": 2,
+   "learner": "symmetry + linearity",
+   "candidate_dims": [
+    12,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim24": 0.0,
+    "dim12": 1.0
+   },
+   "bits": 0.6991931372304041,
+   "score": 0.6991931372304041,
+   "MCB": 0.004676919428979076,
+   "DSC": 0.30545172207129234,
+   "UNC": 0.9999679398727174
+  },
+  {
+   "eps": 0.03,
+   "seed": 4,
+   "N": 2,
+   "learner": "linearity only",
+   "candidate_dims": [
+    2,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim2": 0.9954,
+    "dim24": 0.0046
+   },
+   "bits": 1.0116363109210544,
+   "score": 1.0116363109210544,
+   "MCB": 0.013254861836139109,
+   "DSC": 0.0015864907878020418,
+   "UNC": 0.9999679398727174
+  },
+  {
+   "eps": 0.03,
+   "seed": 4,
+   "N": 4,
+   "learner": "symmetry + linearity",
+   "candidate_dims": [
+    12,
+    23,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim23": 0.0,
+    "dim24": 0.0,
+    "dim12": 1.0
+   },
+   "bits": 0.6991931361711514,
+   "score": 0.6991931361711514,
+   "MCB": 0.004855864616085115,
+   "DSC": 0.30563066831765107,
+   "UNC": 0.9999679398727174
+  },
+  {
+   "eps": 0.03,
+   "seed": 4,
+   "N": 4,
+   "learner": "linearity only",
+   "candidate_dims": [
+    4,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim4": 1.0,
+    "dim24": 0.0
+   },
+   "bits": 1.0210503996198879,
+   "score": 1.0210503996198879,
+   "MCB": 0.02542701851838669,
+   "DSC": 0.0043445587712162,
+   "UNC": 0.9999679398727174
+  },
+  {
+   "eps": 0.03,
+   "seed": 4,
+   "N": 16,
+   "learner": "symmetry + linearity",
+   "candidate_dims": [
+    12,
+    23,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim12": 1.0,
+    "dim24": 0.0,
+    "dim23": 0.0
+   },
+   "bits": 0.6991931338980014,
+   "score": 0.6991931338980014,
+   "MCB": 0.005054196559491353,
+   "DSC": 0.3058290025342073,
+   "UNC": 0.9999679398727174
+  },
+  {
+   "eps": 0.03,
+   "seed": 4,
+   "N": 16,
+   "learner": "linearity only",
+   "candidate_dims": [
+    16,
+    24
+   ],
+   "posterior_after_train_and_1_block": {
+    "dim16": 1.0,
+    "dim24": 0.0
+   },
+   "bits": 1.0308813478851393,
+   "score": 1.0308813478851393,
+   "MCB": 0.03441213765270401,
+   "DSC": 0.0034987296402820833,
+   "UNC": 0.9999679398727174
+  }
+ ],
+ "seconds": 97
+}
