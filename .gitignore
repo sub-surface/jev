@@ -30,3 +30,6 @@ experiments/**/*.ckpt
 
 # tool scratch
 .playwright-mcp/
+
+# raw E007 probability dumps (compact copies: probs_*.npz + meta_*.json)
+experiments/e007_amortized_inference/results_*.json

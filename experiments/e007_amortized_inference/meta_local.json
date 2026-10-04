@@ -1,0 +1,21 @@
+{
+ "device": "cuda",
+ "runs": [
+  {
+   "cfg": {
+    "name": "d64-L4",
+    "d": 64,
+    "L": 4,
+    "heads": 2,
+    "lr": 0.002,
+    "batch": 64
+   },
+   "params": 233089,
+   "steps": 324,
+   "tokens": 10616832,
+   "train_seconds": 120.72169208526611,
+   "approx_train_flops": 14848000524288,
+   "pool_passes": 1.265625
+  }
+ ]
+}

@@ -17,3 +17,6 @@ Defaults:
 | `e002_golay_symmetry` | done |
 | `e003_invariant_code_learner` | done |
 | `e004_hecke_rediscovery` | done |
+| `e005_local_global_and_symmetry_discovery` | done |
+| `e006_elliptic_curves` | done |
+| `e007_amortized_inference` | done (cloud: see `COMPUTE_LOG.md`) |

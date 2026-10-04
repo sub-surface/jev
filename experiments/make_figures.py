@@ -252,6 +252,100 @@ def fig_e000():
     save(fig, "fig06_amortisation", "E000. 10-node graphs, 4 candidate first hops, 2×512 MLP, 3 seeds. Shift = edge density 0.4 → 0.25.")
 
 
+# ── Fig 7 · E005: local-to-global obstruction ────────────────────────────────
+def fig_local_global():
+    r = load("e005_local_global_and_symmetry_discovery/results_full.json")
+    k = [d["k"] for d in r["profile"]]
+    fig, ax = plt.subplots(figsize=(8, 3.8))
+    ax.plot(k, [d["max_bits"] for d in r["profile"]], color=C[1], marker=MK[1], label="max over k-sets (an octad completes at k = 7)")
+    ax.plot(k, [d["mean_bits"] for d in r["profile"]], color=C[0], marker=MK[0], label="mean over random k-sets")
+    ax.axvspan(-0.3, 6.5, color=GRID, alpha=0.6, lw=0)
+    ax.text(3.1, 0.55, "exactly 0 bits:\nevery 7 coordinates are uniform\n(dual distance 8)", ha="center", fontsize=8, color=INK2)
+    d = [x for x in r["discovery"] if "group_order" in x][0]
+    ax.text(11, 0.45, f"symmetry discovered from {d['N']} codewords:\n|G| = {d['group_order']:,} = |M24|\n"
+            f"{d['transitivity_degree']}-transitive, contains PSL(2,23)", ha="right", fontsize=8, color=INK, bbox={"fc": SURF, "ec": GRID})
+    ax.set_xlabel("k = number of other coordinates observed"); ax.set_ylabel("I(X_j ; X_S)  (bits)")
+    ax.set_ylim(-0.05, 1.1); ax.legend(loc="upper left")
+    fig.suptitle("Fig. 7 · A local-to-global obstruction: Golay structure is invisible below 7 bits", x=0.01, ha="left",
+                 fontsize=11, fontweight="bold")
+    fig.tight_layout(rect=(0, 0.08, 1, 0.94))
+    save(fig, "fig07_local_global", "E005. Exact information a k-local observer has about one Golay coordinate (all 4096 codewords "
+         "enumerated; 300 random subsets per k). Structure lives only in 8-wise global constraints: why local learners (CTW, MLP) fail.")
+
+
+# ── Fig 8 · E006: elliptic curves ────────────────────────────────────────────
+def fig_elliptic():
+    r = load("e006_elliptic_curves/results_full.json")
+    fig, axs = plt.subplots(1, 2, figsize=(12, 4), gridspec_kw={"width_ratios": [1, 1.3]})
+    ax = axs[0]
+    th = np.linspace(-1, 1, 200)
+    for i, (name, lab) in enumerate([("non-CM 11a3", "non-CM 11a3"), ("CM Z[i]: y^2=x^3-x", "CM y² = x³ − x (a_p ≠ 0)")]):
+        v = np.array(r["sato_tate"][name])
+        if name.startswith("CM"):
+            v = v[v != 0]
+        ax.hist(v, bins=40, range=(-1, 1), density=True, histtype="step", lw=2, color=C[i], label=lab)
+    ax.plot(th, 2 / np.pi * np.sqrt(1 - th ** 2), color=INK, ls="--", lw=1, label="Sato–Tate semicircle")
+    ax.set_xlabel("a_p / 2√p"); ax.set_ylabel("density"); ax.legend(fontsize=7.5, loc="upper left")
+    ax.set_title("A · Distributions of normalised a_p", loc="left")
+    ax = axs[1]
+    rows = [("CM ℤ[i]  zero?", "CM Z[i]: y^2=x^3-x", "z (a_p = 0)"), ("CM ℤ[i]  sign", "CM Z[i]: y^2=x^3-x", "s (sign a_p)"),
+            ("CM ℤ[ω]  zero?", "CM Z[w]: y^2=x^3+1", "z (a_p = 0)"), ("non-CM  sign", "non-CM: y^2=x^3-x+1", "s (sign a_p)"),
+            ("11a3  zero?", "non-CM 11a3", "z (a_p = 0)"), ("11a3  sign", "non-CM 11a3", "s (sign a_p)")]
+    for y, (lab, cur, st) in enumerate(rows):
+        obs = r["results"][cur][st]["observers"]
+        gen = obs["CTW-16"]["bits"]; best_name = min(obs, key=lambda k: obs[k]["bits"]); best = obs[best_name]["bits"]
+        ax.scatter(gen, y, color=INK2, marker=MK[2], s=40, zorder=3, label="generic (CTW-16)" if y == 0 else None)
+        ax.scatter(best, y, color=C[2], marker=MK[0], s=48, zorder=3, label="best structure-aware observer" if y == 0 else None)
+        ax.hlines(y, best, gen, color=GRID, lw=3, zorder=1)
+        nm = best_name.replace("Hecke character (a,b mod 4)", "Hecke char. ℤ[i]").replace("residue ", "")
+        nm = nm if gen - best > 0.005 else "nothing beats generic"
+        ax.text(1.03, y, nm, va="center", fontsize=7.5, color=INK2)
+    ax.set_yticks(range(len(rows)), [x[0] for x in rows]); ax.set_xlim(-0.03, 1.35); ax.invert_yaxis()
+    ax.set_xlabel("bits / symbol (held-out half of primes < 40000)")
+    ax.legend(loc="upper center", bbox_to_anchor=(0.5, -0.16), ncol=2, fontsize=7.5)
+    ax.set_title("B · CM curves are GL(1) in disguise; non-CM signs are fresh", loc="left")
+    fig.suptitle("Fig. 8 · Elliptic curves on the ledger", x=0.01, ha="left", fontsize=11, fontweight="bold")
+    fig.tight_layout(rect=(0, 0.05, 1, 0.94))
+    save(fig, "fig08_elliptic", "E006. a_p by exact Legendre sums (checked vs 11a). Residue moduli chosen by MDL on the first half "
+         "(found 4, 3 and, unplanted, 5 for 11a3's rational 5-torsion). The ℤ[i] Hecke-character observer uses p = a² + b².")
+
+
+# ── Fig 9 · E007: amortised inference ────────────────────────────────────────
+def fig_amortized():
+    r = load("e007_amortized_inference/analysis_results_modal.json")
+    fams = ["iid", "markov", "periodic", "thue", "golay", "lcg", "minkowski", "logistic", "regime"]
+    models = list(r["models"])
+    fig, axs = plt.subplots(1, 2, figsize=(13, 4.3), gridspec_kw={"width_ratios": [1.6, 1]})
+    ax = axs[0]; x = np.arange(len(fams)); w = 0.8 / (len(models) + 1)
+    for i, m in enumerate(models):
+        mm = r["models"][m]
+        ax.bar(x + (i - len(models) / 2) * w, [mm["families"][f]["bits"] for f in fams], w, color=SEQ[i + 1], edgecolor=SURF,
+               lw=0.5, label=f"{m} ({mm['params'] / 1e6:.1f}M params, {mm['tokens'] / 1e6:.0f}M tok)")
+    ax.scatter(x + (len(models) / 2) * w, [r["references_bits"]["CTW-12"][f] for f in fams], color=C[1], marker="D", s=30,
+               zorder=3, label="CTW-12 (exact Bayes over trees)")
+    for f, v in r["references_bits"]["Bayes"].items():
+        ax.hlines(v, fams.index(f) - 0.45, fams.index(f) + 0.45, color=INK, ls="--", lw=1)
+    ax.axvline(4.5, color=INK2, lw=1, ls=":"); ax.text(4.6, 1.08, "held-out families", fontsize=8, color=INK2)
+    ax.set_xticks(x, fams); ax.set_ylabel("bits / symbol"); ax.set_ylim(0.4, 1.12)
+    ax.legend(fontsize=7, loc="upper center", bbox_to_anchor=(0.5, -0.1), ncol=3); ax.grid(axis="x", visible=False)
+    ax.set_title("A · One forward pass vs Bayesian structure inference (dashed: exact Bayes)", loc="left")
+    ax = axs[1]
+    best = "d256-L6"
+    for i, f in enumerate(["thue", "markov", "golay"]):
+        cm = np.convolve(r["models"][best]["families"][f]["curve"], np.ones(16) / 16, "valid")
+        cc = np.convolve(r["reference_curves"]["CTW-12"][f], np.ones(16) / 16, "valid")
+        ax.plot(cm, color=C[i], lw=2, label=f"{f}: transformer")
+        ax.plot(cc, color=C[i], lw=1.2, ls=":", label=f"{f}: CTW-12")
+    ax.set_xlabel("position in sequence (in-context examples)"); ax.set_ylabel("bits / symbol (16-pt mean)")
+    ax.set_title(f"B · In-context learning curves ({best})", loc="left"); ax.legend(fontsize=7, ncol=2)
+    fig.suptitle("Fig. 9 · Amortised inference: a transformer meta-trained on a prior does structure inference in context",
+                 x=0.01, ha="left", fontsize=11, fontweight="bold")
+    fig.tight_layout(rect=(0, 0.06, 1, 0.94))
+    save(fig, "fig09_amortized", "E007. Causal transformers meta-trained on a prior over generators (iid, Markov up to order 5, noisy "
+         "periodic, noisy Thue-Morse, Golay), 220 s each on one H100 (compute-matched; about $0.95 total). 64 eval sequences x 512 "
+         "bits per family. MCB <= 0.02 bits on every family, held-out included. Golay stays near 1 bit (parity barrier) vs Bayes 0.60.")
+
+
 if __name__ == "__main__":
-    for f in [fig_ledger, fig_jumps, fig_dynamics, fig_golay, fig_arith, fig_e000]:
+    for f in [fig_ledger, fig_jumps, fig_dynamics, fig_golay, fig_arith, fig_e000, fig_local_global, fig_elliptic, fig_amortized]:
         f(); print("ok", f.__name__)

@@ -1,0 +1,9 @@
+    CM Z[i]: y^2=x^3-x |   z (a_p = 0) | m*= 4 | KT-0: 1.000  CTW-16: 0.970  residue p mod 4: 0.000
+    CM Z[i]: y^2=x^3-x |  s (sign a_p) | m*= 1 | KT-0: 1.001  CTW-16: 1.001  residue p mod 1: 1.001  Hecke character (a,b mod 4): 0.002
+    CM Z[w]: y^2=x^3+1 |   z (a_p = 0) | m*= 3 | KT-0: 1.000  CTW-16: 0.977  residue p mod 3: 0.000
+    CM Z[w]: y^2=x^3+1 |  s (sign a_p) | m*= 1 | KT-0: 1.000  CTW-16: 1.000  residue p mod 1: 1.000
+   non-CM: y^2=x^3-x+1 |   z (a_p = 0) | m*= 1 | KT-0: 0.042  CTW-16: 0.042  residue p mod 1: 0.042
+   non-CM: y^2=x^3-x+1 |  s (sign a_p) | m*= 1 | KT-0: 1.001  CTW-16: 1.001  residue p mod 1: 1.001
+           non-CM 11a3 |   z (a_p = 0) | m*= 5 | KT-0: 0.042  CTW-16: 0.042  residue p mod 5: 0.034
+           non-CM 11a3 |  s (sign a_p) | m*= 1 | KT-0: 1.000  CTW-16: 1.000  residue p mod 1: 1.000
+done in 82s

@@ -1,0 +1,20 @@
+A local-global profile
+  k= 0: mean I = 0.0000  max I = 0.0000
+  k= 1: mean I = 0.0000  max I = 0.0000
+  k= 2: mean I = 0.0000  max I = 0.0000
+  k= 3: mean I = 0.0000  max I = 0.0000
+  k= 4: mean I = 0.0000  max I = 0.0000
+  k= 5: mean I = 0.0000  max I = 0.0000
+  k= 6: mean I = 0.0000  max I = 0.0000
+  k= 7: mean I = 0.0033  max I = 1.0000
+  k= 8: mean I = 0.0033  max I = 1.0000
+  k= 9: mean I = 0.0233  max I = 1.0000
+  k=10: mean I = 0.1000  max I = 1.0000
+  k=11: mean I = 0.2833  max I = 1.0000
+B symmetry discovery
+   {'N': 4, 'span_dim': 4, 'weight8_blocks': 1}
+   {'N': 8, 'span_dim': 8, 'weight8_blocks': 42}
+   {'N': 12, 'span_dim': 11, 'weight8_blocks': 407}
+   {'N': 16, 'span_dim': 12, 'weight8_blocks': 759, 'steiner_S(5,8,24)': True, 'generators_found': 4, 'group_order': 244823040, 'transitivity_degree': 5, 'seconds': 22.1, 'contains_the_PSL(2,23)_we_handed_it': True}
+   {'N': 24, 'span_dim': 12, 'weight8_blocks': 759, 'steiner_S(5,8,24)': True, 'generators_found': 4, 'group_order': 244823040, 'transitivity_degree': 5, 'seconds': 17.0, 'contains_the_PSL(2,23)_we_handed_it': True}
+done in 41s

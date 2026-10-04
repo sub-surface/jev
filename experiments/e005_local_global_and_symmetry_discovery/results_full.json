@@ -1,0 +1,105 @@
+{
+ "profile": [
+  {
+   "k": 0,
+   "mean_bits": 0.0,
+   "max_bits": 0.0
+  },
+  {
+   "k": 1,
+   "mean_bits": 0.0,
+   "max_bits": 0.0
+  },
+  {
+   "k": 2,
+   "mean_bits": 0.0,
+   "max_bits": 0.0
+  },
+  {
+   "k": 3,
+   "mean_bits": 0.0,
+   "max_bits": 0.0
+  },
+  {
+   "k": 4,
+   "mean_bits": 0.0,
+   "max_bits": 0.0
+  },
+  {
+   "k": 5,
+   "mean_bits": 0.0,
+   "max_bits": 0.0
+  },
+  {
+   "k": 6,
+   "mean_bits": 0.0,
+   "max_bits": 0.0
+  },
+  {
+   "k": 7,
+   "mean_bits": 0.0033333333333333335,
+   "max_bits": 1.0
+  },
+  {
+   "k": 8,
+   "mean_bits": 0.0033333333333333335,
+   "max_bits": 1.0
+  },
+  {
+   "k": 9,
+   "mean_bits": 0.023333333333333334,
+   "max_bits": 1.0
+  },
+  {
+   "k": 10,
+   "mean_bits": 0.1,
+   "max_bits": 1.0
+  },
+  {
+   "k": 11,
+   "mean_bits": 0.2833333333333333,
+   "max_bits": 1.0
+  }
+ ],
+ "discovery": [
+  {
+   "N": 4,
+   "span_dim": 4,
+   "weight8_blocks": 1
+  },
+  {
+   "N": 8,
+   "span_dim": 8,
+   "weight8_blocks": 42
+  },
+  {
+   "N": 12,
+   "span_dim": 11,
+   "weight8_blocks": 407
+  },
+  {
+   "N": 16,
+   "span_dim": 12,
+   "weight8_blocks": 759,
+   "steiner_S(5,8,24)": true,
+   "generators_found": 4,
+   "group_order": 244823040,
+   "transitivity_degree": 5,
+   "seconds": 22.1,
+   "contains_the_PSL(2,23)_we_handed_it": true
+  },
+  {
+   "N": 24,
+   "span_dim": 12,
+   "weight8_blocks": 759,
+   "steiner_S(5,8,24)": true,
+   "generators_found": 4,
+   "group_order": 244823040,
+   "transitivity_degree": 5,
+   "seconds": 17.0,
+   "contains_the_PSL(2,23)_we_handed_it": true
+  }
+ ],
+ "M24_order": 244823040,
+ "seconds": 41
+}
